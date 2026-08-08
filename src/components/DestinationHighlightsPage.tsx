@@ -51,7 +51,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
       subtitleID: 'Wisata Pantai, Green Canyon & Bogor',
       badgeEN: 'Beach & Nature',
       badgeID: 'Pantai & Alam',
-      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800',
+      image: '/dest_pangandaran.jpg',
       rating: 4.8,
       reviews: 120,
       spotsEN: ['Pangandaran Beach & Candi Datar Coast', 'Green Canyon Body Rafting Adventure', 'Pelabuhan Ratu Sukabumi Beach Scenery', 'Bogor Botanical Gardens & Puncak Highlands'],
