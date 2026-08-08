@@ -87,7 +87,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
       subtitleID: 'Negeri di Atas Awan & Wisata Batik',
       badgeEN: 'Central Java',
       badgeID: 'Jawa Tengah',
-      image: 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&q=80&w=800',
+      image: '/dest_dieng.jpg',
       rating: 4.9,
       reviews: 145,
       spotsEN: ['Telaga Warna Lake & Arjuna Temple Complex', 'Sikunir Golden Sunrise Trekking Spot', 'Surakarta Palace & Klewer Traditional Market', 'Semarang Old Town & Lawang Sewu Landmark'],
