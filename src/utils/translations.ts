@@ -1,13 +1,187 @@
-export const TRANSLATIONS = {
+export interface TranslationSchema {
+  // SEO & Head Metadata
+  seo_title: string;
+  seo_description: string;
+
+  // Navigation
+  nav_home: string;
+  nav_about: string;
+  nav_destinations: string;
+  nav_rentals: string;
+  nav_gallery: string;
+  nav_contact: string;
+  nav_book_btn: string;
+
+  // Top Bar
+  topbar_address: string;
+  topbar_whatsapp: string;
+  topbar_service: string;
+
+  // Hero Section
+  hero_explore: string;
+  hero_title_1: string;
+  hero_motto: string;
+  hero_subtitle: string;
+  hero_cta_wa: string;
+  hero_cta_cars: string;
+  search_dest_cat: string;
+  search_travel_date: string;
+  search_date_placeholder: string;
+  search_btn: string;
+
+  // Destinations Section & Page
+  dest_tag: string;
+  dest_title: string;
+  dest_desc: string;
+  dest_select_cat: string;
+  dest_cat_subtitle: string;
+  dest_cat_all: string;
+  dest_cat_jabar: string;
+  dest_cat_jateng: string;
+  dest_cat_jatim: string;
+  dest_cat_bali: string;
+  dest_spots_label: string;
+  dest_wa_consult: string;
+  dest_view_all: string;
+  dest_breadcrumb_home: string;
+  dest_breadcrumb_page: string;
+
+  // Package Tour Page
+  pkg_tag: string;
+  pkg_title: string;
+  pkg_subtitle: string;
+  pkg_filter_heading: string;
+  pkg_filter_all: string;
+  pkg_filter_domestik: string;
+  pkg_filter_internasional: string;
+  pkg_route_label: string;
+  pkg_starting_from: string;
+  pkg_per_person: string;
+  pkg_detail_btn: string;
+  pkg_modal_duration: string;
+  pkg_modal_tier_title: string;
+  pkg_modal_hotel: string;
+  pkg_modal_notes: string;
+  pkg_modal_highlights: string;
+  pkg_modal_includes: string;
+  pkg_modal_excludes: string;
+  pkg_modal_selected: string;
+  pkg_modal_wa_btn: string;
+
+  // About Section & Page
+  about_tag: string;
+  about_title_1: string;
+  about_title_2: string;
+  about_desc_1: string;
+  about_desc_2: string;
+  about_read_more: string;
+  about_read_less: string;
+  about_badge: string;
+  about_card_tag: string;
+  about_card_sub: string;
+  about_card_rating_label: string;
+
+  // Vision
+  vision_title: string;
+  vision_1: string;
+  vision_2: string;
+  vision_3: string;
+
+  // Mission
+  mission_title: string;
+  mission_1: string;
+  mission_2: string;
+  mission_3: string;
+  mission_4: string;
+
+  // Strengths
+  strength_clean_title: string;
+  strength_clean_desc: string;
+  strength_driver_title: string;
+  strength_driver_desc: string;
+  strength_price_title: string;
+  strength_price_desc: string;
+  strength_time_title: string;
+  strength_time_desc: string;
+
+  // Cars Section
+  cars_tag: string;
+  cars_title: string;
+  cars_desc: string;
+  cars_seats: string;
+  cars_transmission_auto: string;
+  cars_transmission_manual: string;
+  cars_included_label: string;
+  cars_driver_friendly: string;
+  cars_book_btn: string;
+
+  // Steps
+  steps_tag: string;
+  steps_title: string;
+  steps_desc: string;
+  step_1_title: string;
+  step_1_desc: string;
+  step_2_title: string;
+  step_2_desc: string;
+  step_3_title: string;
+  step_3_desc: string;
+
+  // Testimonials
+  testi_tag: string;
+  testi_title: string;
+  testi_desc: string;
+  testi_rating_label: string;
+  testi_rented_model: string;
+  testi_btn_next: string;
+  testi_btn_prev: string;
+
+  // Booking Modal
+  modal_title: string;
+  modal_desc: string;
+  modal_summary_base: string;
+  modal_summary_total_days: string;
+  modal_field_name: string;
+  modal_field_phone: string;
+  modal_field_date: string;
+  modal_field_time: string;
+  modal_field_duration: string;
+  modal_field_extra_allin: string;
+  modal_field_extra_detail: string;
+  modal_field_address: string;
+  modal_field_notes: string;
+  modal_btn_confirm: string;
+  modal_err_name: string;
+  modal_err_phone: string;
+  modal_err_address: string;
+
+  // Footer Section
+  footer_callout_badge: string;
+  footer_callout_title: string;
+  footer_callout_desc: string;
+  footer_callout_wa_btn: string;
+  footer_col1_desc: string;
+  footer_motto_label: string;
+  footer_motto_text: string;
+  footer_address_title: string;
+  footer_address_text: string;
+  footer_wa_title: string;
+  footer_quick_nav_title: string;
+}
+
+export const TRANSLATIONS: Record<'EN' | 'ID', TranslationSchema> = {
   EN: {
+    // SEO & Head Metadata
+    seo_title: "Restu Tour & Transport | Car Rental & Tourist Bus",
+    seo_description: "Reliable car rental, tourist bus, and travel services for comfortable journeys across Bandung, Java, Bali, and destinations throughout Indonesia.",
+
     // Navigation
     nav_home: "Home",
     nav_about: "About Us",
     nav_destinations: "Routes & Services",
-    nav_packages: "Tour Packages",
     nav_rentals: "Fleet Rental",
+    nav_packages: "Tour Packages",
     nav_gallery: "Gallery",
-    nav_contact: "Contact & Address",
+    nav_contact: "Contact & Location",
     nav_book_btn: "CONTACT US",
 
     // Top Bar
@@ -147,14 +321,35 @@ export const TRANSLATIONS = {
     modal_field_extra_detail: "Includes professional driver service & estimated fuel",
     modal_field_address: "Pickup Location",
     modal_field_notes: "Group Count & Travel Notes",
-    modal_btn_confirm: "Send Draft via WhatsApp ➔"
+    modal_btn_confirm: "Send Draft via WhatsApp ➔",
+    modal_err_name: "Customer name is required.",
+    modal_err_phone: "WhatsApp number is required.",
+    modal_err_address: "Pickup location is required.",
+
+    // Footer Section
+    footer_callout_badge: "TRIP CONSULTATION 24/7",
+    footer_callout_title: "Plan Your Trip With Us Today",
+    footer_callout_desc: "Get affordable vehicle rentals & travel packages with well-maintained fleets and top service.",
+    footer_callout_wa_btn: "WhatsApp: 08562042336",
+    footer_col1_desc: "Transportation and tour service provider catering to individuals, families, companies, and institutions with clean fleets and licensed professional drivers.",
+    footer_motto_label: "COMPANY MOTTO",
+    footer_motto_text: "\"Trusted Transportation & Tour Solution\"",
+    footer_address_title: "Official Head Office Address:",
+    footer_address_text: "Jl. Yudo No. 7, Arcamanik Endah, Bandung, West Java",
+    footer_wa_title: "Quick Response WhatsApp:",
+    footer_quick_nav_title: "Quick Navigation"
   },
   ID: {
+    // SEO & Head Metadata
+    seo_title: "Restu Tour & Transport - Solusi Transportasi & Wisata Terpercaya",
+    seo_description: "Restu Tour & Transport - Penyedia layanan sewa mobil, bus pariwisata, dan paket wisata terpercaya di Bandung, Jawa Barat. Melayani sewa mobil Avanza, Innova, Alphard, Hiace, Elf, Medium Bus & Big Bus ke berbagai destinasi di Indonesia.",
+
     // Navigation
     nav_home: "Beranda",
     nav_about: "Profil & Visi Misi",
     nav_destinations: "Rute & Layanan",
     nav_rentals: "Sewa Armada",
+    nav_packages: "Paket Wisata",
     nav_gallery: "Galeri",
     nav_contact: "Kontak & Alamat",
     nav_book_btn: "HUBUNGI KAMI",
@@ -191,7 +386,7 @@ export const TRANSLATIONS = {
     dest_wa_consult: "Konsultasi Rute via WA",
     dest_view_all: "Lihat Selengkapnya",
     dest_breadcrumb_home: "BERANDA",
-    dest_breadcrumb_page: "PAKET WISATA",
+    dest_breadcrumb_page: "RUTE & LAYANAN",
 
     // Package Tour Page
     pkg_tag: "PAKET WISATA TERFAVORIT",
@@ -296,6 +491,48 @@ export const TRANSLATIONS = {
     modal_field_extra_detail: "Termasuk layanan pengemudi profesional & estimasi bahan bakar",
     modal_field_address: "Lokasi Penjemputan",
     modal_field_notes: "Jumlah Rombongan & Catatan Perjalanan",
-    modal_btn_confirm: "Kirim Draf via WhatsApp ➔"
+    modal_btn_confirm: "Kirim Draf via WhatsApp ➔",
+    modal_err_name: "Nama pemesan wajib diisi.",
+    modal_err_phone: "Nomor WhatsApp wajib diisi.",
+    modal_err_address: "Lokasi penjemputan wajib diisi.",
+
+    // Footer Section
+    footer_callout_badge: "KONSULTASI PERJALANAN 24/7",
+    footer_callout_title: "Rencanakan Perjalanan Anda Bersama Kami",
+    footer_callout_desc: "Dapatkan penawaran sewa kendaraan & paket wisata terjangkau dengan armada terawat dan pelayanan prima.",
+    footer_callout_wa_btn: "WhatsApp: 08562042336",
+    footer_col1_desc: "Penyedia layanan transportasi dan perjalanan wisata melayani kebutuhan individu, keluarga, perusahaan, hingga instansi dengan armada terawat, pengemudi profesional, dan pelayanan mengutamakan kenyamanan.",
+    footer_motto_label: "MOTTO PERUSAHAAN",
+    footer_motto_text: "\"Solusi Transportasi & Wisata Terpercaya\"",
+    footer_address_title: "Alamat Kantor Resmi:",
+    footer_address_text: "Jl. Yudo No. 7, Arcamanik Endah, Bandung, Jawa Barat",
+    footer_wa_title: "WhatsApp Respon Cepat:",
+    footer_quick_nav_title: "Navigasi Cepat"
   }
 };
+
+// AUTOMATED 1:1 KEY VALIDATION
+(() => {
+  const enKeys = Object.keys(TRANSLATIONS.EN) as Array<keyof TranslationSchema>;
+  const idKeys = Object.keys(TRANSLATIONS.ID) as Array<keyof TranslationSchema>;
+
+  const missingInID = enKeys.filter(k => !(k in TRANSLATIONS.ID));
+  const missingInEN = idKeys.filter(k => !(k in TRANSLATIONS.ID));
+
+  if (missingInID.length > 0) {
+    console.error('CRITICAL I18N ERROR: Missing keys in ID dictionary:', missingInID);
+  }
+  if (missingInEN.length > 0) {
+    console.error('CRITICAL I18N ERROR: Missing keys in EN dictionary:', missingInEN);
+  }
+})();
+
+// Strict Translation Getter Function (Throws explicit warning if key is missing)
+export function getTranslation(lang: 'EN' | 'ID', key: keyof TranslationSchema): string {
+  const dict = TRANSLATIONS[lang];
+  if (!dict || !dict[key]) {
+    console.error(`MISSING TRANSLATION KEY: [${lang}] "${key}"`);
+    return TRANSLATIONS.EN[key] || key;
+  }
+  return dict[key];
+}

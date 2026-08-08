@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { MapPin, Compass, Globe, Star, MessageCircle, CheckCircle2, Sparkles, ChevronDown } from 'lucide-react';
+import { Compass, MessageCircle, CheckCircle2, Sparkles } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface ServicesProps {
@@ -11,10 +11,13 @@ interface ServicesProps {
 export default function Services({ lang, onViewAllDestinations }: ServicesProps) {
   const [activeCategory, setActiveCategory] = useState<'all' | 'jabar' | 'jateng' | 'jatim' | 'bali'>('all');
   const t = TRANSLATIONS[lang];
+  const isEN = lang === 'EN';
 
   const handleWhatsAppBooking = (highlightTitle: string, categoryName: string) => {
     const waNumber = '628562042336';
-    const message = `Halo Restu Tour & Transport, saya ingin berkonsultasi mengenai rute destinasi: ${highlightTitle} (${categoryName}). Mohon informasi ketersediaan armada, fasilitas & penawaran harga terbaik. Terima kasih!`;
+    const message = isEN
+      ? `Hello Restu Tour & Transport, I would like to consult on the destination route: ${highlightTitle} (${categoryName}). Please inform vehicle availability, amenities & best price quote. Thank you!`
+      : `Halo Restu Tour & Transport, saya ingin berkonsultasi mengenai rute destinasi: ${highlightTitle} (${categoryName}). Mohon informasi ketersediaan armada, fasilitas & penawaran harga terbaik. Terima kasih!`;
     window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
@@ -23,80 +26,110 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
     {
       id: 'bandung-lembang',
       categoryKey: 'jabar',
-      categoryName: 'Wisata Jawa Barat',
-      title: 'Bandung & Lembang',
-      subtitle: 'Udara Sejuk, Floating Market & Factory Outlet',
-      badge: 'Jawa Barat',
+      categoryNameEN: 'West Java Tours',
+      categoryNameID: 'Wisata Jawa Barat',
+      titleEN: 'Bandung & Lembang Excursions',
+      titleID: 'Bandung & Lembang',
+      subtitleEN: 'Cool Mountain Breeze, Floating Market & Outlets',
+      subtitleID: 'Udara Sejuk, Floating Market & Factory Outlet',
+      badgeEN: 'West Java',
+      badgeID: 'Jawa Barat',
       image: '/dest_bandung.avif',
       rating: 4.9,
       reviews: 185,
-      spots: ['Lembang Floating Market & Farmhouse', 'Dusun Bambu & Orchid Forest', 'Kawah Putih Ciwidey & Rancabali', 'Gedung Sate, Asia Afrika & Shopping Outlet']
+      spotsEN: ['Lembang Floating Market & Farmhouse', 'Dusun Bambu & Orchid Forest', 'Kawah Putih Ciwidey & Rancabali Tea Gardens', 'Gedung Sate, Asia Afrika & Shopping Outlets'],
+      spotsID: ['Lembang Floating Market & Farmhouse', 'Dusun Bambu & Orchid Forest', 'Kawah Putih Ciwidey & Rancabali', 'Gedung Sate, Asia Afrika & Shopping Outlet']
     },
     {
       id: 'pangandaran-bogor',
       categoryKey: 'jabar',
-      categoryName: 'Wisata Jawa Barat',
-      title: 'Pangandaran & Pelabuhan Ratu',
-      subtitle: 'Wisata Pantai, Green Canyon & Bogor',
-      badge: 'Pantai & Alam',
+      categoryNameEN: 'West Java Tours',
+      categoryNameID: 'Wisata Jawa Barat',
+      titleEN: 'Pangandaran Beach & Bogor Botanical',
+      titleID: 'Pangandaran & Pelabuhan Ratu',
+      subtitleEN: 'Coastal Wonders, Body Rafting & Botanical Gardens',
+      subtitleID: 'Wisata Pantai, Green Canyon & Bogor',
+      badgeEN: 'Beach & Nature',
+      badgeID: 'Pantai & Alam',
       image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800',
       rating: 4.8,
       reviews: 120,
-      spots: ['Pantai Pangandaran & Candi Datar', 'Body Rafting Green Canyon', 'Wisata Pantai Pelabuhan Ratu Sukabumi', 'Kebun Raya Bogor & Puncak']
+      spotsEN: ['Pangandaran Beach & Candi Datar Coast', 'Green Canyon Body Rafting Adventure', 'Pelabuhan Ratu Sukabumi Beach Scenery', 'Bogor Botanical Gardens & Puncak Highlands'],
+      spotsID: ['Pantai Pangandaran & Candi Datar', 'Body Rafting Green Canyon', 'Wisata Pantai Pelabuhan Ratu Sukabumi', 'Kebun Raya Bogor & Puncak']
     },
 
     // 2. WISATA JAWA TENGAH & JOGJA
     {
       id: 'jogja-magelang',
       categoryKey: 'jateng',
-      categoryName: 'Wisata Jawa Tengah & Jogja',
-      title: 'Yogyakarta & Magelang',
-      subtitle: 'Candi Borobudur, Prambanan & Malioboro',
-      badge: 'Budaya & Sejarah',
+      categoryNameEN: 'Central Java & Jogja Tours',
+      categoryNameID: 'Wisata Jawa Tengah & Jogja',
+      titleEN: 'Yogyakarta & Magelang Cultural Heritage',
+      titleID: 'Yogyakarta & Magelang',
+      subtitleEN: 'Borobudur Temple, Prambanan & Malioboro Street',
+      subtitleID: 'Candi Borobudur, Prambanan & Malioboro',
+      badgeEN: 'Culture & History',
+      badgeID: 'Budaya & Sejarah',
       image: '/dest_jogja.avif',
       rating: 5.0,
       reviews: 210,
-      spots: ['Candi Borobudur & Candi Prambanan', 'Jeep Lava Tour Merapi', 'Wisata Belanja & Kuliner Malioboro', 'Taman Sari & Keraton Yogyakarta']
+      spotsEN: ['Borobudur Temple & Prambanan UNESCO Sites', 'Mount Merapi Jeep Lava Tour Expedition', 'Malioboro Street Culinary & Craft Shopping', 'Taman Sari Water Castle & Yogyakarta Palace'],
+      spotsID: ['Candi Borobudur & Candi Prambanan', 'Jeep Lava Tour Merapi', 'Wisata Belanja & Kuliner Malioboro', 'Taman Sari & Keraton Yogyakarta']
     },
     {
       id: 'dieng-solo',
       categoryKey: 'jateng',
-      categoryName: 'Wisata Jawa Tengah & Jogja',
-      title: 'Dataran Tinggi Dieng & Solo',
-      subtitle: 'Negeri di Atas Awan & Wisata Batik',
-      badge: 'Jawa Tengah',
+      categoryNameEN: 'Central Java & Jogja Tours',
+      categoryNameID: 'Wisata Jawa Tengah & Jogja',
+      titleEN: 'Dieng Plateau & Solo Heritage',
+      titleID: 'Dataran Tinggi Dieng & Solo',
+      subtitleEN: 'Land Above the Clouds & Traditional Batik Hubs',
+      subtitleID: 'Negeri di Atas Awan & Wisata Batik',
+      badgeEN: 'Central Java',
+      badgeID: 'Jawa Tengah',
       image: 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&q=80&w=800',
       rating: 4.9,
       reviews: 145,
-      spots: ['Telaga Warna & Candi Arjuna Dieng', 'Sunrise Sikunir Dieng', 'Keraton Surakarta & Pasar Klewer Solo', 'Kota Tua Semarang & Lawang Sewu']
+      spotsEN: ['Telaga Warna Lake & Arjuna Temple Complex', 'Sikunir Golden Sunrise Trekking Spot', 'Surakarta Palace & Klewer Traditional Market', 'Semarang Old Town & Lawang Sewu Landmark'],
+      spotsID: ['Telaga Warna & Candi Arjuna Dieng', 'Sunrise Sikunir Dieng', 'Keraton Surakarta & Pasar Klewer Solo', 'Kota Tua Semarang & Lawang Sewu']
     },
 
     // 3. WISATA JAWA TIMUR & BROMO
     {
       id: 'bromo-malang',
       categoryKey: 'jatim',
-      categoryName: 'Wisata Jawa Timur',
-      title: 'Gunung Bromo & Batu Malang',
-      subtitle: 'Sunrise Bromo & Museum Angkut',
-      badge: 'Gunung & Alam',
+      categoryNameEN: 'East Java & Bromo Tours',
+      categoryNameID: 'Wisata Jawa Timur',
+      titleEN: 'Mount Bromo & Batu Malang Highlights',
+      titleID: 'Gunung Bromo & Batu Malang',
+      subtitleEN: 'Golden Sunrise Bromo & Transportation Museum',
+      subtitleID: 'Sunrise Bromo & Museum Angkut',
+      badgeEN: 'Volcano & Nature',
+      badgeID: 'Gunung & Alam',
       image: '/dest_bromo.avif',
       rating: 5.0,
       reviews: 230,
-      spots: ['Penanjakan 1 Golden Sunrise Bromo', 'Jeep 4x4 Lautan Pasir & Bukit Teletubbies', 'Museum Angkut & Jatim Park 3 Batu', 'Kebun Apel Malang & Alun-alun Batu']
+      spotsEN: ['Penanjakan 1 Golden Sunrise Viewpoint', '4x4 Jeep Sand Sea & Teletubbies Savannah', 'Museum Angkut & Jatim Park 3 Theme Park', 'Malang Apple Orchards & Batu Town Square'],
+      spotsID: ['Penanjakan 1 Golden Sunrise Bromo', 'Jeep 4x4 Lautan Pasir & Bukit Teletubbies', 'Museum Angkut & Jatim Park 3 Batu', 'Kebun Apel Malang & Alun-alun Batu']
     },
 
     // 4. WISATA BALI EXOTIC
     {
       id: 'bali-exotic',
       categoryKey: 'bali',
-      categoryName: 'Wisata Bali & Nusantara',
-      title: 'Bali Paradise & Nusa Penida',
-      subtitle: 'Pantai Kuta, Tanah Lot & Nusa Penida',
-      badge: 'Pulau Dewata',
+      categoryNameEN: 'Bali & Island Tours',
+      categoryNameID: 'Wisata Bali & Nusantara',
+      titleEN: 'Bali Tropical Paradise & Nusa Penida',
+      titleID: 'Bali Paradise & Nusa Penida',
+      subtitleEN: 'Kuta Beach Sunset, Tanah Lot & Nusa Penida Coast',
+      subtitleID: 'Pantai Kuta, Tanah Lot & Nusa Penida',
+      badgeEN: 'Island of Gods',
+      badgeID: 'Pulau Dewata',
       image: '/dest_padang.avif',
       rating: 5.0,
       reviews: 260,
-      spots: ['Kelingking Beach Nusa Penida', 'Pura Tanah Lot & Bedugul Ulun Danu', 'Pantai Kuta & Sunset Jimbaran Seafood', 'Garuda Wisnu Kencana (GWK)']
+      spotsEN: ['Kelingking Beach & Broken Beach Nusa Penida', 'Tanah Lot Sea Temple & Ulun Danu Beratan', 'Kuta Beach & Jimbaran Sunset Seafood Dinner', 'Garuda Wisnu Kencana (GWK) Cultural Park'],
+      spotsID: ['Kelingking Beach Nusa Penida', 'Pura Tanah Lot & Bedugul Ulun Danu', 'Pantai Kuta & Sunset Jimbaran Seafood', 'Garuda Wisnu Kencana (GWK)']
     }
   ];
 
@@ -113,15 +146,15 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-red-100 text-red-600 font-extrabold text-[10px] uppercase tracking-widest border border-red-200">
             <Compass className="w-3.5 h-3.5" />
-            <span>DESTINASI & RUTE POPULER</span>
+            <span>{t.dest_tag}</span>
           </div>
 
           <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37] tracking-tight uppercase">
-            Rute Wisata Pilihan Restu Tour & Transport
+            {t.dest_title}
           </h2>
 
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
-            Melayani perjalanan di Kota Bandung, Jawa Barat, Jawa Tengah, Jawa Timur, Bali, dan berbagai destinasi terbaik lainnya di Indonesia.
+            {t.dest_desc}
           </p>
         </div>
 
@@ -135,7 +168,7 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
                 : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
             }`}
           >
-            Semua Rute
+            {t.dest_cat_all}
           </button>
           <button
             onClick={() => setActiveCategory('jabar')}
@@ -145,7 +178,7 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
                 : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
             }`}
           >
-            Jawa Barat
+            {t.dest_cat_jabar}
           </button>
           <button
             onClick={() => setActiveCategory('jateng')}
@@ -155,7 +188,7 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
                 : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
             }`}
           >
-            Jawa Tengah & Jogja
+            {t.dest_cat_jateng}
           </button>
           <button
             onClick={() => setActiveCategory('jatim')}
@@ -165,7 +198,7 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
                 : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
             }`}
           >
-            Jawa Timur & Bromo
+            {t.dest_cat_jatim}
           </button>
           <button
             onClick={() => setActiveCategory('bali')}
@@ -175,67 +208,77 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
                 : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
             }`}
           >
-            Bali & Nusantara
+            {t.dest_cat_bali}
           </button>
         </div>
 
         {/* Highlights Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredHighlights.map((dest) => (
-            <motion.div
-              key={dest.id}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group"
-            >
-              <div>
-                <div className="relative h-56 bg-slate-200 overflow-hidden">
-                  <img
-                    src={dest.image}
-                    alt={dest.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
-                    {dest.badge}
+          {filteredHighlights.map((dest) => {
+            const title = isEN ? dest.titleEN : dest.titleID;
+            const subtitle = isEN ? dest.subtitleEN : dest.subtitleID;
+            const badge = isEN ? dest.badgeEN : dest.badgeID;
+            const spots = isEN ? dest.spotsEN : dest.spotsID;
+            const categoryName = isEN ? dest.categoryNameEN : dest.categoryNameID;
+
+            return (
+              <motion.div
+                key={dest.id}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="relative h-56 bg-slate-200 overflow-hidden">
+                    <img
+                      src={dest.image}
+                      alt={title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
+                      {badge}
+                    </div>
+                  </div>
+
+                  <div className="p-6 space-y-4">
+                    <div>
+                      <h3 className="font-display font-black text-xl text-[#0d1b37] group-hover:text-red-600 transition-colors uppercase">
+                        {title}
+                      </h3>
+                      <p className="font-sans text-xs text-red-500 font-bold mt-0.5">
+                        {subtitle}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1.5 pt-2 border-t border-slate-100">
+                      <span className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider block">
+                        {t.dest_spots_label}
+                      </span>
+                      <ul className="space-y-1.5">
+                        {spots.map((spot, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-xs font-semibold text-slate-700">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                            <span>{spot}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
 
-                <div className="p-6 space-y-4">
-                  <div>
-                    <h3 className="font-display font-black text-xl text-[#0d1b37] group-hover:text-red-600 transition-colors uppercase">
-                      {dest.title}
-                    </h3>
-                    <p className="font-sans text-xs text-red-500 font-bold mt-0.5">
-                      {dest.subtitle}
-                    </p>
-                  </div>
-
-                  <div className="space-y-1.5 pt-2 border-t border-slate-100">
-                    <span className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider block">Spot Utama Wisata:</span>
-                    <ul className="space-y-1.5">
-                      {dest.spots.map((spot, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs font-semibold text-slate-700">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                          <span>{spot}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <div className="p-6 pt-0">
+                  <button
+                    onClick={() => handleWhatsAppBooking(title, categoryName)}
+                    className="w-full bg-[#dc2626] hover:bg-red-700 text-white font-display font-extrabold text-xs uppercase py-3.5 rounded-2xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <MessageCircle className="w-4 h-4 fill-current" />
+                    <span>{t.dest_wa_consult}</span>
+                  </button>
                 </div>
-              </div>
-
-              <div className="p-6 pt-0">
-                <button
-                  onClick={() => handleWhatsAppBooking(dest.title, dest.categoryName)}
-                  className="w-full bg-[#dc2626] hover:bg-red-700 text-white font-display font-extrabold text-xs uppercase py-3.5 rounded-2xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <MessageCircle className="w-4 h-4 fill-current" />
-                  <span>Konsultasi Rute via WA</span>
-                </button>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* View All Button */}
@@ -245,7 +288,7 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
               onClick={onViewAllDestinations}
               className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-display font-extrabold text-xs uppercase px-8 py-4 rounded-full shadow-lg transition-all cursor-pointer"
             >
-              <span>Lihat Selengkapnya</span>
+              <span>{t.dest_view_all}</span>
               <Sparkles className="w-4 h-4 text-amber-400" />
             </button>
           </div>

@@ -1,4 +1,19 @@
-import { Car, Testimonial } from '../types';
+import { Car } from '../types';
+
+export interface TestimonialItem {
+  id: string;
+  name: string;
+  roleEN: string;
+  roleID: string;
+  textEN: string;
+  textID: string;
+  rating: number;
+  image: string;
+  carModelEN: string;
+  carModelID: string;
+  dateEN: string;
+  dateID: string;
+}
 
 export const CARS: Car[] = [
   // 1. CAR RENTAL (MPV, VIP & HIACE/ELF)
@@ -239,35 +254,47 @@ export const CARS: Car[] = [
   }
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
+export const TESTIMONIALS: TestimonialItem[] = [
   {
     id: '1',
-    name: 'Mr. Hendra Wijaya',
-    role: 'Corporate Gathering Committee - Jakarta',
-    text: 'Rented Big Bus Legrest from Restu Tour & Transport for our Corporate Gathering to Bandung & Lembang. Very clean bus, cold AC, punctual driver and knew the routes well. Highly recommended!',
+    name: 'Hendra Wijaya',
+    roleEN: 'Corporate Gathering Committee - Jakarta',
+    roleID: 'Panitia Corporate Gathering - Jakarta',
+    textEN: 'Rented Big Bus Legrest from Restu Tour & Transport for our Corporate Gathering to Bandung & Lembang. Very clean bus, cold AC, punctual driver and knew the routes well. Highly recommended!',
+    textID: 'Sewa Big Bus Legrest di Restu Tour & Transport untuk acara Gathering Perusahaan ke Bandung & Lembang. Bus sangat bersih, AC dingin, driver ramah dan tepat waktu. Sangat direkomendasikan!',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-    carModel: 'Big Tourism Bus',
-    date: 'January 2026'
+    carModelEN: 'Big Tourism Bus',
+    carModelID: 'Big Bus Pariwisata',
+    dateEN: 'January 2026',
+    dateID: 'Januari 2026'
   },
   {
     id: '2',
-    name: 'Mrs. Ratna Dewi',
-    role: 'Family Trip - Bandung',
-    text: 'Rented Toyota Hiace Premio Luxury for a big family vacation to Pangandaran. Extremely comfortable captain seats, clean cabin, and driver Mr. Agus was polite and helpful throughout the trip.',
+    name: 'Ratna Dewi',
+    roleEN: 'Family Trip Organizer - Bandung',
+    roleID: 'Panitia Family Trip - Bandung',
+    textEN: 'Rented Toyota Hiace Premio Luxury for a big family vacation to Pangandaran. Extremely comfortable captain seats, clean cabin, and driver Mr. Agus was polite and helpful throughout the trip.',
+    textID: 'Sewa Toyota Hiace Premio Luxury untuk liburan keluarga besar ke Pangandaran. Kursi captain seat sangat nyaman, kabin harum bersih, dan pak driver sangat ramah membantu sepanjang jalan.',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-    carModel: 'Hiace Premio Luxury',
-    date: 'February 2026'
+    carModelEN: 'Hiace Premio Luxury',
+    carModelID: 'Hiace Premio Luxury',
+    dateEN: 'February 2026',
+    dateID: 'Februari 2026'
   },
   {
     id: '3',
     name: 'Dr. Ahmad Fauzi',
-    role: 'School Study Tour Organizer',
-    text: 'Restu Tour & Transport provided outstanding service! Transparent pricing, top-tier maintained bus unit, and safety-focused drivers for our school study tour to Jogja & Central Java.',
+    roleEN: 'School Study Tour Coordinator',
+    roleID: 'Koordinator Study Tour Sekolah',
+    textEN: 'Restu Tour & Transport provided outstanding service! Transparent pricing, top-tier maintained bus unit, and safety-focused drivers for our school study tour to Jogja & Central Java.',
+    textID: 'Restu Tour & Transport memberikan pelayanan terbaik! Harga transparan, bus sangat terawat, dan pengemudi sangat mengutamakan keselamatan untuk study tour sekolah kami ke Jogja.',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
-    carModel: 'Medium Bus Leg Rest',
-    date: 'March 2026'
+    carModelEN: 'Medium Bus Leg Rest',
+    carModelID: 'Medium Bus Leg Rest',
+    dateEN: 'March 2026',
+    dateID: 'Maret 2026'
   }
 ];

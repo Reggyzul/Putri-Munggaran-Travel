@@ -70,7 +70,7 @@ export default function Header({
                   <span className="text-red-600">RESTU TOUR</span> <span className="text-[#0f2b5c]">&amp; TRANSPORT</span>
                 </span>
                 <span className="font-sans font-bold text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500">
-                  Solusi Transportasi &amp; Wisata
+                  {t.topbar_service}
                 </span>
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function Header({
             {/* 3. RIGHT: LANGUAGE SWITCHER TOGGLE & BOOK A TOUR BUTTON */}
             <div className="hidden lg:flex items-center gap-3 shrink-0">
               
-              {/* Language Switcher Toggle (ID / EN) */}
+              {/* Language Switcher Toggle (EN / ID) */}
               <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
                 <button
                   onClick={() => setLang('EN')}
@@ -150,7 +150,7 @@ export default function Header({
                 className="bg-gradient-to-r from-[#0f2b5c] via-blue-700 to-[#dc2626] hover:from-red-600 hover:to-[#0f2b5c] text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer tracking-wider"
                 id="header-book-tour-btn"
               >
-                {lang === 'EN' ? 'BOOK A TOUR' : 'PESAN TOUR'}
+                {t.nav_book_btn}
               </button>
             </div>
 
@@ -205,18 +205,10 @@ export default function Header({
 
               {/* Language Switcher in Mobile Drawer */}
               <div className="flex items-center justify-between py-2 border-b border-slate-100">
-                <span className="text-xs font-bold text-slate-500 uppercase">Pilih Bahasa / Language:</span>
+                <span className="text-xs font-bold text-slate-500 uppercase">
+                  {lang === 'EN' ? 'Language:' : 'Pilih Bahasa:'}
+                </span>
                 <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
-                  <button
-                    onClick={() => setLang('ID')}
-                    className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                      lang === 'ID'
-                        ? 'bg-red-600 text-white font-extrabold'
-                        : 'text-slate-600'
-                    }`}
-                  >
-                    🇮🇩 ID
-                  </button>
                   <button
                     onClick={() => setLang('EN')}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
@@ -226,6 +218,16 @@ export default function Header({
                     }`}
                   >
                     🇬🇧 EN
+                  </button>
+                  <button
+                    onClick={() => setLang('ID')}
+                    className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                      lang === 'ID'
+                        ? 'bg-red-600 text-white font-extrabold'
+                        : 'text-slate-600'
+                    }`}
+                  >
+                    🇮🇩 ID
                   </button>
                 </div>
               </div>
@@ -238,7 +240,7 @@ export default function Header({
                   }}
                   className="w-full bg-[#dc2626] text-white font-display font-bold text-xs uppercase py-3 rounded-xl shadow-md flex items-center justify-center gap-2"
                 >
-                  <span>{lang === 'EN' ? 'BOOK A TOUR' : 'PESAN TOUR'}</span>
+                  <span>{t.nav_book_btn}</span>
                 </button>
               </div>
             </div>
@@ -248,5 +250,3 @@ export default function Header({
     </header>
   );
 }
-
-

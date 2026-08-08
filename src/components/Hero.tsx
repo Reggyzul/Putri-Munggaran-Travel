@@ -10,22 +10,38 @@ interface HeroProps {
 }
 
 export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps) {
-  const [destinationInput, setDestinationInput] = useState('Wisata Jawa Barat (Bandung, Lembang, Ciwidey, Pangandaran)');
+  const [destinationInput, setDestinationInput] = useState('West Java Tour (Bandung, Lembang, Ciwidey, Pangandaran)');
   const [travelDateInput, setTravelDateInput] = useState('');
 
   const t = TRANSLATIONS[lang];
 
+  const destOptions = lang === 'EN' ? [
+    { value: 'West Java Tour (Bandung, Lembang, Ciwidey, Pangandaran)', label: 'West Java Tour (Bandung, Lembang, Ciwidey, Pangandaran)' },
+    { value: 'Central Java & Jogja Tour (Borobudur, Malioboro, Dieng, Solo)', label: 'Central Java & Jogja Tour (Borobudur, Malioboro, Dieng, Solo)' },
+    { value: 'East Java & Bromo Tour (Mount Bromo, Batu Malang, Surabaya)', label: 'East Java & Bromo Tour (Mount Bromo, Batu Malang, Surabaya)' },
+    { value: 'Bali & Nusa Penida Tour (Kuta, Tanah Lot, Bedugul, GWK)', label: 'Bali & Nusa Penida Tour (Kuta, Tanah Lot, Bedugul, GWK)' },
+    { value: 'Nusantara & Other Indonesia Destinations', label: 'Nusantara & Other Indonesia Destinations' }
+  ] : [
+    { value: 'Wisata Jawa Barat (Bandung, Lembang, Ciwidey, Pangandaran)', label: 'Wisata Jawa Barat (Bandung, Lembang, Ciwidey, Pangandaran)' },
+    { value: 'Wisata Jawa Tengah & Jogja (Borobudur, Malioboro, Dieng, Solo)', label: 'Wisata Jawa Tengah & Jogja (Borobudur, Malioboro, Dieng, Solo)' },
+    { value: 'Wisata Jawa Timur & Bromo (Gunung Bromo, Batu Malang, Surabaya)', label: 'Wisata Jawa Timur & Bromo (Gunung Bromo, Batu Malang, Surabaya)' },
+    { value: 'Wisata Bali & Nusa Penida (Kuta, Tanah Lot, Bedugul, GWK)', label: 'Wisata Bali & Nusa Penida (Kuta, Tanah Lot, Bedugul, GWK)' },
+    { value: 'Wisata Nusantara & Destinasi Lainnya di Indonesia', label: 'Wisata Nusantara & Destinasi Lainnya di Indonesia' }
+  ];
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const waNumber = '628562042336';
-    const message = `Halo Restu Tour & Transport, saya ingin mencari & berkonsultasi rute perjalanan/sewa armada: ${destinationInput}${travelDateInput ? ` (Rencana Tanggal: ${travelDateInput})` : ''}. Mohon penawaran harga & rincian terbaik. Terima kasih!`;
+    const message = lang === 'EN'
+      ? `Hello Restu Tour & Transport, I would like to consult route / fleet rental for: ${destinationInput}${travelDateInput ? ` (Planned Date: ${travelDateInput})` : ''}. Please inform price quotes & details. Thank you!`
+      : `Halo Restu Tour & Transport, saya ingin mencari & berkonsultasi rute perjalanan/sewa armada: ${destinationInput}${travelDateInput ? ` (Rencana Tanggal: ${travelDateInput})` : ''}. Mohon penawaran harga & rincian terbaik. Terima kasih!`;
     window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
   return (
     <section id="home" className="relative pt-16 pb-4 bg-white overflow-hidden text-center">
       
-      {/* 1. HERO MOUNTAIN SCENIC BANNER (Presisi Kebawah Dengan Struktur Sebelumnya) */}
+      {/* 1. HERO MOUNTAIN SCENIC BANNER */}
       <div className="relative w-full min-h-[500px] sm:min-h-[540px] flex flex-col justify-between bg-slate-900 text-white overflow-hidden border-b border-slate-200">
         
         {/* Full-width Green Indonesian Landscape Photo */}
@@ -36,10 +52,10 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
           }}
         />
 
-        {/* Ultra Professional Soft Dark Gradient Overlay */}
+        {/* Soft Dark Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/45 to-slate-950/80 backdrop-blur-[0.5px]" />
 
-        {/* Top Spacer: Memberikan jarak sedikit kebawah secara presisi */}
+        {/* Top Spacer */}
         <div className="h-20 sm:h-24" />
 
         {/* Hero Central Typography */}
@@ -95,11 +111,11 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
                   onChange={(e) => setDestinationInput(e.target.value)}
                   className="w-full text-xs sm:text-sm font-black text-slate-900 focus:outline-none bg-transparent cursor-pointer appearance-none pr-4"
                 >
-                  <option value="Wisata Jawa Barat (Bandung, Lembang, Ciwidey, Pangandaran)">Wisata Jawa Barat (Bandung, Lembang, Ciwidey, Pangandaran)</option>
-                  <option value="Wisata Jawa Tengah & Jogja (Borobudur, Malioboro, Dieng, Solo)">Wisata Jawa Tengah & Jogja (Borobudur, Malioboro, Dieng, Solo)</option>
-                  <option value="Wisata Jawa Timur & Bromo (Gunung Bromo, Batu Malang, Surabaya)">Wisata Jawa Timur & Bromo (Gunung Bromo, Batu Malang, Surabaya)</option>
-                  <option value="Wisata Bali & Nusa Penida (Kuta, Tanah Lot, Bedugul, GWK)">Wisata Bali & Nusa Penida (Kuta, Tanah Lot, Bedugul, GWK)</option>
-                  <option value="Wisata Nusantara & Destinasi Lainnya di Indonesia">Wisata Nusantara & Destinasi Lainnya di Indonesia</option>
+                  {destOptions.map((opt, idx) => (
+                    <option key={idx} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
                 </select>
                 <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-0 pointer-events-none" />
               </div>
@@ -122,11 +138,11 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
               </div>
             </div>
 
-            {/* Field 3: Search Tour Button */}
+            {/* Button 3: Search Action */}
             <div className="md:col-span-3">
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-[#dc2626] via-red-600 to-[#0f2b5c] hover:from-[#0f2b5c] hover:to-[#dc2626] text-white font-display font-black text-xs uppercase py-3.5 px-4 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer tracking-wider"
+                className="w-full bg-gradient-to-r from-[#0f2b5c] via-blue-700 to-[#dc2626] hover:from-[#dc2626] hover:to-[#0f2b5c] text-white font-display font-black text-xs uppercase py-4 px-4 rounded-2xl shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer tracking-wider"
               >
                 <Search className="w-4 h-4" />
                 <span>{t.search_btn}</span>
@@ -134,11 +150,9 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
             </div>
 
           </form>
+
         </div>
-
       </div>
-
     </section>
   );
 }
-
