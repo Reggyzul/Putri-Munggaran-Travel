@@ -21,7 +21,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [lang, setLang] = useState<'ID' | 'EN'>('ID');
+  const [lang, setLang] = useState<'EN' | 'ID'>('EN');
 
   const t = TRANSLATIONS[lang];
 

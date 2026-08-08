@@ -122,26 +122,26 @@ export default function Header({
               {/* Language Switcher Toggle (ID / EN) */}
               <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
                 <button
-                  onClick={() => setLang('ID')}
-                  className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
-                    lang === 'ID'
-                      ? 'bg-red-600 text-white shadow-xs font-extrabold'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                  title="Bahasa Indonesia (Utama)"
-                >
-                  <span>🇮🇩 ID</span>
-                </button>
-                <button
                   onClick={() => setLang('EN')}
                   className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
                     lang === 'EN'
                       ? 'bg-red-600 text-white shadow-xs font-extrabold'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
-                  title="English Language"
+                  title="English Language (Primary Default)"
                 >
                   <span>🇬🇧 EN</span>
+                </button>
+                <button
+                  onClick={() => setLang('ID')}
+                  className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
+                    lang === 'ID'
+                      ? 'bg-red-600 text-white shadow-xs font-extrabold'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                  title="Bahasa Indonesia (Secondary)"
+                >
+                  <span>🇮🇩 ID</span>
                 </button>
               </div>
 

@@ -1,4 +1,154 @@
 export const TRANSLATIONS = {
+  EN: {
+    // Navigation
+    nav_home: "Home",
+    nav_about: "About Us",
+    nav_destinations: "Routes & Services",
+    nav_packages: "Tour Packages",
+    nav_rentals: "Fleet Rental",
+    nav_gallery: "Gallery",
+    nav_contact: "Contact & Address",
+    nav_book_btn: "CONTACT US",
+
+    // Top Bar
+    topbar_address: "📍 Jl. Yudo No. 7, Arcamanik Endah, Bandung, West Java",
+    topbar_whatsapp: "WhatsApp: 0856-2042-336",
+    topbar_service: "Trusted Transportation & Tour Solution",
+
+    // Hero Section
+    hero_explore: "Your Trusted Travel Partner across Indonesia",
+    hero_title_1: "Restu Tour & Transport",
+    hero_motto: "TRUSTED TRANSPORTATION & TOUR SOLUTION",
+    hero_subtitle: "Transportation and tour service provider for individuals, families, corporate, and institutions. Well-maintained fleet, professional drivers, and comfort-first service.",
+    hero_cta_wa: "Contact via WhatsApp",
+    hero_cta_cars: "Explore Buses & Cars",
+    search_dest_cat: "Select Tour Destination",
+    search_travel_date: "Planned Travel Date",
+    search_date_placeholder: "When is your trip planned?",
+    search_btn: "CONSULT TRIP",
+
+    // Destinations Section & Page
+    dest_tag: "SERVICE AREA & POPULAR ROUTES",
+    dest_title: "Travel Destinations",
+    dest_desc: "Serving Bandung city, West Java, and trips to major cities across Java, Bali, and across Indonesia.",
+    dest_select_cat: "SELECT DESTINATION AREA",
+    dest_cat_subtitle: "Explore Dream Travel Destinations",
+    dest_cat_all: "All Destinations",
+    dest_cat_jabar: "West Java",
+    dest_cat_jateng: "Central Java & Jogja",
+    dest_cat_jatim: "East Java & Bromo",
+    dest_cat_bali: "Bali & Indonesia",
+    dest_spots_label: "Popular Services:",
+    dest_wa_consult: "Consult Route via WA",
+    dest_view_all: "View All Destinations",
+    dest_breadcrumb_home: "HOME",
+    dest_breadcrumb_page: "ROUTES & SERVICES",
+
+    // Package Tour Page
+    pkg_tag: "TOP TOUR PACKAGES",
+    pkg_title: "JAVA, BALI & INDONESIA TOUR PACKAGES",
+    pkg_subtitle: "Integrated travel package options for families, institutions, schools, and companies.",
+    pkg_filter_heading: "SELECT TOUR CATEGORY",
+    pkg_filter_all: "All Tour Packages",
+    pkg_filter_domestik: "Java & Bali Trips",
+    pkg_filter_internasional: "Other Indonesia Destinations",
+    pkg_route_label: "Tour Route",
+    pkg_starting_from: "Starting From",
+    pkg_per_person: "/ person",
+    pkg_detail_btn: "View Details",
+    pkg_modal_duration: "Duration",
+    pkg_modal_tier_title: "FLEET & AMENITIES OPTIONS",
+    pkg_modal_hotel: "Accommodation",
+    pkg_modal_notes: "Notes",
+    pkg_modal_highlights: "Highlights & Destinations",
+    pkg_modal_includes: "Includes",
+    pkg_modal_excludes: "Excludes",
+    pkg_modal_selected: "Selected Option",
+    pkg_modal_wa_btn: "Book via WhatsApp",
+
+    // About Section
+    about_tag: "PROFILE & OUR SERVICES",
+    about_title_1: "Restu Tour & Transport",
+    about_title_2: "Trusted Transportation & Tour Solution",
+    about_desc_1: "Restu Tour & Transport is a transportation and tour service provider catering to individuals, families, corporate clients, and government institutions with clean fleets and licensed professional drivers.",
+    about_desc_2: "Services include Daily Car Rental, Car Rental with Driver, Tourism Bus Rental, Domestic Tour Packages, Business Trips, Airport Transfers, Family & Corporate Gatherings, Study Tours, and Group Events.",
+    about_read_more: "Read More",
+    about_read_less: "Close Details",
+    about_badge: "COMPLETE FLEET & PRO DRIVERS",
+    about_card_tag: "Restu Tour & Transport",
+    about_card_sub: "TRUSTED TRANSPORTATION & TOUR SOLUTION",
+    about_card_rating_label: "CUSTOMER SATISFACTION",
+
+    // Vision
+    vision_title: "Company Vision",
+    vision_1: "To be the most trusted transportation and tour company providing the best travel experience for every customer.",
+    vision_2: "Upholding safety standards, fleet cleanliness, and top-tier service quality.",
+    vision_3: "Becoming the primary travel partner for Bandung, West Java, and nationwide.",
+
+    // Mission
+    mission_title: "Our Main Mission",
+    mission_1: "Prioritizing customer satisfaction and comfort.",
+    mission_2: "Providing safe, clean, and high-quality fleets.",
+    mission_3: "Delivering professional, friendly, and punctual service.",
+    mission_4: "Being a reliable travel partner for all transportation and tourism needs.",
+
+    // Strengths
+    strength_clean_title: "Clean & Maintained Fleet",
+    strength_clean_desc: "Vehicles are always clean, fresh, and well-maintained for all trips.",
+    strength_driver_title: "Pro & Punctual Drivers",
+    strength_driver_desc: "Experienced, friendly, route-savvy drivers who value punctuality.",
+    strength_price_title: "Competitive Pricing",
+    strength_price_desc: "Best transparent rates tailored to your trip requirements.",
+    strength_time_title: "Local & Inter-City Service",
+    strength_time_desc: "Serving Bandung, West Java, Central Java, East Java, Bali, and across Indonesia.",
+
+    // Cars Section
+    cars_tag: "FLEET CATALOG",
+    cars_title: "Car & Tourism Bus Rental Options",
+    cars_desc: "We offer complete Car Rental (Avanza, Innova Reborn, Alphard, Hiace, Elf) and Tourism Bus Rentals (Medium & Big Bus).",
+    cars_seats: "Seats",
+    cars_transmission_auto: "Automatic",
+    cars_transmission_manual: "Manual",
+    cars_included_label: "Amenities:",
+    cars_driver_friendly: "Pro Driver + Fuel Options",
+    cars_book_btn: "Consult & Rent via WA",
+
+    // Steps
+    steps_tag: "EASY BOOKING PROCESS",
+    steps_title: "3 Easy Booking Steps",
+    steps_desc: "Fast, friendly, and transparent booking process with Restu Tour & Transport.",
+    step_1_title: "Select Fleet & Service",
+    step_1_desc: "Choose Car Rental (Avanza, Innova, Hiace, Elf) or Tourism Bus based on group size.",
+    step_2_title: "Consult Route & Date",
+    step_2_desc: "Contact us via WhatsApp for availability, itinerary, and price quotes.",
+    step_3_title: "Enjoy Comfortable Travel",
+    step_3_desc: "Our professional driver will pick you up on time and take you safely to your destination.",
+
+    // Testimonials
+    testi_tag: "CUSTOMER REVIEWS",
+    testi_title: "Experience With Restu Tour & Transport",
+    testi_desc: "Your satisfaction and comfort are our top priority.",
+    testi_rating_label: "SATISFACTION RATING",
+    testi_rented_model: "Fleet / Service:",
+    testi_btn_next: "Next",
+    testi_btn_prev: "Previous",
+
+    // Booking Modal
+    modal_title: "RESERVATION FORM",
+    modal_desc: "Fill in the reservation draft below to connect directly with Restu Tour & Transport WhatsApp.",
+    modal_summary_base: "Service / Fleet",
+    modal_summary_total_days: "Duration",
+    modal_field_name: "Customer Name",
+    modal_field_phone: "WhatsApp Number",
+    modal_field_date: "Departure Date",
+    modal_field_time: "Pickup Time",
+    modal_field_duration: "Duration (Days)",
+    modal_field_extra_allin: "Driver & Fuel Included",
+    modal_field_extra_detail: "Includes professional driver service & estimated fuel",
+    modal_field_address: "Pickup Location",
+    modal_field_notes: "Group Count & Travel Notes",
+    modal_btn_confirm: "Send Draft via WhatsApp ➔"
+  },
   ID: {
     // Navigation
     nav_home: "Beranda",
@@ -147,155 +297,5 @@ export const TRANSLATIONS = {
     modal_field_address: "Lokasi Penjemputan",
     modal_field_notes: "Jumlah Rombongan & Catatan Perjalanan",
     modal_btn_confirm: "Kirim Draf via WhatsApp ➔"
-  },
-  EN: {
-    // Navigation
-    nav_home: "Home",
-    nav_about: "About Us",
-    nav_destinations: "Tour Packages",
-    nav_packages: "Tour Packages",
-    nav_rentals: "Fleet Rental",
-    nav_gallery: "Gallery",
-    nav_contact: "Contact & Location",
-    nav_book_btn: "CONTACT US",
-
-    // Top Bar
-    topbar_address: "📍 Jl. Yudo No. 7, Arcamanik Endah, Bandung",
-    topbar_whatsapp: "WhatsApp: 0856-2042-336",
-    topbar_service: "Trusted Transportation & Tour Solution",
-
-    // Hero Section
-    hero_explore: "Your Trusted Travel Partner across Indonesia",
-    hero_title_1: "Restu Tour & Transport",
-    hero_motto: "TRUSTED TRANSPORTATION & TOUR SOLUTION",
-    hero_subtitle: "Transportation and tour service provider for individuals, families, corporate, and institutions. Well-maintained fleet, professional drivers, and comfort-first service.",
-    hero_cta_wa: "Contact via WhatsApp",
-    hero_cta_cars: "Explore Buses & Cars",
-    search_dest_cat: "Select Tour Category",
-    search_travel_date: "Planned Travel Date",
-    search_date_placeholder: "When is your trip planned?",
-    search_btn: "CONSULT TRIP",
-
-    // Destinations Section & Page
-    dest_tag: "SERVICE AREA & POPULAR ROUTES",
-    dest_title: "Travel Destinations",
-    dest_desc: "Serving Bandung city, West Java, and trips to major cities across Java, Bali, and across Indonesia.",
-    dest_select_cat: "SELECT DESTINATION AREA",
-    dest_cat_subtitle: "Explore Dream Travel Destinations",
-    dest_cat_all: "All Destinations",
-    dest_cat_jabar: "West Java",
-    dest_cat_jateng: "Central Java & Jogja",
-    dest_cat_jatim: "East Java & Bromo",
-    dest_cat_bali: "Bali & Indonesia",
-    dest_spots_label: "Popular Services:",
-    dest_wa_consult: "Consult Route via WA",
-    dest_view_all: "View All Destinations",
-    dest_breadcrumb_home: "HOME",
-    dest_breadcrumb_page: "TOUR PACKAGES",
-
-    // Package Tour Page
-    pkg_tag: "TOP TOUR PACKAGES",
-    pkg_title: "JAVA, BALI & INDONESIA TOUR PACKAGES",
-    pkg_subtitle: "Integrated travel package options for families, institutions, schools, and companies.",
-    pkg_filter_heading: "SELECT TOUR CATEGORY",
-    pkg_filter_all: "All Tour Packages",
-    pkg_filter_domestik: "Java & Bali Trips",
-    pkg_filter_internasional: "Other Indonesia Destinations",
-    pkg_route_label: "Tour Route",
-    pkg_starting_from: "Starting From",
-    pkg_per_person: "/ person",
-    pkg_detail_btn: "View Details",
-    pkg_modal_duration: "Duration",
-    pkg_modal_tier_title: "FLEET & AMENITIES OPTIONS",
-    pkg_modal_hotel: "Accommodation",
-    pkg_modal_notes: "Notes",
-    pkg_modal_highlights: "Highlights & Destinations",
-    pkg_modal_includes: "Includes",
-    pkg_modal_excludes: "Excludes",
-    pkg_modal_selected: "Selected Option",
-    pkg_modal_wa_btn: "Book via WhatsApp",
-
-    // About Section
-    about_tag: "PROFILE & OUR SERVICES",
-    about_title_1: "Restu Tour & Transport",
-    about_title_2: "Trusted Transportation & Tour Solution",
-    about_desc_1: "Restu Tour & Transport is a transportation and tour service provider catering to individuals, families, corporate clients, and government institutions with clean fleets and licensed professional drivers.",
-    about_desc_2: "Services include Daily Car Rental, Car Rental with Driver, Tourism Bus Rental, Domestic Tour Packages, Business Trips, Airport Transfers, Family & Corporate Gatherings, Study Tours, and Group Events.",
-    about_read_more: "Read More",
-    about_read_less: "Close Details",
-    about_badge: "COMPLETE FLEET & PRO DRIVERS",
-    about_card_tag: "Restu Tour & Transport",
-    about_card_sub: "TRUSTED TRANSPORTATION & TOUR SOLUTION",
-    about_card_rating_label: "CUSTOMER SATISFACTION",
-
-    // Vision
-    vision_title: "Company Vision",
-    vision_1: "To be the most trusted transportation and tour company providing the best travel experience for every customer.",
-    vision_2: "Upholding safety standards, fleet cleanliness, and top-tier service quality.",
-    vision_3: "Becoming the primary travel partner for Bandung, West Java, and nationwide.",
-
-    // Mission
-    mission_title: "Our Main Mission",
-    mission_1: "Prioritizing customer satisfaction and comfort.",
-    mission_2: "Providing safe, clean, and high-quality fleets.",
-    mission_3: "Delivering professional, friendly, and punctual service.",
-    mission_4: "Being a reliable travel partner for all transportation and tourism needs.",
-
-    // Strengths
-    strength_clean_title: "Clean & Maintained Fleet",
-    strength_clean_desc: "Vehicles are always clean, fresh, and well-maintained for all trips.",
-    strength_driver_title: "Pro & Punctual Drivers",
-    strength_driver_desc: "Experienced, friendly, route-savvy drivers who value punctuality.",
-    strength_price_title: "Competitive Pricing",
-    strength_price_desc: "Best transparent rates tailored to your trip requirements.",
-    strength_time_title: "Local & Inter-City Service",
-    strength_time_desc: "Serving Bandung, West Java, Central Java, East Java, Bali, and across Indonesia.",
-
-    // Cars Section
-    cars_tag: "FLEET CATALOG",
-    cars_title: "Car & Tourism Bus Rental Options",
-    cars_desc: "We offer complete Car Rental (Avanza, Innova Reborn, Alphard, Hiace, Elf) and Tourism Bus Rentals (Medium & Big Bus).",
-    cars_seats: "Seats",
-    cars_transmission_auto: "Automatic",
-    cars_transmission_manual: "Manual",
-    cars_included_label: "Amenities:",
-    cars_driver_friendly: "Pro Driver + Fuel Options",
-    cars_book_btn: "Consult & Rent via WA",
-
-    // Steps
-    steps_tag: "EASY BOOKING PROCESS",
-    steps_title: "3 Easy Booking Steps",
-    steps_desc: "Fast, friendly, and transparent booking process with Restu Tour & Transport.",
-    step_1_title: "Select Fleet & Service",
-    step_1_desc: "Choose Car Rental (Avanza, Innova, Hiace, Elf) or Tourism Bus based on group size.",
-    step_2_title: "Consult Route & Date",
-    step_2_desc: "Contact us via WhatsApp (08562042336) for availability, itinerary, and price quotes.",
-    step_3_title: "Enjoy Comfortable Travel",
-    step_3_desc: "Our professional driver will pick you up on time and take you safely to your destination.",
-
-    // Testimonials
-    testi_tag: "CUSTOMER REVIEWS",
-    testi_title: "Experience With Restu Tour & Transport",
-    testi_desc: "Your satisfaction and comfort are our top priority.",
-    testi_rating_label: "SATISFACTION RATING",
-    testi_rented_model: "Fleet / Service:",
-    testi_btn_next: "Next",
-    testi_btn_prev: "Previous",
-
-    // Booking Modal
-    modal_title: "RESERVATION FORM",
-    modal_desc: "Fill in the reservation draft below to connect directly with Restu Tour & Transport WhatsApp.",
-    modal_summary_base: "Service / Fleet",
-    modal_summary_total_days: "Duration",
-    modal_field_name: "Customer Name",
-    modal_field_phone: "WhatsApp Number",
-    modal_field_date: "Departure Date",
-    modal_field_time: "Pickup Time",
-    modal_field_duration: "Duration (Days)",
-    modal_field_extra_allin: "Driver & Fuel Included",
-    modal_field_extra_detail: "Includes professional driver service & estimated fuel",
-    modal_field_address: "Pickup Location",
-    modal_field_notes: "Group Count & Travel Notes",
-    modal_btn_confirm: "Send Draft via WhatsApp ➔"
   }
 };
