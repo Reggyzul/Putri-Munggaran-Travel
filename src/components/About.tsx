@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck, Award } from 'lucide-react';
+import { ShieldCheck, Award, Sparkles } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface AboutProps {
@@ -16,6 +16,11 @@ export default function About({ lang }: AboutProps) {
         
         {/* SECTION HEADER */}
         <div className="text-center max-w-3xl mx-auto space-y-3" id="about-heading">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-100 text-red-600 font-display font-black text-xs uppercase tracking-widest border border-red-200 shadow-sm mb-1">
+            <Sparkles className="w-4 h-4 text-red-600" />
+            <span>{t.about_tag}</span>
+          </div>
+
           <h2 className="font-display font-black text-4xl sm:text-5xl text-[#0d1b37] tracking-tight leading-tight uppercase">
             Restu Tour & Transport
           </h2>

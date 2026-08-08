@@ -1,4 +1,5 @@
 import React from 'react';
+import { Sparkles } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface AboutPageProps {
@@ -66,12 +67,16 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         
         {/* SECTION 1: ABOUT OUR COMPANY */}
         <section className="space-y-6">
-          <span 
-            className="font-serif italic text-2xl sm:text-3xl text-[#dc2626] block"
-            style={{ fontFamily: "'Great Vibes', cursive, serif" }}
-          >
-            {t.about_tag}
-          </span>
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-100 text-red-600 font-display font-black text-xs sm:text-sm uppercase tracking-widest border border-red-200 shadow-sm">
+              <Sparkles className="w-4 h-4 text-red-600" />
+              <span>{t.about_tag}</span>
+            </div>
+
+            <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37] uppercase tracking-tight">
+              {t.about_title_2}
+            </h2>
+          </div>
 
           <p className="font-sans text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed">
             {t.about_desc_1}
@@ -109,12 +114,10 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
 
         {/* SECTION 2: SCOPE OF SERVICES */}
         <section className="space-y-8 border-t border-slate-100 pt-12">
-          <span 
-            className="font-serif italic text-2xl sm:text-3xl text-[#dc2626] block"
-            style={{ fontFamily: "'Great Vibes', cursive, serif" }}
-          >
-            {isEN ? 'Our Comprehensive Travel Services' : 'Layanan Kami & Area Operasional'}
-          </span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-100 text-red-600 font-display font-black text-xs sm:text-sm uppercase tracking-widest border border-red-200 shadow-sm">
+            <Sparkles className="w-4 h-4 text-red-600" />
+            <span>{isEN ? 'Our Comprehensive Travel Services' : 'Layanan Kami & Area Operasional'}</span>
+          </div>
 
           <div className="space-y-4 text-xs sm:text-sm font-sans text-slate-700 leading-relaxed">
             <h3 className="font-display font-bold text-lg sm:text-xl text-[#0d1b37]">
