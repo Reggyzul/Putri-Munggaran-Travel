@@ -1,0 +1,6 @@
+{
+  "name": "Sawaq fi Indonesia",
+  "description": "سواق في اندونيسيا - Professional Car Rental with Driver service specializing in Puncak, Bogor, and Jakarta tourist routes with Arabic and English speaking drivers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

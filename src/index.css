@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-script: 'Great Vibes', cursive;
+  
+  --color-brand-red: #dc2626;
+  --color-brand-red-dark: #b91c1c;
+  --color-brand-blue: #1d4ed8;
+  --color-brand-blue-dark: #1e3a8a;
+  --color-brand-navy: #0f2b5c;
+  --color-brand-navy-dark: #0a1c3f;
+}
+
+/* Custom transitions and scroll behaviors */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Red & Blue Dual Tone Utility Classes */
+.bg-brand-gradient {
+  background: linear-gradient(135deg, #0f2b5c 0%, #1e3a8a 50%, #dc2626 100%);
+}
+
+.bg-brand-navy {
+  background-color: #0f2b5c;
+}
+
+.bg-brand-red {
+  background-color: #dc2626;
+}
+
+.text-brand-navy {
+  color: #0f2b5c;
+}
+
+.text-brand-red {
+  color: #dc2626;
+}
+
+.border-brand-navy {
+  border-color: #0f2b5c;
+}
+
+.border-brand-red {
+  border-color: #dc2626;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
