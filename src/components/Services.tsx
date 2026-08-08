@@ -106,7 +106,7 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
       subtitleID: 'Sunrise Bromo & Museum Angkut',
       badgeEN: 'Volcano & Nature',
       badgeID: 'Gunung & Alam',
-      image: '/dest_bromo.avif',
+      image: '/dest_bromo.jpg',
       rating: 5.0,
       reviews: 230,
       spotsEN: ['Penanjakan 1 Golden Sunrise Viewpoint', '4x4 Jeep Sand Sea & Teletubbies Savannah', 'Museum Angkut & Jatim Park 3 Theme Park', 'Malang Apple Orchards & Batu Town Square'],
