@@ -131,6 +131,7 @@ export default function App() {
             <CarList 
               onSelectCar={handleSelectCar} 
               lang={lang} 
+              onViewAllCars={() => handleNavClick('rentals')}
             />
 
             <Services 

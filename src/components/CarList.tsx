@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CARS } from '../data/cars';
 import { Car } from '../types';
-import { Users, CheckCircle2, MessageCircle, Bus, Sparkles, Layers } from 'lucide-react';
+import { Users, CheckCircle2, MessageCircle, Bus, Sparkles, Layers, ChevronRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
 import BusModal from './BusModal';
@@ -9,9 +9,10 @@ import BusModal from './BusModal';
 interface CarListProps {
   onSelectCar: (car: Car) => void;
   lang: 'ID' | 'EN';
+  onViewAllCars?: () => void;
 }
 
-export default function CarList({ onSelectCar, lang }: CarListProps) {
+export default function CarList({ onSelectCar, lang, onViewAllCars }: CarListProps) {
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [isBusModalOpen, setIsBusModalOpen] = useState(false);
   const t = TRANSLATIONS[lang];
@@ -28,6 +29,9 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
     if (filterCategory === 'cat2') return car.category === 'Sewa Bus Pariwisata';
     return true;
   });
+
+  // Display 1 single row (3 cards) on landing page
+  const displayedCars = filteredCars.slice(0, 3);
 
   const handleCardClick = (car: Car) => {
     if (car.id === 'sewa-bus-pariwisata') {
@@ -84,9 +88,9 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
           </div>
         </div>
 
-        {/* Cars Grid */}
+        {/* Cars Grid (1 Single Row - 3 Cards) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCars.map((car) => {
+          {displayedCars.map((car) => {
             const isBus = car.id === 'sewa-bus-pariwisata';
 
             return (
@@ -185,6 +189,19 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
             );
           })}
         </div>
+
+        {/* View All Fleet Action Button */}
+        {onViewAllCars && (
+          <div className="mt-12 text-center">
+            <button
+              onClick={onViewAllCars}
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#0f2b5c] via-blue-700 to-[#dc2626] hover:from-[#dc2626] hover:to-[#0f2b5c] text-white font-display font-black text-xs uppercase px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer tracking-wider"
+            >
+              <span>Lihat Selengkapnya Katalog Armada (Sewa Mobil & Bus)</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
