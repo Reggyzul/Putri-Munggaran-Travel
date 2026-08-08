@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import AboutPage from './components/AboutPage';
 import Services from './components/Services';
+import CarList from './components/CarList';
 import DestinationHighlightsPage from './components/DestinationHighlightsPage';
 import TransportRentPage from './components/TransportRentPage';
 import BookingSteps from './components/BookingSteps';
@@ -125,6 +126,11 @@ export default function App() {
               onExploreClick={() => handleNavClick('destinations')} 
               lang={lang} 
               onBookingClick={() => setSelectedCar(CARS[0])} 
+            />
+
+            <CarList 
+              onSelectCar={handleSelectCar} 
+              lang={lang} 
             />
 
             <Services 
