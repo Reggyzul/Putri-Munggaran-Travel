@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, MessageSquareText, ShieldAlert, Sparkles, Map } from 'lucide-react';
+import { Bus, MessageSquare, Compass, CheckCircle2, Sparkles } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 import { motion } from 'motion/react';
 
@@ -15,32 +15,42 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
       step: '01',
       title: t.step_1_title,
       description: t.step_1_desc,
+      icon: <Bus className="w-7 h-7 text-white" />,
+      bgGradient: 'bg-gradient-to-br from-red-600 to-red-700',
+      badgeBg: 'bg-red-900/40 text-red-200 border-red-500/30',
     },
     {
       step: '02',
       title: t.step_2_title,
       description: t.step_2_desc,
+      icon: <MessageSquare className="w-7 h-7 text-white" />,
+      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] to-blue-700',
+      badgeBg: 'bg-blue-900/40 text-blue-200 border-blue-500/30',
     },
     {
       step: '03',
       title: t.step_3_title,
       description: t.step_3_desc,
+      icon: <Compass className="w-7 h-7 text-white" />,
+      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] via-blue-700 to-red-600',
+      badgeBg: 'bg-purple-900/40 text-purple-200 border-purple-500/30',
     },
   ];
 
   return (
-    <section id="steps" className="py-24 bg-gray-50 overflow-hidden border-t border-b border-gray-100">
+    <section id="steps" className="py-24 bg-slate-50 overflow-hidden border-t border-b border-slate-200 text-left">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span className="font-display font-bold text-sm text-luxury-gold tracking-widest uppercase">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <span className="font-display font-black text-xs text-red-600 tracking-widest uppercase bg-red-100 px-3.5 py-1 rounded-full border border-red-200 inline-block">
             {t.steps_tag}
           </span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-gray-900 tracking-tight uppercase">
+          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37] tracking-tight uppercase">
             {t.steps_title}
           </h2>
-          <p className="font-sans text-gray-600 text-sm sm:text-base leading-relaxed">
+          <div className="w-16 h-1 bg-red-600 mx-auto rounded-full" />
+          <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
             {t.steps_desc}
           </p>
         </div>
@@ -48,32 +58,40 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
         {/* Steps Grid */}
         <div className="relative">
           {/* Connector Line for Desktop */}
-          <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-luxury-gold/30 via-luxury-gold to-luxury-gold/30 -translate-y-12 z-0" />
+          <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] h-1 bg-gradient-to-r from-red-600 via-blue-600 to-red-600 -translate-y-14 z-0 opacity-20" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
             {stepsList.map((stepItem, index) => (
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.15 }}
                 key={index}
-                className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-xl hover:border-luxury-gold/10 transition-all duration-300 flex flex-col items-center text-center relative group"
+                className="bg-white rounded-3xl p-8 shadow-md hover:shadow-2xl border border-slate-200/90 transition-all duration-300 flex flex-col items-center text-center relative group"
               >
-                {/* Step Number Circle */}
-                <div className="w-16 h-16 rounded-full bg-luxury-gold text-white flex items-center justify-center font-display font-black text-xl shadow-lg shadow-luxury-gold/20 mb-6 group-hover:scale-105 transition-transform duration-300">
-                  {stepItem.step}
+                {/* Step Icon Circle + Step Badge */}
+                <div className="relative mb-6">
+                  <div className={`w-20 h-20 rounded-3xl ${stepItem.bgGradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    {stepItem.icon}
+                  </div>
+                  
+                  {/* Step Number Tag */}
+                  <span className="absolute -top-2 -right-2 bg-[#0d1b37] text-white text-[11px] font-black px-2.5 py-0.5 rounded-full border-2 border-white shadow-sm">
+                    {stepItem.step}
+                  </span>
                 </div>
                 
-                <h3 className="font-display font-bold text-lg text-gray-900 mb-3 group-hover:text-luxury-gold transition-colors">
+                <h3 className="font-display font-black text-xl text-[#0d1b37] mb-2 uppercase group-hover:text-red-600 transition-colors">
                   {stepItem.title}
                 </h3>
-                <p className="font-sans text-xs sm:text-sm text-gray-500 leading-relaxed max-w-xs">
+
+                <p className="font-sans text-xs text-slate-600 leading-relaxed font-medium">
                   {stepItem.description}
                 </p>
 
-                {/* Corner light shine decorative */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-luxury-gold/5 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                {/* Decorative Hover Glow */}
+                <div className="absolute top-0 right-0 w-28 h-28 bg-red-600/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
               </motion.div>
             ))}
           </div>
