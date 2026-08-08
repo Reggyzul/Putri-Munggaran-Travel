@@ -280,19 +280,6 @@ export default function Services({ lang, onViewAllDestinations }: ServicesProps)
             );
           })}
         </div>
-
-        {/* View All Button */}
-        {onViewAllDestinations && (
-          <div className="text-center pt-4">
-            <button
-              onClick={onViewAllDestinations}
-              className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-display font-extrabold text-xs uppercase px-8 py-4 rounded-full shadow-lg transition-all cursor-pointer"
-            >
-              <span>{t.dest_view_all}</span>
-              <Sparkles className="w-4 h-4 text-amber-400" />
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );
