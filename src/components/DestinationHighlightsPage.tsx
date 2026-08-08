@@ -70,7 +70,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
       subtitleID: 'Candi Borobudur, Prambanan & Malioboro',
       badgeEN: 'Culture & History',
       badgeID: 'Budaya & Sejarah',
-      image: '/dest_jogja.avif',
+      image: '/dest_jogja.jpg',
       rating: 5.0,
       reviews: 210,
       spotsEN: ['Borobudur Temple & Prambanan UNESCO Sites', 'Mount Merapi Jeep Lava Tour Expedition', 'Malioboro Street Culinary & Craft Shopping', 'Taman Sari Water Castle & Yogyakarta Palace'],
