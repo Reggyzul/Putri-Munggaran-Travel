@@ -61,7 +61,7 @@ export default function Header({
               id="header-logo"
             >
               <img
-                src="/restu_logo.png"
+                src="/restu_logo.avif"
                 alt="Restu Tour & Transport Logo"
                 className="h-12 sm:h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
               />

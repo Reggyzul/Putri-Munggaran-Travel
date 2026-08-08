@@ -52,7 +52,7 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
           <div className="md:col-span-5 space-y-5">
             <div className="flex items-center gap-3">
               <img
-                src="/restu_logo.png"
+                src="/restu_logo.avif"
                 alt="Restu Tour & Transport Logo"
                 className="h-14 w-auto object-contain shrink-0"
               />

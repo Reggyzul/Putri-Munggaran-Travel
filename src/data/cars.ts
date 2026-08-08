@@ -233,7 +233,7 @@ export const CARS: Car[] = [
     category: 'Tourism Bus Rental',
     pricePerDay: 0,
     priceDisplay: 'Contact for Custom Quotes',
-    image: '/restu_bus.png',
+    image: '/restu_bus.avif',
     seats: 59,
     transmission: 'Manual',
     fuel: 'Heavy Duty Diesel',
