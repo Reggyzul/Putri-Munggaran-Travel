@@ -125,7 +125,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
       subtitleID: 'Pantai Kuta, Tanah Lot & Nusa Penida',
       badgeEN: 'Island of Gods',
       badgeID: 'Pulau Dewata',
-      image: '/dest_padang.avif',
+      image: '/dest_bali.jpg',
       rating: 5.0,
       reviews: 260,
       spotsEN: ['Kelingking Beach & Broken Beach Nusa Penida', 'Tanah Lot Sea Temple & Ulun Danu Beratan', 'Kuta Beach & Jimbaran Sunset Seafood Dinner', 'Garuda Wisnu Kencana (GWK) Cultural Park'],
