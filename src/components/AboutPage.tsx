@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ShieldCheck, Award, Navigation, UserCheck, HeartHandshake, CheckCircle2, Car, MessageCircle, MapPin, Phone, Facebook } from 'lucide-react';
+import { Sparkles, ShieldCheck, Award, Navigation, UserCheck, HeartHandshake, CheckCircle2, Car, MessageCircle, MapPin, Phone, Facebook, Instagram } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 import { motion } from 'motion/react';
 
@@ -306,20 +306,25 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           </div>
         </section>
 
-        {/* SECTION 5: ALAMAT & KONTAK LENGKAP */}
+        {/* SECTION 5: ALAMAT, INSTAGRAM & GOOGLE MAPS LENGKAP */}
         <section className="p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200 space-y-6">
-          <h3 className="font-display font-black text-xl text-[#0d1b37] uppercase">
-            {isEN ? 'Office Location & Official Contact' : 'Lokasi Kantor & Kontak Resmi'}
-          </h3>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
+            <h3 className="font-display font-black text-xl text-[#0d1b37] uppercase">
+              {isEN ? 'Office Location, Google Maps & Social Media' : 'Lokasi Kantor, Google Maps & Media Sosial'}
+            </h3>
+            <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block self-start sm:self-auto">
+              📍 Koordinat: 8G69+C9M Karangbenda, Parigi
+            </span>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-medium">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-medium">
             <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5">
               <div className="flex items-center gap-2 text-emerald-600 font-bold">
                 <MapPin className="w-4 h-4" />
                 <span>Alamat Kantor:</span>
               </div>
               <p className="text-slate-700">
-                Jl. Raya Parigi, Blok Kemplung, Kabupaten Pangandaran
+                Jl. Raya Parigi, Blok Kemplung, Karangbenda, Kec. Parigi, Kab. Pangandaran, Jawa Barat 46393
               </p>
             </div>
 
@@ -339,6 +344,21 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             </div>
 
             <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5">
+              <div className="flex items-center gap-2 text-pink-600 font-bold">
+                <Instagram className="w-4 h-4" />
+                <span>Instagram Resmi:</span>
+              </div>
+              <a
+                href="https://www.instagram.com/putri_munggaran_travel?igsi=MTFidmlwbWRjY3VvYw=="
+                target="_blank"
+                rel="noreferrer"
+                className="text-pink-600 font-semibold hover:underline block"
+              >
+                @putri_munggaran_travel
+              </a>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5">
               <div className="flex items-center gap-2 text-blue-600 font-bold">
                 <Facebook className="w-4 h-4" />
                 <span>Facebook Resmi:</span>
@@ -354,6 +374,17 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             </div>
           </div>
 
+          {/* Embedded Map Card */}
+          <div className="w-full h-64 rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative bg-slate-100">
+            <iframe
+              title="Google Maps PM Tour & Travel"
+              src="https://maps.google.com/maps?q=8G69%2BC9M+PM+TOUR+and+TRAVEL,+Jl.+Raya+Parigi,+Karangbenda,+Kec.+Parigi,+Kab.+Pangandaran,+Jawa+Barat+46393&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              className="w-full h-full border-0"
+              loading="lazy"
+              allowFullScreen
+            />
+          </div>
+
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
             <button
               onClick={onNavigateHome}
@@ -361,13 +392,24 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             >
               ➔ {isEN ? 'Back to Home' : 'Kembali ke Beranda'}
             </button>
-            <button
-              onClick={handleWhatsAppClick}
-              className="px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-xs uppercase flex items-center gap-2 cursor-pointer shadow-md transition-all"
-            >
-              <MessageCircle className="w-4 h-4 fill-current" />
-              <span>{isEN ? 'Consult Trip via WA' : 'Konsultasi Perjalanan via WhatsApp'}</span>
-            </button>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://maps.app.goo.gl/7sMozjfWKuEdYJ6P9?g_st=awb"
+                target="_blank"
+                rel="noreferrer"
+                className="px-5 py-3 rounded-full bg-slate-900 hover:bg-black text-white font-display font-bold text-xs uppercase flex items-center gap-2 cursor-pointer shadow-sm transition-all"
+              >
+                <MapPin className="w-4 h-4 text-emerald-400" />
+                <span>Buka Google Maps</span>
+              </a>
+              <button
+                onClick={handleWhatsAppClick}
+                className="px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-xs uppercase flex items-center gap-2 cursor-pointer shadow-md transition-all"
+              >
+                <MessageCircle className="w-4 h-4 fill-current" />
+                <span>{isEN ? 'Consult Trip via WA' : 'Konsultasi via WA'}</span>
+              </button>
+            </div>
           </div>
         </section>
 
