@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
-import { MapPin, Calendar, Search, ChevronDown, ShieldCheck, Clock } from 'lucide-react';
+import { ChevronRight, MessageCircle, Car, MapPin, CheckCircle2, ShieldCheck, UserCheck, Navigation } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface HeroProps {
@@ -10,160 +10,115 @@ interface HeroProps {
 }
 
 export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps) {
-  const [destinationInput, setDestinationInput] = useState('Pangandaran – Bandung (PP)');
-  const [travelDateInput, setTravelDateInput] = useState('');
-
   const t = TRANSLATIONS[lang];
-
-  const destOptions = lang === 'EN' ? [
-    { value: 'Pangandaran – Bandung (Round-Trip / One-Way)', label: 'Pangandaran – Bandung (Door-to-Door)' },
-    { value: 'Pangandaran – Jabodetabek (Jakarta, Bogor, Depok, Tangerang, Bekasi)', label: 'Pangandaran – Jabodetabek' },
-    { value: 'Bandung – Jabodetabek (Round-Trip / One-Way)', label: 'Bandung – Jabodetabek' },
-    { value: 'Private Trip (Pangandaran, Bandung, Jabodetabek & Surrounding)', label: 'Private Trip / Family Travel' },
-    { value: 'Inter-City & Other Destinations by Request', label: 'Inter-City & Custom Destinations' }
-  ] : [
-    { value: 'Pangandaran – Bandung (PP / Sekali Jalan)', label: 'Pangandaran – Bandung (Door-to-Door)' },
-    { value: 'Pangandaran – Jabodetabek (Jakarta, Bogor, Depok, Tangerang, Bekasi)', label: 'Pangandaran – Jabodetabek' },
-    { value: 'Bandung – Jabodetabek (PP / Sekali Jalan)', label: 'Bandung – Jabodetabek' },
-    { value: 'Private Trip (Pangandaran, Bandung, Jabodetabek & Sekitarnya)', label: 'Private Trip / Transportasi Keluarga' },
-    { value: 'Perjalanan Antar Kota & Rute Lainnya Sesuai Permintaan', label: 'Antar Kota & Destinasi Lainnya' }
-  ];
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const waNumber = '6281321264200';
-    const message = lang === 'EN'
-      ? `Hello Putri Munggaran Tour & Travel, I would like to consult route / vehicle reservation for: ${destinationInput}${travelDateInput ? ` (Planned Date: ${travelDateInput})` : ''}. Please provide price quotes & availability. Thank you!`
-      : `Halo Putri Munggaran Tour & Travel, saya ingin berkonsultasi mengenai rute perjalanan / sewa armada: ${destinationInput}${travelDateInput ? ` (Rencana Tanggal: ${travelDateInput})` : ''}. Mohon informasi ketersediaan dan penawaran harga terbaik. Terima kasih!`;
-    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
-  };
+  const isEN = lang === 'EN';
 
   return (
-    <section id="home" className="relative pt-16 pb-6 bg-slate-50 overflow-hidden text-center">
+    <section id="home" className="relative bg-[#061226] text-slate-900 overflow-hidden text-left">
       
-      {/* 1. HERO SCENIC BANNER */}
-      <div className="relative w-full min-h-[520px] sm:min-h-[560px] flex flex-col justify-between bg-slate-950 text-white overflow-hidden border-b border-slate-200">
+      {/* 1. PANORAMIC HERO PHOTO BANNER (~75% spacious view) */}
+      <div className="relative w-full h-[480px] sm:h-[540px] md:h-[600px] pt-24 sm:pt-28 bg-[#061226] text-white overflow-hidden flex flex-col justify-between">
         
-        {/* Full-width Scenic Landscape Photo */}
+        {/* Background Pangandaran Coastal Sunset Photo */}
         <div 
-          className="absolute inset-0 bg-cover bg-center transform scale-105 transition-transform duration-1000"
+          className="absolute inset-0 bg-cover bg-center transform scale-100 transition-transform duration-1000"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1920')`
+            backgroundImage: `url('/hero_pangandaran.jpg')`
           }}
         />
 
-        {/* Soft Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/85 backdrop-blur-[0.5px]" />
+        {/* Dark Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061226]/85 via-black/30 to-[#061226]/90" />
 
-        {/* Top Spacer */}
-        <div className="h-16 sm:h-20" />
-
-        {/* Hero Central Typography */}
-        <div className="relative z-10 max-w-4xl mx-auto px-4 py-6 text-center space-y-3 sm:space-y-4">
-          
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/90 text-white text-xs font-black uppercase tracking-widest shadow-lg border border-red-400/40 mx-auto"
-          >
-            <ShieldCheck className="w-4 h-4 text-amber-300" />
-            <span>DOOR-TO-DOOR SERVICE • PANGANDARAN – BANDUNG – JABODETABEK</span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1 }}
-            className="font-display font-black text-3xl sm:text-5xl md:text-6xl text-white tracking-tight uppercase leading-tight drop-shadow-xl"
-          >
-            {t.hero_title_1}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="font-serif italic text-2xl sm:text-3xl md:text-4xl text-amber-300 drop-shadow-lg"
-            style={{ fontFamily: "'Great Vibes', cursive, serif" }}
-          >
-            {t.hero_motto}
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25 }}
-            className="font-sans text-xs sm:text-sm text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-sm font-medium"
-          >
-            {t.hero_subtitle}
-          </motion.p>
+        {/* Location Pill in Top Banner */}
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 w-full flex items-center justify-start">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/50 border border-white/20 text-white text-xs font-semibold backdrop-blur-md shadow-xs">
+            <MapPin className="w-3.5 h-3.5 text-amber-400" />
+            <span>{isEN ? 'Pangandaran, Bandung, Jabodetabek & Surrounding Areas' : 'Pangandaran, Bandung, Jabodetabek & Sekitarnya'}</span>
+          </div>
         </div>
 
-        {/* Bottom Spacer inside Banner */}
-        <div className="h-20 sm:h-24" />
+        {/* Spacer for spacious photo presentation */}
+        <div className="h-12" />
 
       </div>
 
-      {/* 2. ELEVATED SEARCH TOUR BOX */}
-      <div className="max-w-5xl mx-auto px-4 -mt-16 sm:-mt-20 relative z-20">
-        <div className="bg-white rounded-3xl p-4 sm:p-5 shadow-2xl border border-slate-200/90 text-left">
-          
-          <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+      {/* 2. WHITE CONTENT CARD (Overlapping 25% onto hero banner) */}
+      <div className="bg-slate-50 relative pb-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-20 -mt-28 sm:-mt-36 md:-mt-40">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white rounded-t-[32px] sm:rounded-t-[40px] rounded-b-3xl p-7 sm:p-10 md:p-12 shadow-2xl border border-slate-100/90 text-center space-y-6"
+          >
             
-            {/* Field 1: Route Selection */}
-            <div className="md:col-span-5 px-3 py-2 border-b md:border-b-0 md:border-r border-slate-200">
-              <label className="block text-[11px] font-bold text-slate-800 uppercase tracking-wide">
-                {t.search_dest_cat}
-              </label>
-              <div className="flex items-center gap-2 mt-1 relative">
-                <MapPin className="w-4 h-4 text-[#dc2626] shrink-0" />
-                <select
-                  value={destinationInput}
-                  onChange={(e) => setDestinationInput(e.target.value)}
-                  className="w-full text-xs sm:text-sm font-black text-slate-900 focus:outline-none bg-transparent cursor-pointer appearance-none pr-4"
-                >
-                  {destOptions.map((opt, idx) => (
-                    <option key={idx} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-0 pointer-events-none" />
+            {/* Breadcrumb Line */}
+            <div className="flex items-center justify-center gap-2 text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest">
+              <span className="text-red-600 font-black">Putri Munggaran Tour &amp; Travel</span>
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+              <span className="text-slate-500">
+                {isEN ? 'Door-to-Door Travel & Transport' : 'Travel & Transportasi Door-to-Door'}
+              </span>
+            </div>
+
+            {/* Main Headline */}
+            <h1 className="font-display font-black text-2xl sm:text-4xl md:text-[40px] text-[#081836] tracking-tight leading-snug sm:leading-tight uppercase">
+              {isEN ? (
+                <>Putri Munggaran Travel — <span className="text-red-600">Safe, Comfortable, To Destination</span></>
+              ) : (
+                <>Putri Munggaran Travel — <span className="text-red-600">Aman, Nyaman, Sampai Tujuan</span></>
+              )}
+            </h1>
+
+            {/* Human-Touch Simple & Elegant Description */}
+            <p className="font-sans text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed text-center">
+              {isEN
+                ? "Reliable travel and transportation service serving Pangandaran to Bandung, Jabodetabek, and various destinations. Enjoy practical door-to-door service with experienced drivers and clean, well-maintained fleets for family, business, and group trips."
+                : "Layanan transportasi dan perjalanan terpercaya yang melayani rute Pangandaran menuju Bandung, Jabodetabek, serta berbagai tujuan lainnya. Nikmati kepraktisan door-to-door service bersama pengemudi berpengalaman dan pilihan armada prima untuk perjalanan keluarga, dinas, maupun rombongan."}
+            </p>
+
+            {/* 3 Value Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1 text-xs font-bold text-slate-700">
+              <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
+                <Navigation className="w-4 h-4 text-red-600" />
+                <span>Door-to-Door Service</span>
+              </div>
+              <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
+                <UserCheck className="w-4 h-4 text-red-600" />
+                <span>Pengemudi Berpengalaman</span>
+              </div>
+              <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
+                <Car className="w-4 h-4 text-red-600" />
+                <span>Avanza • Calya • Rush • Hiace</span>
               </div>
             </div>
 
-            {/* Field 2: Travel Dates */}
-            <div className="md:col-span-4 px-3 py-2 border-b md:border-b-0 md:border-r border-slate-200">
-              <label className="block text-[11px] font-bold text-slate-800 uppercase tracking-wide">
-                {t.search_travel_date}
-              </label>
-              <div className="flex items-center gap-2 mt-1">
-                <Calendar className="w-4 h-4 text-red-500 shrink-0" />
-                <input
-                  type="text"
-                  value={travelDateInput}
-                  onChange={(e) => setTravelDateInput(e.target.value)}
-                  placeholder={t.search_date_placeholder}
-                  className="w-full text-xs font-semibold text-slate-700 focus:outline-none bg-transparent placeholder:text-slate-400"
-                />
-              </div>
-            </div>
-
-            {/* Button 3: Search Action */}
-            <div className="md:col-span-3">
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-[#0f2b5c] via-blue-800 to-[#dc2626] hover:from-[#dc2626] hover:to-[#0f2b5c] text-white font-display font-black text-xs uppercase py-4 px-4 rounded-2xl shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer tracking-wider"
+            {/* Quick CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+              <a
+                href="https://api.whatsapp.com/send?phone=6281321264200&text=Halo%20Putri%20Munggaran%20Tour%20%26%20Travel,%20saya%20ingin%20konsultasi%20jadwal%20dan%20pemesanan%20travel"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full sm:w-auto bg-[#dc2626] hover:bg-red-700 text-white font-display font-black text-xs uppercase px-8 py-3.5 rounded-xl shadow-md hover:shadow-red-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
               >
-                <Search className="w-4 h-4" />
-                <span>{t.search_btn}</span>
+                <MessageCircle className="w-4 h-4 fill-current" />
+                <span>Chat WhatsApp Admin</span>
+              </a>
+
+              <button
+                onClick={onExploreClick}
+                className="w-full sm:w-auto bg-[#081836] hover:bg-[#0c2340] text-white font-display font-black text-xs uppercase px-7 py-3.5 rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
+              >
+                <Car className="w-4 h-4 text-amber-300" />
+                <span>{isEN ? 'View Fleet' : 'Lihat Pilihan Armada'}</span>
               </button>
             </div>
 
-          </form>
-
+          </motion.div>
         </div>
       </div>
+
     </section>
   );
 }
