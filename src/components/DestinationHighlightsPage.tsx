@@ -46,7 +46,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-red-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
             <Compass className="w-3.5 h-3.5 text-amber-300" />
             <span>DESTINASI WISATA PANGANDARAN</span>
           </div>
@@ -56,7 +56,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
           </h1>
 
           <p className="font-sans text-xs font-bold text-slate-300 uppercase tracking-widest">
-            <span onClick={onNavigateHome} className="hover:text-red-400 cursor-pointer">{t.dest_breadcrumb_home}</span> / {isEN ? 'DESTINATIONS' : 'DESTINASI WISATA'}
+            <span onClick={onNavigateHome} className="hover:text-emerald-400 cursor-pointer">{t.dest_breadcrumb_home}</span> / {isEN ? 'DESTINATIONS' : 'DESTINASI WISATA'}
           </p>
         </div>
       </div>
@@ -69,7 +69,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
           <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37]">
             {isEN ? 'Explore 6 Premier Attractions in Pangandaran' : '6 Destinasi Wisata Favorit & Populer di Pangandaran'}
           </h2>
-          <div className="w-16 h-1 bg-red-500 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-emerald-600 mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
             {isEN
               ? 'Enjoy seamless, safe, and comfortable door-to-door transport to all prominent beaches and nature attractions in Pangandaran.'
@@ -83,7 +83,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
             onClick={() => setSelectedFilter('all')}
             className={`px-5 py-2.5 rounded-full font-display font-extrabold text-xs uppercase transition-all cursor-pointer ${
               selectedFilter === 'all'
-                ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
             }`}
           >
@@ -93,7 +93,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
             onClick={() => setSelectedFilter('pantai')}
             className={`px-5 py-2.5 rounded-full font-display font-extrabold text-xs uppercase transition-all cursor-pointer ${
               selectedFilter === 'pantai'
-                ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
             }`}
           >
@@ -103,7 +103,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
             onClick={() => setSelectedFilter('alam')}
             className={`px-5 py-2.5 rounded-full font-display font-extrabold text-xs uppercase transition-all cursor-pointer ${
               selectedFilter === 'alam'
-                ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
             }`}
           >
@@ -138,17 +138,17 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
                     <div className="absolute top-4 left-4 bg-slate-900/85 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-md">
                       {badge}
                     </div>
-                    <div className="absolute top-4 right-4 bg-red-600 text-white font-black text-xs w-7 h-7 rounded-full flex items-center justify-center shadow-md">
+                    <div className="absolute top-4 right-4 bg-emerald-600 text-white font-black text-xs w-7 h-7 rounded-full flex items-center justify-center shadow-md">
                       0{idx + 1}
                     </div>
                   </div>
 
                   <div className="p-6 space-y-4">
                     <div>
-                      <h3 className="font-display font-black text-xl text-[#0d1b37] group-hover:text-red-600 transition-colors uppercase">
+                      <h3 className="font-display font-black text-xl text-[#0d1b37] group-hover:text-emerald-600 transition-colors uppercase">
                         {name}
                       </h3>
-                      <p className="font-sans text-xs text-red-600 font-bold mt-0.5">
+                      <p className="font-sans text-xs text-emerald-700 font-bold mt-0.5">
                         {tagline}
                       </p>
                     </div>
@@ -164,7 +164,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
                       <ul className="space-y-1.5">
                         {highlights.map((spot, spotIdx) => (
                           <li key={spotIdx} className="flex items-start gap-2 text-[11px] font-semibold text-slate-700">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                             <span>{spot}</span>
                           </li>
                         ))}
@@ -176,7 +176,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
                 <div className="p-6 pt-0">
                   <button
                     onClick={() => handleWhatsAppBooking(name)}
-                    className="w-full bg-[#dc2626] hover:bg-red-700 text-white font-display font-extrabold text-xs uppercase py-3.5 rounded-2xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase py-3.5 rounded-full shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
                     <span>{isEN ? 'Consult Trip via WA' : 'Konsultasi Perjalanan via WA'}</span>
@@ -188,9 +188,9 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
         </div>
 
         {/* Bottom Callout Banner */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#0f2b5c] via-blue-900 to-[#0b1736] text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#0b1736] via-[#0d2847] to-emerald-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="space-y-1 text-left">
-            <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-white/10 px-3 py-1 rounded-full inline-block">
+            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-300 bg-white/10 px-3 py-1 rounded-full inline-block">
               DOOR-TO-DOOR TRIP PANGANDARAN
             </span>
             <h3 className="font-display font-black text-xl sm:text-2xl uppercase">
@@ -204,7 +204,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
           </div>
           <button
             onClick={() => handleWhatsAppBooking('Paket Wisata Pangandaran Lengkap')}
-            className="bg-red-600 hover:bg-red-700 text-white font-display font-black text-xs uppercase px-6 py-3.5 rounded-2xl shadow-md shrink-0 flex items-center gap-2 cursor-pointer"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase px-7 py-3.5 rounded-full shadow-md shrink-0 flex items-center gap-2 cursor-pointer transition-all"
           >
             <MessageCircle className="w-4 h-4 fill-current" />
             <span>{isEN ? 'Book via WhatsApp' : 'Hubungi WhatsApp'}</span>

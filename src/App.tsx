@@ -137,7 +137,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between font-sans antialiased selection:bg-red-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between font-sans antialiased selection:bg-emerald-600 selection:text-white">
       
       {/* Header Bar */}
       <Header

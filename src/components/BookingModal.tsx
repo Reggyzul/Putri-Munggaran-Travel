@@ -116,7 +116,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
           className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 relative my-8"
         >
           {/* Modal Header Banner */}
-          <div className="bg-gradient-to-r from-[#0f2b5c] via-blue-900 to-[#dc2626] p-6 text-white relative">
+          <div className="bg-gradient-to-r from-[#061226] via-[#0d2847] to-emerald-700 p-6 text-white relative">
             <button
               onClick={onClose}
               className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center text-white transition-colors cursor-pointer"
@@ -125,7 +125,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
             </button>
 
             <div className="space-y-1">
-              <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-black/30 px-3 py-1 rounded-full inline-block">
+              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-300 bg-black/30 px-3 py-1 rounded-full inline-block">
                 PUTRI MUNGGARAN TOUR &amp; TRAVEL
               </span>
               <h3 className="font-display font-black text-2xl uppercase tracking-tight">
@@ -142,7 +142,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
             
             {/* Step 1: Vehicle & Service Type Selection */}
             <div className="space-y-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
-              <span className="text-[11px] font-black uppercase text-red-600 tracking-wider block">
+              <span className="text-[11px] font-black uppercase text-emerald-700 tracking-wider block">
                 1. {isEN ? 'Choose Service & Vehicle' : 'Pilih Layanan & Armada'}
               </span>
 
@@ -340,7 +340,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-[#0f2b5c] via-blue-900 to-[#dc2626] hover:from-[#dc2626] hover:to-[#0f2b5c] text-white font-display font-black text-xs uppercase py-4 rounded-2xl shadow-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer tracking-wider"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase py-4 rounded-full shadow-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer tracking-wider"
               >
                 <span>{t.modal_btn_confirm}</span>
               </button>

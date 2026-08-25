@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
 
@@ -57,35 +57,35 @@ export default function Header({
         className={`w-full bg-white transition-all duration-300 ${
           isScrolled
             ? 'py-3 shadow-md border-b border-slate-200/80'
-            : 'py-4 border-b border-slate-100 shadow-xs'
+            : 'py-3.5 border-b border-slate-100 shadow-xs'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-6">
             
-            {/* Left: Brand Logo & Typography (Clean modern FASTRANS-style layout) */}
+            {/* Left: Enlarger & Crisp Brand Logo + Typography */}
             <div 
               onClick={() => handleItemClick('home')}
-              className="flex items-center gap-3 cursor-pointer group shrink-0"
+              className="flex items-center gap-3.5 cursor-pointer group shrink-0"
               id="header-logo"
             >
               <img
                 src="/pm_logo.jpg"
                 alt="Putri Munggaran Tour & Travel Logo"
-                className="h-9 sm:h-10 w-auto object-contain rounded-lg shadow-xs group-hover:scale-105 transition-transform"
+                className="h-11 sm:h-12 w-auto object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform shrink-0"
               />
               
               <div className="flex flex-col leading-tight">
-                <span className="font-display font-black text-lg sm:text-xl tracking-tight text-slate-900 uppercase">
-                  PUTRI <span className="text-red-600">MUNGGARAN</span>
+                <span className="font-display font-black text-lg sm:text-2xl tracking-tight text-slate-900 uppercase">
+                  PUTRI <span className="text-emerald-600">MUNGGARAN</span>
                 </span>
-                <span className="font-sans font-bold text-[9px] sm:text-[10px] text-slate-500 tracking-widest uppercase">
+                <span className="font-sans font-bold text-[9.5px] sm:text-[10.5px] text-slate-500 tracking-widest uppercase">
                   TOUR &amp; TRAVEL
                 </span>
               </div>
             </div>
 
-            {/* Right: Desktop Navigation Links (Uppercase, bold, FASTRANS template style) */}
+            {/* Right: Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center justify-end gap-8 text-[13px] uppercase tracking-wider font-sans font-extrabold text-slate-800" id="desktop-nav">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
@@ -95,15 +95,15 @@ export default function Header({
                     onClick={() => handleItemClick(item.id)}
                     className={`relative py-1 transition-all duration-200 cursor-pointer ${
                       isActive 
-                        ? 'text-red-600 font-black' 
-                        : 'text-slate-800 hover:text-red-600'
+                        ? 'text-emerald-600 font-black' 
+                        : 'text-slate-800 hover:text-emerald-600'
                     }`}
                   >
                     <span>{item.label}</span>
                     {isActive && (
                       <motion.span
                         layoutId="activeNavIndicator"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-600 rounded-full"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-600 rounded-full"
                       />
                     )}
                   </button>
@@ -115,7 +115,7 @@ export default function Header({
                 <button
                   onClick={() => setLang('ID')}
                   className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
-                    lang === 'ID' ? 'text-red-600 font-black' : 'text-slate-500 hover:text-slate-900'
+                    lang === 'ID' ? 'text-emerald-600 font-black' : 'text-slate-500 hover:text-slate-900'
                   }`}
                 >
                   ID
@@ -124,7 +124,7 @@ export default function Header({
                 <button
                   onClick={() => setLang('EN')}
                   className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
-                    lang === 'EN' ? 'text-red-600 font-black' : 'text-slate-500 hover:text-slate-900'
+                    lang === 'EN' ? 'text-emerald-600 font-black' : 'text-slate-500 hover:text-slate-900'
                   }`}
                 >
                   EN
@@ -136,7 +136,7 @@ export default function Header({
                 href="https://api.whatsapp.com/send?phone=6281321264200&text=Halo%20Putri%20Munggaran%20Tour%20%26%20Travel,%20saya%20ingin%20konsultasi%20perjalanan"
                 target="_blank"
                 rel="noreferrer"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-full shadow-sm hover:shadow-emerald-600/20 transition-all flex items-center gap-1.5 cursor-pointer ml-1"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-full shadow-sm hover:shadow-emerald-600/25 transition-all flex items-center gap-1.5 cursor-pointer ml-1 transform hover:-translate-y-0.5"
               >
                 <MessageCircle className="w-3.5 h-3.5 fill-current" />
                 <span>{isEN ? 'CONTACT' : 'CONTACT'}</span>
@@ -175,7 +175,7 @@ export default function Header({
                     key={item.id}
                     onClick={() => handleItemClick(item.id)}
                     className={`block w-full text-left font-display font-bold text-sm py-2.5 border-b border-slate-100 transition-colors ${
-                      isActive ? 'text-red-600 font-extrabold' : 'text-slate-800 hover:text-red-600'
+                      isActive ? 'text-emerald-600 font-extrabold' : 'text-slate-800 hover:text-emerald-600'
                     }`}
                   >
                     {item.label}
@@ -192,7 +192,7 @@ export default function Header({
                   <button
                     onClick={() => setLang('ID')}
                     className={`px-2 py-0.5 rounded transition-colors ${
-                      lang === 'ID' ? 'text-red-600 font-black' : 'text-slate-600'
+                      lang === 'ID' ? 'text-emerald-600 font-black' : 'text-slate-600'
                     }`}
                   >
                     ID
@@ -201,7 +201,7 @@ export default function Header({
                   <button
                     onClick={() => setLang('EN')}
                     className={`px-2 py-0.5 rounded transition-colors ${
-                      lang === 'EN' ? 'text-red-600 font-black' : 'text-slate-600'
+                      lang === 'EN' ? 'text-emerald-600 font-black' : 'text-slate-600'
                     }`}
                   >
                     EN
@@ -215,7 +215,7 @@ export default function Header({
                   href="https://api.whatsapp.com/send?phone=6281321264200&text=Halo%20Putri%20Munggaran%20Tour%20%26%20Travel,%20saya%20ingin%20konsultasi%20perjalanan"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-xs uppercase py-3.5 rounded-full shadow-md flex items-center justify-center gap-2"
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-xs uppercase py-3.5 rounded-full shadow-md flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 fill-current" />
                   <span>CONTACT WHATSAPP</span>

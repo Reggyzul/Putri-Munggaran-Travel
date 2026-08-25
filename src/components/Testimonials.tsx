@@ -38,7 +38,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-3" id="testimonials-heading">
-          <span className="font-display font-extrabold text-xs text-red-600 tracking-widest uppercase bg-red-100 px-3 py-1 rounded-full border border-red-200 inline-block">
+          <span className="font-display font-extrabold text-xs text-emerald-700 tracking-widest uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
             {t.testi_tag}
           </span>
           <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37] tracking-tight uppercase">
@@ -86,7 +86,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                     <img
                       src={currentRev.image}
                       alt={currentRev.name}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-red-500 shadow-sm"
+                      className="w-14 h-14 rounded-full object-cover border-2 border-emerald-500 shadow-sm"
                       referrerPolicy="no-referrer"
                     />
                     <div>
@@ -96,7 +96,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                       <p className="font-sans text-xs text-slate-500 font-semibold">
                         {isEN ? currentRev.roleEN : currentRev.roleID}
                       </p>
-                      <span className="inline-flex items-center gap-1 bg-red-50 text-red-700 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-red-200 mt-1">
+                      <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-emerald-200 mt-1">
                         <Sparkles className="w-2.5 h-2.5" />
                         <span>
                           {t.testi_rented_model} {isEN ? currentRev.carModelEN : currentRev.carModelID} ({isEN ? currentRev.dateEN : currentRev.dateID})
@@ -113,7 +113,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
           <div className="flex items-center gap-4 mt-8">
             <button
               onClick={handlePrev}
-              className="w-10 h-10 rounded-full bg-white hover:bg-red-600 hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-md border border-slate-200 cursor-pointer"
+              className="w-10 h-10 rounded-full bg-white hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-md border border-slate-200 cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -124,7 +124,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                   key={idx}
                   onClick={() => setActiveIdx(idx)}
                   className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                    activeIdx === idx ? 'w-8 bg-red-600' : 'w-2.5 bg-slate-300'
+                    activeIdx === idx ? 'w-8 bg-emerald-600' : 'w-2.5 bg-slate-300'
                   }`}
                 />
               ))}
@@ -132,7 +132,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
             <button
               onClick={handleNext}
-              className="w-10 h-10 rounded-full bg-white hover:bg-red-600 hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-md border border-slate-200 cursor-pointer"
+              className="w-10 h-10 rounded-full bg-white hover:bg-emerald-600 hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-md border border-slate-200 cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

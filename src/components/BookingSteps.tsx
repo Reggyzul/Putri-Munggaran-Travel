@@ -16,21 +16,21 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
       title: t.step_1_title,
       description: t.step_1_desc,
       icon: <Car className="w-7 h-7 text-white" />,
-      bgGradient: 'bg-gradient-to-br from-red-600 to-red-700',
+      bgGradient: 'bg-gradient-to-br from-emerald-600 to-teal-700',
     },
     {
       step: '02',
       title: t.step_2_title,
       description: t.step_2_desc,
       icon: <MessageSquare className="w-7 h-7 text-white" />,
-      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] to-blue-800',
+      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] to-emerald-800',
     },
     {
       step: '03',
       title: t.step_3_title,
       description: t.step_3_desc,
       icon: <ShieldCheck className="w-7 h-7 text-white" />,
-      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] via-blue-800 to-red-600',
+      bgGradient: 'bg-gradient-to-br from-emerald-700 to-[#0b1736]',
     },
   ];
 
@@ -40,13 +40,13 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
         
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <span className="font-display font-black text-xs text-red-600 tracking-widest uppercase bg-red-100 px-3.5 py-1 rounded-full border border-red-200 inline-block">
+          <span className="font-display font-black text-xs text-emerald-700 tracking-widest uppercase bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 inline-block">
             {t.steps_tag}
           </span>
           <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37] tracking-tight uppercase">
             {t.steps_title}
           </h2>
-          <div className="w-16 h-1 bg-red-600 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-emerald-600 mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
             {t.steps_desc}
           </p>
@@ -55,7 +55,7 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
         {/* Steps Grid */}
         <div className="relative">
           {/* Connector Line for Desktop */}
-          <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] h-1 bg-gradient-to-r from-red-600 via-blue-800 to-red-600 -translate-y-14 z-0 opacity-20" />
+          <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] h-1 bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-600 -translate-y-14 z-0 opacity-20" />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
             {stepsList.map((stepItem, index) => (
@@ -79,7 +79,7 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
                   </span>
                 </div>
                 
-                <h3 className="font-display font-black text-xl text-[#0d1b37] mb-2 uppercase group-hover:text-red-600 transition-colors">
+                <h3 className="font-display font-black text-xl text-[#0d1b37] mb-2 uppercase group-hover:text-emerald-600 transition-colors">
                   {stepItem.title}
                 </h3>
 
@@ -88,7 +88,7 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
                 </p>
 
                 {/* Decorative Hover Glow */}
-                <div className="absolute top-0 right-0 w-28 h-28 bg-red-600/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-600/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
               </motion.div>
             ))}
           </div>

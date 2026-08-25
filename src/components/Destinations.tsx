@@ -210,8 +210,8 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
         
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-red-100 text-red-600 font-extrabold text-[10px] uppercase tracking-widest border border-red-200">
-            <Compass className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-extrabold text-[10px] uppercase tracking-widest border border-emerald-200">
+            <Compass className="w-3.5 h-3.5 text-emerald-600" />
             <span>DESTINASI WISATA PANGANDARAN</span>
           </div>
 
@@ -219,7 +219,7 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
             {isEN ? 'Pangandaran Top Destinations' : 'Destinasi Wisata Pilihan'}
           </h2>
 
-          <div className="w-20 h-1 bg-red-500 mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-emerald-600 mx-auto rounded-full" />
 
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
             {isEN 
@@ -233,7 +233,7 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
               onClick={() => setSelectedFilter('all')}
               className={`px-5 py-2 rounded-full font-display font-extrabold text-xs uppercase transition-all cursor-pointer ${
                 selectedFilter === 'all'
-                  ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
+                  ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
                   : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
               }`}
             >
@@ -243,7 +243,7 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
               onClick={() => setSelectedFilter('pantai')}
               className={`px-5 py-2 rounded-full font-display font-extrabold text-xs uppercase transition-all cursor-pointer ${
                 selectedFilter === 'pantai'
-                  ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
+                  ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
                   : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
               }`}
             >
@@ -253,7 +253,7 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
               onClick={() => setSelectedFilter('alam')}
               className={`px-5 py-2 rounded-full font-display font-extrabold text-xs uppercase transition-all cursor-pointer ${
                 selectedFilter === 'alam'
-                  ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
+                  ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
                   : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
               }`}
             >
@@ -291,7 +291,7 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
                     <div className="absolute top-4 left-4 bg-slate-950/85 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-md">
                       {badge}
                     </div>
-                    <div className="absolute top-4 right-4 bg-red-600 text-white font-black text-xs w-7 h-7 rounded-full flex items-center justify-center shadow-md">
+                    <div className="absolute top-4 right-4 bg-emerald-600 text-white font-black text-xs w-7 h-7 rounded-full flex items-center justify-center shadow-md">
                       0{idx + 1}
                     </div>
                   </div>
@@ -299,10 +299,10 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
                   {/* Content */}
                   <div className="p-6 space-y-4">
                     <div>
-                      <h3 className="font-display font-black text-xl text-[#0d1b37] group-hover:text-red-600 transition-colors uppercase">
+                      <h3 className="font-display font-black text-xl text-[#0d1b37] group-hover:text-emerald-600 transition-colors uppercase">
                         {name}
                       </h3>
-                      <p className="font-sans text-xs text-red-600 font-bold mt-0.5">
+                      <p className="font-sans text-xs text-emerald-700 font-bold mt-0.5">
                         {tagline}
                       </p>
                     </div>
@@ -318,7 +318,7 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
                       <ul className="space-y-1.5">
                         {highlights.map((h, i) => (
                           <li key={i} className="flex items-start gap-2 text-[11px] font-semibold text-slate-700">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                             <span>{h}</span>
                           </li>
                         ))}
@@ -331,7 +331,7 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
                 <div className="p-6 pt-0">
                   <button
                     onClick={() => handleWhatsAppConsult(name)}
-                    className="w-full bg-[#06b6d4] hover:bg-[#0891b2] text-slate-950 hover:text-white font-display font-black text-xs uppercase tracking-wider py-3.5 rounded-full shadow-sm hover:shadow-cyan-500/20 transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase tracking-wider py-3.5 rounded-full shadow-sm hover:shadow-emerald-600/20 transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
                     <span>{isEN ? 'Consult Trip via WA' : 'Konsultasi Perjalanan via WA'}</span>

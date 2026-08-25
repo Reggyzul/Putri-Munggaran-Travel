@@ -14,32 +14,32 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
 
   const strengths = [
     {
-      icon: <Navigation className="w-5 h-5 text-red-600" />,
+      icon: <Navigation className="w-5 h-5 text-emerald-600" />,
       title: t.strength_door_title,
       desc: t.strength_door_desc
     },
     {
-      icon: <UserCheck className="w-5 h-5 text-red-600" />,
+      icon: <UserCheck className="w-5 h-5 text-emerald-600" />,
       title: t.strength_driver_title,
       desc: t.strength_driver_desc
     },
     {
-      icon: <ShieldCheck className="w-5 h-5 text-red-600" />,
+      icon: <ShieldCheck className="w-5 h-5 text-emerald-600" />,
       title: t.strength_safety_title,
       desc: t.strength_safety_desc
     },
     {
-      icon: <Car className="w-5 h-5 text-red-600" />,
+      icon: <Car className="w-5 h-5 text-emerald-600" />,
       title: t.strength_fleet_title,
       desc: t.strength_fleet_desc
     },
     {
-      icon: <Award className="w-5 h-5 text-red-600" />,
+      icon: <Award className="w-5 h-5 text-emerald-600" />,
       title: t.strength_route_title,
       desc: t.strength_route_desc
     },
     {
-      icon: <MessageCircle className="w-5 h-5 text-red-600" />,
+      icon: <MessageCircle className="w-5 h-5 text-emerald-600" />,
       title: t.strength_booking_title,
       desc: t.strength_booking_desc
     }
@@ -76,7 +76,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-red-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
             <Sparkles className="w-3.5 h-3.5 text-amber-300" />
             <span>TENTANG KAMI • PROFIL PERUSAHAAN</span>
           </div>
@@ -86,7 +86,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           </h1>
 
           <p className="font-sans text-xs font-bold text-slate-300 uppercase tracking-widest">
-            <span onClick={onNavigateHome} className="hover:text-red-400 cursor-pointer">{t.dest_breadcrumb_home}</span> / {t.nav_about}
+            <span onClick={onNavigateHome} className="hover:text-emerald-400 cursor-pointer">{t.dest_breadcrumb_home}</span> / {t.nav_about}
           </p>
         </div>
       </div>
@@ -100,16 +100,16 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             <img
               src="/pm_logo.jpg"
               alt="Putri Munggaran Tour & Travel Logo"
-              className="h-20 w-20 rounded-full object-cover border-2 border-amber-400 shadow-md shrink-0"
+              className="h-20 w-20 rounded-full object-cover border-2 border-emerald-500 shadow-md shrink-0"
             />
             <div className="space-y-1">
-              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-red-100 text-red-600 font-extrabold text-[10px] uppercase tracking-widest border border-red-200">
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-extrabold text-[10px] uppercase tracking-widest border border-emerald-200">
                 <span>{t.about_tag}</span>
               </div>
               <h2 className="font-display font-black text-2xl sm:text-4xl text-[#0d1b37] uppercase tracking-tight">
-                {t.about_title_1}
+                PUTRI <span className="text-emerald-600">MUNGGARAN</span> TOUR &amp; TRAVEL
               </h2>
-              <p className="font-sans text-xs sm:text-sm font-bold text-red-600 uppercase tracking-wide">
+              <p className="font-sans text-xs sm:text-sm font-bold text-emerald-700 uppercase tracking-wide">
                 {t.about_title_2} • “{t.hero_motto}”
               </p>
             </div>
@@ -133,9 +133,9 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-[#0b1736] via-[#102454] to-slate-950 text-white rounded-3xl p-6 shadow-xl flex flex-col justify-between space-y-4">
+            <div className="bg-gradient-to-br from-[#0b1736] via-[#0d2847] to-slate-950 text-white rounded-3xl p-6 shadow-xl flex flex-col justify-between space-y-4">
               <div className="space-y-3">
-                <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-white/10 px-3 py-1 rounded-full inline-block">
+                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-white/10 px-3 py-1 rounded-full inline-block">
                   INFO RINGKAS
                 </span>
                 <div className="space-y-2 text-xs text-slate-200">
@@ -149,7 +149,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
 
               <button
                 onClick={handleWhatsAppClick}
-                className="w-full bg-red-600 hover:bg-red-700 text-white font-display font-bold text-xs uppercase py-3 rounded-xl shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-xs uppercase py-3 rounded-full shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
                 <span>{isEN ? 'Chat Admin via WA' : 'Hubungi Admin via WA'}</span>
@@ -161,7 +161,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         {/* SECTION 2: VISI & MISI */}
         <section className="space-y-6 border-t border-slate-100 pt-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="font-display font-black text-xs text-red-600 tracking-widest uppercase bg-red-100 px-3.5 py-1 rounded-full border border-red-200 inline-block">
+            <span className="font-display font-black text-xs text-emerald-700 tracking-widest uppercase bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 inline-block">
               VISI &amp; MISI PERUSAHAAN
             </span>
             <h3 className="font-display font-black text-2xl sm:text-3xl text-[#0d1b37] uppercase">
@@ -172,14 +172,14 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             
             {/* Visi */}
-            <div className="lg:col-span-5 bg-gradient-to-br from-[#0b1736] via-[#102454] to-slate-950 text-white rounded-3xl p-8 shadow-xl flex flex-col justify-between space-y-6 border border-slate-700/60">
+            <div className="lg:col-span-5 bg-gradient-to-br from-[#0b1736] via-[#0d2847] to-slate-950 text-white rounded-3xl p-8 shadow-xl flex flex-col justify-between space-y-6 border border-slate-700/60">
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-red-500/20 border border-amber-500/30 flex items-center justify-center text-amber-300 shadow-md">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-md">
                     <Award className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-300 block">
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400 block">
                       {t.vision_title}
                     </span>
                     <h4 className="font-display font-black text-xl text-white uppercase tracking-tight">
@@ -196,7 +196,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
               </div>
 
               <div className="pt-4 border-t border-white/10 text-center">
-                <span className="font-display font-extrabold text-xs text-amber-300 tracking-wider uppercase block">
+                <span className="font-display font-extrabold text-xs text-emerald-400 tracking-wider uppercase block">
                   {t.hero_motto}
                 </span>
               </div>
@@ -205,8 +205,8 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             {/* 7 Misi */}
             <div className="lg:col-span-7 bg-white border border-slate-200/90 rounded-3xl p-8 shadow-lg space-y-5">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600 shadow-sm">
-                  <ShieldCheck className="w-6 h-6 text-[#dc2626]" />
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-sm">
+                  <ShieldCheck className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div>
                   <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 block">
@@ -229,7 +229,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                   t.mission_7
                 ].map((item, idx) => (
                   <div key={idx} className={`p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-2.5 ${idx === 6 ? 'md:col-span-2' : ''}`}>
-                    <span className="w-5 h-5 rounded-full bg-[#dc2626] text-white font-black text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="w-5 h-5 rounded-full bg-emerald-600 text-white font-black text-[10px] flex items-center justify-center shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
                     <p className="font-sans text-xs text-slate-700 leading-relaxed font-medium">
@@ -246,7 +246,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         {/* SECTION 3: 6 KEUNGGULAN */}
         <section className="space-y-6 border-t border-slate-100 pt-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="font-display font-black text-xs text-red-600 tracking-widest uppercase bg-red-100 px-3.5 py-1 rounded-full border border-red-200 inline-block">
+            <span className="font-display font-black text-xs text-emerald-700 tracking-widest uppercase bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 inline-block">
               {t.strengths_tag}
             </span>
             <h3 className="font-display font-black text-2xl sm:text-3xl text-[#0d1b37] uppercase">
@@ -267,7 +267,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                 transition={{ duration: 0.3, delay: i * 0.08 }}
                 className="bg-slate-50 rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition-all space-y-3"
               >
-                <div className="w-10 h-10 rounded-xl bg-white border border-red-200 flex items-center justify-center shadow-xs">
+                <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200 flex items-center justify-center shadow-xs">
                   {st.icon}
                 </div>
                 <h4 className="font-display font-black text-base text-[#0d1b37] uppercase">
@@ -284,7 +284,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         {/* SECTION 4: 6 LAYANAN UTAMA */}
         <section className="space-y-6 border-t border-slate-100 pt-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="font-display font-black text-xs text-red-600 tracking-widest uppercase bg-red-100 px-3.5 py-1 rounded-full border border-red-200 inline-block">
+            <span className="font-display font-black text-xs text-emerald-700 tracking-widest uppercase bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 inline-block">
               {t.services_tag}
             </span>
             <h3 className="font-display font-black text-2xl sm:text-3xl text-[#0d1b37] uppercase">
@@ -296,7 +296,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             {servicesList.map((srv, idx) => (
               <div key={idx} className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2">
                 <h4 className="font-display font-black text-sm text-[#0d1b37] uppercase flex items-center gap-2">
-                  <span className="text-red-600">0{idx + 1}.</span> {srv.title}
+                  <span className="text-emerald-600">0{idx + 1}.</span> {srv.title}
                 </h4>
                 <p className="font-sans text-xs text-slate-600 font-medium leading-relaxed">
                   {srv.desc}
@@ -314,7 +314,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-medium">
             <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5">
-              <div className="flex items-center gap-2 text-red-600 font-bold">
+              <div className="flex items-center gap-2 text-emerald-600 font-bold">
                 <MapPin className="w-4 h-4" />
                 <span>Alamat Kantor:</span>
               </div>
@@ -357,13 +357,13 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
             <button
               onClick={onNavigateHome}
-              className="px-6 py-3 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-display font-bold text-xs uppercase cursor-pointer"
+              className="px-6 py-3 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-display font-bold text-xs uppercase cursor-pointer"
             >
               ➔ {isEN ? 'Back to Home' : 'Kembali ke Beranda'}
             </button>
             <button
               onClick={handleWhatsAppClick}
-              className="px-6 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-display font-bold text-xs uppercase flex items-center gap-2 cursor-pointer shadow-md"
+              className="px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-xs uppercase flex items-center gap-2 cursor-pointer shadow-md transition-all"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
               <span>{isEN ? 'Consult Trip via WA' : 'Konsultasi Perjalanan via WhatsApp'}</span>

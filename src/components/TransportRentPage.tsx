@@ -37,7 +37,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-red-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
             <CarIcon className="w-3.5 h-3.5 text-amber-300" />
             <span>PUTRI MUNGGARAN TOUR &amp; TRAVEL</span>
           </div>
@@ -47,7 +47,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
           </h1>
 
           <p className="font-sans text-xs font-bold text-slate-300 uppercase tracking-widest">
-            <span onClick={onNavigateHome} className="hover:text-red-400 cursor-pointer">{t.dest_breadcrumb_home}</span> / {t.nav_rentals}
+            <span onClick={onNavigateHome} className="hover:text-emerald-400 cursor-pointer">{t.dest_breadcrumb_home}</span> / {t.nav_rentals}
           </p>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
           <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37]">
             {t.cars_title}
           </h2>
-          <div className="w-16 h-1 bg-red-500 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-emerald-600 mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
             {t.cars_desc}
           </p>
@@ -84,17 +84,17 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                     className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 right-4 bg-[#0d1b37]/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-sm">
-                    <Users className="w-3 h-3 text-amber-400" />
+                    <Users className="w-3 h-3 text-emerald-400" />
                     <span>{car.seats} {t.cars_seats}</span>
                   </div>
                 </div>
 
                 <div className="p-5 space-y-3">
                   <div>
-                    <span className="text-[10px] font-bold text-red-600 uppercase tracking-widest block">
+                    <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest block">
                       {car.specifications?.[2]?.value || 'Pilihan Armada'}
                     </span>
-                    <h3 className="font-display font-black text-xl text-[#0d1b37] uppercase group-hover:text-red-600 transition-colors">
+                    <h3 className="font-display font-black text-xl text-[#0d1b37] uppercase group-hover:text-emerald-600 transition-colors">
                       {car.name}
                     </h3>
                   </div>
@@ -110,7 +110,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                     <ul className="space-y-1">
                       {car.includeList.map((inc, idx) => (
                         <li key={idx} className="flex items-start gap-1.5 text-[11px] font-semibold text-slate-700">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                           <span>{inc}</span>
                         </li>
                       ))}
@@ -122,13 +122,13 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
               <div className="p-5 pt-0 space-y-2">
                 <button
                   onClick={() => onSelectCar(car)}
-                  className="w-full bg-slate-100 hover:bg-slate-200 text-[#0d1b37] font-display font-black text-xs uppercase py-2.5 rounded-xl transition-all cursor-pointer"
+                  className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-display font-black text-xs uppercase py-2.5 rounded-full transition-all cursor-pointer"
                 >
                   {isEN ? 'Reservation Draft' : 'Form Reservasi'}
                 </button>
                 <button
                   onClick={() => handleWhatsAppBooking(car)}
-                  className="w-full bg-[#dc2626] hover:bg-red-700 text-white font-display font-black text-xs uppercase py-3 rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase py-3 rounded-full shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
                 >
                   <MessageCircle className="w-3.5 h-3.5 fill-current" />
                   <span>{t.cars_book_btn}</span>
@@ -139,11 +139,11 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
         </div>
 
         {/* Note from section 7 */}
-        <div className="p-6 rounded-3xl bg-amber-50/90 border border-amber-200 text-center max-w-3xl mx-auto space-y-2">
-          <span className="inline-block bg-amber-200 text-amber-900 text-[10px] font-black uppercase px-3 py-1 rounded-full">
+        <div className="p-6 rounded-3xl bg-emerald-50/60 border border-emerald-200/80 text-center max-w-3xl mx-auto space-y-2">
+          <span className="inline-block bg-emerald-200 text-emerald-950 text-[10px] font-black uppercase px-3 py-1 rounded-full">
             Informasi Tarif &amp; Ketersediaan
           </span>
-          <p className="font-sans text-xs text-amber-900 font-semibold leading-relaxed">
+          <p className="font-sans text-xs text-emerald-950 font-semibold leading-relaxed">
             {t.cars_note}
           </p>
         </div>

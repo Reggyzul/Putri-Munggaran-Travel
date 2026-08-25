@@ -94,13 +94,13 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
             {isEN ? current.descEN : current.descID}
           </p>
 
-          {/* Teal / Emerald Rounded Pill CTA Button (Exact FASTRANS screenshot button style) */}
+          {/* Emerald Rounded Pill CTA Button */}
           <div className="pt-2 sm:pt-4 flex items-center gap-3">
             <a
               href="https://api.whatsapp.com/send?phone=6281321264200&text=Halo%20Putri%20Munggaran%20Tour%20%26%20Travel,%20saya%20ingin%20konsultasi%20dan%20reservasi%20perjalanan"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-[#06b6d4] hover:bg-[#0891b2] text-slate-950 hover:text-white font-display font-black text-xs sm:text-sm uppercase tracking-widest px-8 py-3.5 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs sm:text-sm uppercase tracking-widest px-8 py-3.5 rounded-full shadow-lg shadow-emerald-950/40 transition-all duration-300 transform hover:scale-105 cursor-pointer"
               id="hero-contact-btn"
             >
               <span>{isEN ? 'CONTACT' : 'CONTACT'}</span>
