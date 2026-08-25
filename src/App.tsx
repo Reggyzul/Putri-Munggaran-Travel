@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import About from './components/About';
 import AboutPage from './components/AboutPage';
 import Services from './components/Services';
 import Destinations from './components/Destinations';
@@ -50,6 +49,19 @@ export default function App() {
   }, [lang, t.seo_title, t.seo_description]);
 
   useEffect(() => {
+    if (currentPage === 'about') {
+      setActiveSection('about');
+      return;
+    }
+    if (currentPage === 'destinations') {
+      setActiveSection('destinations');
+      return;
+    }
+    if (currentPage === 'rentals') {
+      setActiveSection('cars');
+      return;
+    }
+
     const handleScroll = () => {
       if (window.scrollY > 300) {
         setShowScrollTop(true);
@@ -58,7 +70,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'about', 'services', 'cars', 'destinations', 'footer-contact'];
+        const sections = ['home', 'services', 'destinations', 'cars', 'steps', 'testimonials', 'footer-contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -80,27 +92,16 @@ export default function App() {
   }, [currentPage]);
 
   const handleNavClick = (sectionId: string) => {
-    if (sectionId === 'about-page') {
+    if (sectionId === 'about' || sectionId === 'about-page') {
       setCurrentPage('about');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (sectionId === 'about') {
-      if (currentPage !== 'home') {
-        setCurrentPage('home');
-        setTimeout(() => {
-          const el = document.getElementById('about');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }, 50);
-      } else {
-        const el = document.getElementById('about');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }
     } else if (sectionId === 'rentals' || sectionId === 'cars-page') {
       setCurrentPage('rentals');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (sectionId === 'destinations-page') {
       setCurrentPage('destinations');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (sectionId === 'destinations' || sectionId === 'services' || sectionId === 'cars') {
+    } else if (sectionId === 'destinations' || sectionId === 'services' || sectionId === 'cars' || sectionId === 'footer-contact') {
       if (currentPage !== 'home') {
         setCurrentPage('home');
         setTimeout(() => {
@@ -157,8 +158,6 @@ export default function App() {
               lang={lang} 
               onBookingClick={() => setSelectedCar(CARS[0])} 
             />
-
-            <About lang={lang} />
 
             <Services 
               lang={lang} 
