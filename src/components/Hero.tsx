@@ -11,7 +11,7 @@ interface HeroProps {
 
 const HERO_SLIDES = [
   {
-    image: '/hero_human_touch.jpg',
+    image: '/hero_armada_pm.jpg',
     title: 'PUTRI MUNGGARAN TRAVEL',
     subtitle: 'Pangandaran Tour & Travel',
     descID: 'Layanan Perjalanan Door-to-Door (Pangandaran – Bandung – Jabodetabek), Wisata Keluarga, Gathering, Private Trip, dan Antar-Jemput Rombongan.',

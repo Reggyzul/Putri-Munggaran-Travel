@@ -44,8 +44,8 @@ export default function Header({
   const navItems = [
     { id: 'home', label: isEN ? 'HOME' : 'HOME' },
     { id: 'about-page', label: isEN ? 'ABOUT US' : 'TENTANG KAMI' },
-    { id: 'destinations', label: isEN ? 'DESTINATIONS' : 'DESTINASI WISATA' },
     { id: 'cars', label: isEN ? 'ARMADA' : 'ARMADA' },
+    { id: 'destinations', label: isEN ? 'DESTINATIONS' : 'DESTINASI WISATA' },
     { id: 'footer-contact', label: isEN ? 'KONTAK' : 'KONTAK' }
   ];
 

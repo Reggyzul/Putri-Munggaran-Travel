@@ -69,7 +69,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'destinations', 'cars', 'steps', 'testimonials', 'footer-contact'];
+        const sections = ['home', 'cars', 'destinations', 'steps', 'testimonials', 'footer-contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -153,20 +153,20 @@ export default function App() {
         {currentPage === 'home' ? (
           <>
             <Hero 
-              onExploreClick={() => handleNavClick('destinations')} 
+              onExploreClick={() => handleNavClick('cars')} 
               lang={lang} 
               onBookingClick={() => setSelectedCar(CARS[0])} 
-            />
-
-            <Destinations 
-              lang={lang}
-              onViewAllDestinations={() => handleNavClick('destinations-page')}
             />
 
             <CarList 
               onSelectCar={handleSelectCar} 
               lang={lang} 
               onViewAllCars={() => handleNavClick('rentals')}
+            />
+
+            <Destinations 
+              lang={lang}
+              onViewAllDestinations={() => handleNavClick('destinations-page')}
             />
 
             <BookingSteps lang={lang} />
