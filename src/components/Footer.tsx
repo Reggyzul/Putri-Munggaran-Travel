@@ -161,10 +161,10 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
                 ➔ {t.nav_about}
               </button>
               <button
-                onClick={() => onNavigateSection('services')}
+                onClick={() => onNavigateSection('destinations')}
                 className="block hover:text-red-400 transition-colors text-left cursor-pointer"
               >
-                ➔ {t.nav_services}
+                ➔ {t.nav_destinations}
               </button>
               <button
                 onClick={() => onNavigateSection('cars')}

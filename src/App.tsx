@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import AboutPage from './components/AboutPage';
-import Services from './components/Services';
 import Destinations from './components/Destinations';
 import CarList from './components/CarList';
 import DestinationHighlightsPage from './components/DestinationHighlightsPage';
@@ -70,7 +69,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'services', 'destinations', 'cars', 'steps', 'testimonials', 'footer-contact'];
+        const sections = ['home', 'destinations', 'cars', 'steps', 'testimonials', 'footer-contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -101,7 +100,7 @@ export default function App() {
     } else if (sectionId === 'destinations-page') {
       setCurrentPage('destinations');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (sectionId === 'destinations' || sectionId === 'services' || sectionId === 'cars' || sectionId === 'footer-contact') {
+    } else if (sectionId === 'destinations' || sectionId === 'cars' || sectionId === 'footer-contact') {
       if (currentPage !== 'home') {
         setCurrentPage('home');
         setTimeout(() => {
@@ -157,11 +156,6 @@ export default function App() {
               onExploreClick={() => handleNavClick('destinations')} 
               lang={lang} 
               onBookingClick={() => setSelectedCar(CARS[0])} 
-            />
-
-            <Services 
-              lang={lang} 
-              onViewAllDestinations={() => handleNavClick('destinations-page')}
             />
 
             <Destinations 
