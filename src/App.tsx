@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import About from './components/About';
 import AboutPage from './components/AboutPage';
 import Services from './components/Services';
+import Destinations from './components/Destinations';
 import CarList from './components/CarList';
 import DestinationHighlightsPage from './components/DestinationHighlightsPage';
 import TransportRentPage from './components/TransportRentPage';
@@ -22,15 +24,15 @@ export default function App() {
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [lang, setLang] = useState<'EN' | 'ID'>(() => {
-    const saved = localStorage.getItem('restu_app_lang');
-    return (saved === 'ID' || saved === 'EN') ? saved : 'EN';
+    const saved = localStorage.getItem('pm_travel_lang');
+    return (saved === 'ID' || saved === 'EN') ? saved : 'ID';
   });
 
   const t = TRANSLATIONS[lang];
 
   const handleSetLang = (newLang: 'EN' | 'ID') => {
     setLang(newLang);
-    localStorage.setItem('restu_app_lang', newLang);
+    localStorage.setItem('pm_travel_lang', newLang);
   };
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'destinations', 'cars', 'footer-contact'];
+        const sections = ['home', 'about', 'services', 'cars', 'destinations', 'footer-contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -78,15 +80,41 @@ export default function App() {
   }, [currentPage]);
 
   const handleNavClick = (sectionId: string) => {
-    if (sectionId === 'about-page' || sectionId === 'about') {
+    if (sectionId === 'about-page') {
       setCurrentPage('about');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (sectionId === 'rentals') {
+    } else if (sectionId === 'about') {
+      if (currentPage !== 'home') {
+        setCurrentPage('home');
+        setTimeout(() => {
+          const el = document.getElementById('about');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 50);
+      } else {
+        const el = document.getElementById('about');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (sectionId === 'rentals' || sectionId === 'cars-page') {
       setCurrentPage('rentals');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (sectionId === 'destinations' && currentPage !== 'home') {
+    } else if (sectionId === 'destinations-page') {
       setCurrentPage('destinations');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (sectionId === 'destinations' || sectionId === 'services' || sectionId === 'cars') {
+      if (currentPage !== 'home') {
+        setCurrentPage('home');
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 50);
+      } else {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
     } else {
       setCurrentPage('home');
       setTimeout(() => {
@@ -130,15 +158,22 @@ export default function App() {
               onBookingClick={() => setSelectedCar(CARS[0])} 
             />
 
+            <About lang={lang} />
+
+            <Services 
+              lang={lang} 
+              onViewAllDestinations={() => handleNavClick('destinations-page')}
+            />
+
+            <Destinations 
+              lang={lang}
+              onViewAllDestinations={() => handleNavClick('destinations-page')}
+            />
+
             <CarList 
               onSelectCar={handleSelectCar} 
               lang={lang} 
               onViewAllCars={() => handleNavClick('rentals')}
-            />
-
-            <Services 
-              lang={lang} 
-              onViewAllDestinations={() => handleNavClick('destinations')}
             />
 
             <BookingSteps lang={lang} />
@@ -185,11 +220,11 @@ export default function App() {
         <motion.a
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          href="https://api.whatsapp.com/send?phone=628562042336&text=Halo%20Restu%20Tour%20%26%20Transport,%20saya%20ingin%20konsultasi%20layanan%20sewa%20armada%20dan%20paket%20wisata"
+          href="https://api.whatsapp.com/send?phone=6281321264200&text=Halo%20Putri%20Munggaran%20Tour%20%26%20Travel,%20saya%20ingin%20konsultasi%20layanan%20transportasi%20dan%20perjalanan"
           target="_blank"
           rel="noreferrer"
           className="relative group flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-2xl hover:scale-110 transition-transform duration-300 border-2 border-white cursor-pointer"
-          title={lang === 'EN' ? "Chat with Restu Tour on WhatsApp" : "Hubungi Restu Tour via WhatsApp"}
+          title={lang === 'EN' ? "Chat with Putri Munggaran on WhatsApp" : "Hubungi Putri Munggaran via WhatsApp"}
         >
           {/* Authentic WhatsApp Logo SVG */}
           <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">

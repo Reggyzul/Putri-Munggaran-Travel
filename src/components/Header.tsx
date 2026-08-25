@@ -47,8 +47,8 @@ export default function Header({
       <div
         className={`w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md py-3 shadow-md border-b border-slate-200/90'
-            : 'bg-white py-4 border-b border-slate-100'
+            ? 'bg-white/95 backdrop-blur-md py-2.5 shadow-md border-b border-slate-200/90'
+            : 'bg-white py-3 border-b border-slate-100'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,20 +57,20 @@ export default function Header({
             {/* 1. LEFT: LOGO BRAND */}
             <div 
               onClick={() => handleItemClick('home')}
-              className="flex items-center gap-2 cursor-pointer group shrink-0"
+              className="flex items-center gap-3 cursor-pointer group shrink-0"
               id="header-logo"
             >
               <img
-                src="/restu_logo.avif"
-                alt="Restu Tour & Transport Logo"
-                className="h-12 sm:h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
+                src="/pm_logo.jpg"
+                alt="Putri Munggaran Tour & Travel Logo"
+                className="h-11 sm:h-13 w-11 sm:w-13 rounded-full object-cover border border-amber-500/40 shadow-sm group-hover:scale-105 transition-transform duration-200"
               />
               <div className="flex flex-col leading-snug">
                 <span className="font-display font-black text-sm sm:text-base uppercase tracking-tight transition-colors">
-                  <span className="text-red-600">RESTU TOUR</span> <span className="text-[#0f2b5c]">&amp; TRANSPORT</span>
+                  <span className="text-[#0f2b5c]">PUTRI MUNGGARAN</span> <span className="text-red-600">TOUR &amp; TRAVEL</span>
                 </span>
-                <span className="font-sans font-bold text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500">
-                  {t.topbar_service}
+                <span className="font-sans font-bold text-[9px] sm:text-[10px] tracking-wider text-slate-500">
+                  {t.hero_motto}
                 </span>
               </div>
             </div>
@@ -97,6 +97,15 @@ export default function Header({
               </button>
 
               <button
+                onClick={() => handleItemClick('services')}
+                className={`hover:text-red-600 transition-colors cursor-pointer py-1 ${
+                  activeSection === 'services' ? 'text-red-600 font-black border-b-2 border-red-600' : ''
+                }`}
+              >
+                {t.nav_services}
+              </button>
+
+              <button
                 onClick={() => handleItemClick('destinations')}
                 className={`hover:text-red-600 transition-colors cursor-pointer py-1 ${
                   activeSection === 'destinations' ? 'text-red-600 font-black border-b-2 border-red-600' : ''
@@ -114,24 +123,20 @@ export default function Header({
                 {t.nav_rentals}
               </button>
 
+              <button
+                onClick={() => handleItemClick('footer-contact')}
+                className="hover:text-red-600 transition-colors cursor-pointer py-1"
+              >
+                {t.nav_contact}
+              </button>
+
             </nav>
 
             {/* 3. RIGHT: LANGUAGE SWITCHER TOGGLE & BOOK A TOUR BUTTON */}
             <div className="hidden lg:flex items-center gap-3 shrink-0">
               
-              {/* Language Switcher Toggle (EN / ID) */}
+              {/* Language Switcher Toggle (ID / EN) */}
               <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
-                <button
-                  onClick={() => setLang('EN')}
-                  className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
-                    lang === 'EN'
-                      ? 'bg-red-600 text-white shadow-xs font-extrabold'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                  title="English Language (Primary Default)"
-                >
-                  <span>🇬🇧 EN</span>
-                </button>
                 <button
                   onClick={() => setLang('ID')}
                   className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
@@ -139,15 +144,26 @@ export default function Header({
                       ? 'bg-red-600 text-white shadow-xs font-extrabold'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
-                  title="Bahasa Indonesia (Secondary)"
+                  title="Bahasa Indonesia"
                 >
                   <span>🇮🇩 ID</span>
+                </button>
+                <button
+                  onClick={() => setLang('EN')}
+                  className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
+                    lang === 'EN'
+                      ? 'bg-red-600 text-white shadow-xs font-extrabold'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                  title="English Language"
+                >
+                  <span>🇬🇧 EN</span>
                 </button>
               </div>
 
               <button
                 onClick={onBookingClick}
-                className="bg-gradient-to-r from-[#0f2b5c] via-blue-700 to-[#dc2626] hover:from-red-600 hover:to-[#0f2b5c] text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer tracking-wider"
+                className="bg-gradient-to-r from-[#0f2b5c] via-blue-800 to-[#dc2626] hover:from-red-600 hover:to-[#0f2b5c] text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer tracking-wider"
                 id="header-book-tour-btn"
               >
                 {t.nav_book_btn}
@@ -191,6 +207,12 @@ export default function Header({
                 {t.nav_about}
               </button>
               <button
+                onClick={() => handleItemClick('services')}
+                className="block w-full text-left font-display font-bold text-sm text-slate-800 hover:text-red-600 py-2 border-b border-slate-100"
+              >
+                {t.nav_services}
+              </button>
+              <button
                 onClick={() => handleItemClick('destinations')}
                 className="block w-full text-left font-display font-bold text-sm text-slate-800 hover:text-red-600 py-2 border-b border-slate-100"
               >
@@ -202,6 +224,12 @@ export default function Header({
               >
                 {t.nav_rentals}
               </button>
+              <button
+                onClick={() => handleItemClick('footer-contact')}
+                className="block w-full text-left font-display font-bold text-sm text-slate-800 hover:text-red-600 py-2 border-b border-slate-100"
+              >
+                {t.nav_contact}
+              </button>
 
               {/* Language Switcher in Mobile Drawer */}
               <div className="flex items-center justify-between py-2 border-b border-slate-100">
@@ -209,16 +237,6 @@ export default function Header({
                   {lang === 'EN' ? 'Language:' : 'Pilih Bahasa:'}
                 </span>
                 <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
-                  <button
-                    onClick={() => setLang('EN')}
-                    className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                      lang === 'EN'
-                        ? 'bg-red-600 text-white font-extrabold'
-                        : 'text-slate-600'
-                    }`}
-                  >
-                    🇬🇧 EN
-                  </button>
                   <button
                     onClick={() => setLang('ID')}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
@@ -228,6 +246,16 @@ export default function Header({
                     }`}
                   >
                     🇮🇩 ID
+                  </button>
+                  <button
+                    onClick={() => setLang('EN')}
+                    className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                      lang === 'EN'
+                        ? 'bg-red-600 text-white font-extrabold'
+                        : 'text-slate-600'
+                    }`}
+                  >
+                    🇬🇧 EN
                   </button>
                 </div>
               </div>

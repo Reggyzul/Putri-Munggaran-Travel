@@ -89,13 +89,13 @@ export default function GallerySection({ lang }: GallerySectionProps) {
           </div>
 
           <h2 className="font-display font-black text-4xl sm:text-5xl text-white tracking-tight leading-tight uppercase">
-            Galeri <span className="text-red-400">Restu Tour &amp; Transport</span>
+            Galeri <span className="text-red-400">Putri Munggaran Tour &amp; Travel</span>
           </h2>
 
           <div className="w-20 h-1 bg-red-500 mx-auto rounded-full" />
 
           <p className="font-sans text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-            Dokumentasi armada bus, sewa mobil, kegiatan gathering &amp; perjalanan wisata Restu Tour &amp; Transport.
+            Dokumentasi armada mobil, perjalanan door-to-door, family trip &amp; perjalanan wisata Putri Munggaran Tour &amp; Travel.
           </p>
 
           {/* FILTER TABS */}

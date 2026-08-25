@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bus, MessageSquare, Compass, CheckCircle2, Sparkles } from 'lucide-react';
+import { Car, MessageSquare, ShieldCheck, Sparkles } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 import { motion } from 'motion/react';
 
@@ -15,30 +15,27 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
       step: '01',
       title: t.step_1_title,
       description: t.step_1_desc,
-      icon: <Bus className="w-7 h-7 text-white" />,
+      icon: <Car className="w-7 h-7 text-white" />,
       bgGradient: 'bg-gradient-to-br from-red-600 to-red-700',
-      badgeBg: 'bg-red-900/40 text-red-200 border-red-500/30',
     },
     {
       step: '02',
       title: t.step_2_title,
       description: t.step_2_desc,
       icon: <MessageSquare className="w-7 h-7 text-white" />,
-      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] to-blue-700',
-      badgeBg: 'bg-blue-900/40 text-blue-200 border-blue-500/30',
+      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] to-blue-800',
     },
     {
       step: '03',
       title: t.step_3_title,
       description: t.step_3_desc,
-      icon: <Compass className="w-7 h-7 text-white" />,
-      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] via-blue-700 to-red-600',
-      badgeBg: 'bg-purple-900/40 text-purple-200 border-purple-500/30',
+      icon: <ShieldCheck className="w-7 h-7 text-white" />,
+      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] via-blue-800 to-red-600',
     },
   ];
 
   return (
-    <section id="steps" className="py-24 bg-slate-50 overflow-hidden border-t border-b border-slate-200 text-left">
+    <section id="steps" className="py-20 bg-slate-50 overflow-hidden border-t border-b border-slate-200 text-left">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
@@ -58,7 +55,7 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
         {/* Steps Grid */}
         <div className="relative">
           {/* Connector Line for Desktop */}
-          <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] h-1 bg-gradient-to-r from-red-600 via-blue-600 to-red-600 -translate-y-14 z-0 opacity-20" />
+          <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] h-1 bg-gradient-to-r from-red-600 via-blue-800 to-red-600 -translate-y-14 z-0 opacity-20" />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
             {stepsList.map((stepItem, index) => (

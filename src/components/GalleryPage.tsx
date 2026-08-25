@@ -132,7 +132,7 @@ export default function GalleryPage({ lang, onNavigateHome }: GalleryPageProps) 
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/90 text-white font-extrabold text-[11px] uppercase tracking-widest mb-1 shadow-lg"
           >
             <Camera className="w-4 h-4 text-red-300" />
-            <span>GALERI DOKUMENTASI PERJALANAN RESTU TOUR &amp; TRANSPORT</span>
+            <span>GALERI DOKUMENTASI PERJALANAN PUTRI MUNGGARAN TOUR &amp; TRAVEL</span>
           </motion.div>
 
           <motion.h1 
@@ -159,11 +159,11 @@ export default function GalleryPage({ lang, onNavigateHome }: GalleryPageProps) 
         {/* Subtitle Description */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37]">
-            Dokumentasi Perjalanan & Tour Silaturahmi
+            Dokumentasi Perjalanan &amp; Travel
           </h2>
           <div className="w-20 h-1 bg-[#dc2626] mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
-            Kumpulan momen kebersamaan dan kenangan indah peserta rombongan tour silaturahmi Restu Tour & Transport di berbagai destinasi favorit domestik & mancanegara (Sabang, Danau Toba, Bromo, Jam Gadang, Jakarta, Jogja, Lombok, Malaysia, Thailand).
+            Kumpulan momen kebersamaan dan kenangan indah perjalanan door-to-door, liburan keluarga, dan perjalanan dinas Putri Munggaran Tour &amp; Travel.
           </p>
         </div>
 

@@ -8,7 +8,7 @@ export interface TranslationSchema {
   nav_about: string;
   nav_destinations: string;
   nav_rentals: string;
-  nav_gallery: string;
+  nav_services: string;
   nav_contact: string;
   nav_book_btn: string;
 
@@ -36,37 +36,15 @@ export interface TranslationSchema {
   dest_select_cat: string;
   dest_cat_subtitle: string;
   dest_cat_all: string;
-  dest_cat_jabar: string;
-  dest_cat_jateng: string;
-  dest_cat_jatim: string;
-  dest_cat_bali: string;
+  dest_cat_pangandaran: string;
+  dest_cat_bandung: string;
+  dest_cat_jabodetabek: string;
+  dest_cat_other: string;
   dest_spots_label: string;
   dest_wa_consult: string;
   dest_view_all: string;
   dest_breadcrumb_home: string;
   dest_breadcrumb_page: string;
-
-  // Package Tour Page
-  pkg_tag: string;
-  pkg_title: string;
-  pkg_subtitle: string;
-  pkg_filter_heading: string;
-  pkg_filter_all: string;
-  pkg_filter_domestik: string;
-  pkg_filter_internasional: string;
-  pkg_route_label: string;
-  pkg_starting_from: string;
-  pkg_per_person: string;
-  pkg_detail_btn: string;
-  pkg_modal_duration: string;
-  pkg_modal_tier_title: string;
-  pkg_modal_hotel: string;
-  pkg_modal_notes: string;
-  pkg_modal_highlights: string;
-  pkg_modal_includes: string;
-  pkg_modal_excludes: string;
-  pkg_modal_selected: string;
-  pkg_modal_wa_btn: string;
 
   // About Section & Page
   about_tag: string;
@@ -74,6 +52,7 @@ export interface TranslationSchema {
   about_title_2: string;
   about_desc_1: string;
   about_desc_2: string;
+  about_desc_3: string;
   about_read_more: string;
   about_read_less: string;
   about_badge: string;
@@ -84,8 +63,6 @@ export interface TranslationSchema {
   // Vision
   vision_title: string;
   vision_1: string;
-  vision_2: string;
-  vision_3: string;
 
   // Mission
   mission_title: string;
@@ -93,21 +70,49 @@ export interface TranslationSchema {
   mission_2: string;
   mission_3: string;
   mission_4: string;
+  mission_5: string;
+  mission_6: string;
+  mission_7: string;
 
-  // Strengths
-  strength_clean_title: string;
-  strength_clean_desc: string;
+  // Strengths / Keunggulan
+  strengths_tag: string;
+  strengths_title: string;
+  strengths_desc: string;
+  strength_door_title: string;
+  strength_door_desc: string;
   strength_driver_title: string;
   strength_driver_desc: string;
-  strength_price_title: string;
-  strength_price_desc: string;
-  strength_time_title: string;
-  strength_time_desc: string;
+  strength_safety_title: string;
+  strength_safety_desc: string;
+  strength_fleet_title: string;
+  strength_fleet_desc: string;
+  strength_route_title: string;
+  strength_route_desc: string;
+  strength_booking_title: string;
+  strength_booking_desc: string;
+
+  // Services Section
+  services_tag: string;
+  services_title: string;
+  services_desc: string;
+  service_1_title: string;
+  service_1_desc: string;
+  service_2_title: string;
+  service_2_desc: string;
+  service_3_title: string;
+  service_3_desc: string;
+  service_4_title: string;
+  service_4_desc: string;
+  service_5_title: string;
+  service_5_desc: string;
+  service_6_title: string;
+  service_6_desc: string;
 
   // Cars Section
   cars_tag: string;
   cars_title: string;
   cars_desc: string;
+  cars_note: string;
   cars_seats: string;
   cars_transmission_auto: string;
   cars_transmission_manual: string;
@@ -165,348 +170,362 @@ export interface TranslationSchema {
   footer_address_title: string;
   footer_address_text: string;
   footer_wa_title: string;
+  footer_facebook_title: string;
+  footer_facebook_link: string;
   footer_quick_nav_title: string;
 }
 
 export const TRANSLATIONS: Record<'EN' | 'ID', TranslationSchema> = {
   EN: {
     // SEO & Head Metadata
-    seo_title: "Restu Tour & Transport | Car Rental & Tourist Bus",
-    seo_description: "Reliable car rental, tourist bus, and travel services for comfortable journeys across Bandung, Java, Bali, and destinations throughout Indonesia.",
+    seo_title: "Putri Munggaran Tour & Travel - Safe, Comfortable, Reach the Destination",
+    seo_description: "Putri Munggaran Tour & Travel provides reliable door-to-door transportation & tour service connecting Pangandaran, Bandung, Jabodetabek, and surrounding routes.",
 
     // Navigation
     nav_home: "Home",
     nav_about: "About Us",
-    nav_destinations: "Routes & Services",
-    nav_rentals: "Fleet Rental",
-    nav_packages: "Tour Packages",
-    nav_gallery: "Gallery",
+    nav_destinations: "Destinations",
+    nav_rentals: "Armada / Fleet",
+    nav_services: "Services",
     nav_contact: "Contact & Location",
-    nav_book_btn: "CONTACT US",
+    nav_book_btn: "BOOK VIA WHATSAPP",
 
     // Top Bar
-    topbar_address: "📍 Jl. Yudo No. 7, Arcamanik Endah, Bandung, West Java",
-    topbar_whatsapp: "WhatsApp: 0856-2042-336",
-    topbar_service: "Trusted Transportation & Tour Solution",
+    topbar_address: "📍 Jl. Raya Parigi, Blok Kemplung, Pangandaran Regency",
+    topbar_whatsapp: "WhatsApp: 0813-2126-4200",
+    topbar_service: "Door-to-Door Tour & Transportation Service",
 
     // Hero Section
-    hero_explore: "Your Trusted Travel Partner across Indonesia",
-    hero_title_1: "Restu Tour & Transport",
-    hero_motto: "TRUSTED TRANSPORTATION & TOUR SOLUTION",
-    hero_subtitle: "Transportation and tour service provider for individuals, families, corporate, and institutions. Well-maintained fleet, professional drivers, and comfort-first service.",
-    hero_cta_wa: "Contact via WhatsApp",
-    hero_cta_cars: "Explore Buses & Cars",
-    search_dest_cat: "Select Tour Destination",
+    hero_explore: "Safe, Comfortable, Reach the Destination",
+    hero_title_1: "Putri Munggaran Tour & Travel",
+    hero_motto: "“AMAN, NYAMAN, SAMPAI TUJUAN.”",
+    hero_subtitle: "Reliable travel and transportation service serving Pangandaran to Bandung, Jabodetabek, and various destinations with a practical door-to-door concept.",
+    hero_cta_wa: "Chat via WhatsApp",
+    hero_cta_cars: "View Fleet",
+    search_dest_cat: "Select Travel Route",
     search_travel_date: "Planned Travel Date",
     search_date_placeholder: "When is your trip planned?",
-    search_btn: "CONSULT TRIP",
+    search_btn: "CONSULT ROUTE",
 
     // Destinations Section & Page
-    dest_tag: "SERVICE AREA & POPULAR ROUTES",
-    dest_title: "Travel Destinations",
-    dest_desc: "Serving Bandung city, West Java, and trips to major cities across Java, Bali, and across Indonesia.",
-    dest_select_cat: "SELECT DESTINATION AREA",
-    dest_cat_subtitle: "Explore Dream Travel Destinations",
-    dest_cat_all: "All Destinations",
-    dest_cat_jabar: "West Java",
-    dest_cat_jateng: "Central Java & Jogja",
-    dest_cat_jatim: "East Java & Bromo",
-    dest_cat_bali: "Bali & Indonesia",
-    dest_spots_label: "Popular Services:",
-    dest_wa_consult: "Consult Route via WA",
-    dest_view_all: "View All Destinations",
+    dest_tag: "SERVICE ROUTES & COVERAGE",
+    dest_title: "Routes & Service Areas",
+    dest_desc: "Connecting Pangandaran, Bandung, Jabodetabek, and various destinations according to customer requests with convenient door-to-door pickup.",
+    dest_select_cat: "SELECT ROUTE CATEGORY",
+    dest_cat_subtitle: "Explore Our Core Travel Routes",
+    dest_cat_all: "All Routes",
+    dest_cat_pangandaran: "Pangandaran",
+    dest_cat_bandung: "Bandung",
+    dest_cat_jabodetabek: "Jabodetabek",
+    dest_cat_other: "Inter-City & Others",
+    dest_spots_label: "Service Highlights:",
+    dest_wa_consult: "Consult via WhatsApp",
+    dest_view_all: "View All Routes",
     dest_breadcrumb_home: "HOME",
-    dest_breadcrumb_page: "ROUTES & SERVICES",
-
-    // Package Tour Page
-    pkg_tag: "TOP TOUR PACKAGES",
-    pkg_title: "JAVA, BALI & INDONESIA TOUR PACKAGES",
-    pkg_subtitle: "Integrated travel package options for families, institutions, schools, and companies.",
-    pkg_filter_heading: "SELECT TOUR CATEGORY",
-    pkg_filter_all: "All Tour Packages",
-    pkg_filter_domestik: "Java & Bali Trips",
-    pkg_filter_internasional: "Other Indonesia Destinations",
-    pkg_route_label: "Tour Route",
-    pkg_starting_from: "Starting From",
-    pkg_per_person: "/ person",
-    pkg_detail_btn: "View Details",
-    pkg_modal_duration: "Duration",
-    pkg_modal_tier_title: "FLEET & AMENITIES OPTIONS",
-    pkg_modal_hotel: "Accommodation",
-    pkg_modal_notes: "Notes",
-    pkg_modal_highlights: "Highlights & Destinations",
-    pkg_modal_includes: "Includes",
-    pkg_modal_excludes: "Excludes",
-    pkg_modal_selected: "Selected Option",
-    pkg_modal_wa_btn: "Book via WhatsApp",
+    dest_breadcrumb_page: "ROUTES & COVERAGE",
 
     // About Section
-    about_tag: "PROFILE & OUR SERVICES",
-    about_title_1: "Restu Tour & Transport",
-    about_title_2: "Trusted Transportation & Tour Solution",
-    about_desc_1: "Restu Tour & Transport is a transportation and tour service provider catering to individuals, families, corporate clients, and government institutions with clean fleets and licensed professional drivers.",
-    about_desc_2: "Services include Daily Car Rental, Car Rental with Driver, Tourism Bus Rental, Domestic Tour Packages, Business Trips, Airport Transfers, Family & Corporate Gatherings, Study Tours, and Group Events.",
+    about_tag: "BUSINESS PROFILE",
+    about_title_1: "Putri Munggaran Tour & Travel",
+    about_title_2: "Tour & Travel, Transportation & Shuttle Service",
+    about_desc_1: "Putri Munggaran Tour & Travel is a transportation and travel service catering to journeys from Pangandaran to Bandung, Jabodetabek, and various other destinations tailored to customer needs.",
+    about_desc_2: "With our door-to-door service concept, customers can enjoy a practical journey without the hassle of changing vehicles. Supported by experienced drivers and a versatile fleet tailored to your travel requirements.",
+    about_desc_3: "We are committed to delivering safe, comfortable, and punctual journeys for personal travel, families, business trips, and group outings.",
     about_read_more: "Read More",
     about_read_less: "Close Details",
-    about_badge: "COMPLETE FLEET & PRO DRIVERS",
-    about_card_tag: "Restu Tour & Transport",
-    about_card_sub: "TRUSTED TRANSPORTATION & TOUR SOLUTION",
+    about_badge: "DOOR-TO-DOOR & EXPERIENCED DRIVERS",
+    about_card_tag: "Putri Munggaran Tour & Travel",
+    about_card_sub: "“AMAN, NYAMAN, SAMPAI TUJUAN.”",
     about_card_rating_label: "CUSTOMER SATISFACTION",
 
     // Vision
-    vision_title: "Company Vision",
-    vision_1: "To be the most trusted transportation and tour company providing the best travel experience for every customer.",
-    vision_2: "Upholding safety standards, fleet cleanliness, and top-tier service quality.",
-    vision_3: "Becoming the primary travel partner for Bandung, West Java, and nationwide.",
+    vision_title: "Our Vision",
+    vision_1: "To be a trusted tour & travel service providing safe, comfortable, practical, and high-quality travel experiences for every customer.",
 
     // Mission
-    mission_title: "Our Main Mission",
-    mission_1: "Prioritizing customer satisfaction and comfort.",
-    mission_2: "Providing safe, clean, and high-quality fleets.",
-    mission_3: "Delivering professional, friendly, and punctual service.",
-    mission_4: "Being a reliable travel partner for all transportation and tourism needs.",
+    mission_title: "Our Mission",
+    mission_1: "Provide practical and convenient door-to-door service for customers.",
+    mission_2: "Provide experienced drivers who prioritize passenger safety.",
+    mission_3: "Maintain passenger comfort throughout the journey.",
+    mission_4: "Provide fleet options according to travel needs.",
+    mission_5: "Deliver friendly, professional, and responsive customer service.",
+    mission_6: "Prioritize customer satisfaction from booking until reaching the destination.",
+    mission_7: "Build customer trust through consistent and high-quality transportation services.",
 
     // Strengths
-    strength_clean_title: "Clean & Maintained Fleet",
-    strength_clean_desc: "Vehicles are always clean, fresh, and well-maintained for all trips.",
-    strength_driver_title: "Pro & Punctual Drivers",
-    strength_driver_desc: "Experienced, friendly, route-savvy drivers who value punctuality.",
-    strength_price_title: "Competitive Pricing",
-    strength_price_desc: "Best transparent rates tailored to your trip requirements.",
-    strength_time_title: "Local & Inter-City Service",
-    strength_time_desc: "Serving Bandung, West Java, Central Java, East Java, Bali, and across Indonesia.",
+    strengths_tag: "WHY CHOOSE US",
+    strengths_title: "Our Advantages",
+    strengths_desc: "Key reasons why customers trust Putri Munggaran Tour & Travel for their journeys.",
+    strength_door_title: "Door-to-Door Service",
+    strength_door_desc: "No need to look for additional transport; we pick you up at your agreed location and drop you off directly at your destination.",
+    strength_driver_title: "Experienced Drivers",
+    strength_driver_desc: "Supported by skilled, polite drivers experienced in inter-city routes.",
+    strength_safety_title: "Safe & Comfortable",
+    strength_safety_desc: "Customer safety and comfort remain our top priority on every trip.",
+    strength_fleet_title: "Armada / Fleet Options",
+    strength_fleet_desc: "Various vehicle options suitable for passenger count and trip requirements.",
+    strength_route_title: "Strategic Routes",
+    strength_route_desc: "Specialized in Pangandaran – Bandung – Jabodetabek and custom destinations on request.",
+    strength_booking_title: "Easy Reservation",
+    strength_booking_desc: "Simple, fast, and transparent booking directly via WhatsApp.",
+
+    // Services Section
+    services_tag: "OUR SERVICES",
+    services_title: "Complete Travel & Transportation Services",
+    services_desc: "Comprehensive transportation solutions designed for your maximum convenience and safety.",
+    service_1_title: "Door-to-Door Service",
+    service_1_desc: "Passengers are picked up from agreed points and dropped off straight at their destination without switching vehicles.",
+    service_2_title: "Inter-City Travel",
+    service_2_desc: "Serving trips from Pangandaran to Bandung, Jabodetabek, and other routes based on agreement and availability.",
+    service_3_title: "Private Trip",
+    service_3_desc: "Personalized trip service for customers seeking flexible and comfortable travel with family or friends.",
+    service_4_title: "Family Transportation",
+    service_4_desc: "Comfortable vehicles for family holidays, homecoming (mudik), family visits, and general travel needs.",
+    service_5_title: "Business Travel",
+    service_5_desc: "Reliable transportation for work trips, business visits, meetings, and corporate activities.",
+    service_6_title: "Group Transportation",
+    service_6_desc: "Larger capacity vehicle options available for group travel, gatherings, and shared events.",
 
     // Cars Section
-    cars_tag: "FLEET CATALOG",
-    cars_title: "Car & Tourism Bus Rental Options",
-    cars_desc: "We offer complete Car Rental (Avanza, Innova Reborn, Alphard, Hiace, Elf) and Tourism Bus Rentals (Medium & Big Bus).",
+    cars_tag: "ARMADA / FLEET",
+    cars_title: "Fleet Choices",
+    cars_desc: "Putri Munggaran Tour & Travel provides well-maintained vehicles for various travel needs.",
+    cars_note: "*Note: Rates may vary depending on route, passenger count, travel date, duration, and chosen service. Contact admin for latest rates and availability.",
     cars_seats: "Seats",
     cars_transmission_auto: "Automatic",
     cars_transmission_manual: "Manual",
-    cars_included_label: "Amenities:",
-    cars_driver_friendly: "Pro Driver + Fuel Options",
-    cars_book_btn: "Consult & Rent via WA",
+    cars_included_label: "Highlights:",
+    cars_driver_friendly: "Experienced Driver + Clean Cabin",
+    cars_book_btn: "Consult via WhatsApp",
 
     // Steps
-    steps_tag: "EASY BOOKING PROCESS",
+    steps_tag: "HOW TO BOOK",
     steps_title: "3 Easy Booking Steps",
-    steps_desc: "Fast, friendly, and transparent booking process with Restu Tour & Transport.",
-    step_1_title: "Select Fleet & Service",
-    step_1_desc: "Choose Car Rental (Avanza, Innova, Hiace, Elf) or Tourism Bus based on group size.",
+    steps_desc: "Quick, hassle-free reservation process with Putri Munggaran Tour & Travel.",
+    step_1_title: "Choose Vehicle & Service",
+    step_1_desc: "Select Avanza, Calya, Rush, or Hiace based on your passenger count and comfort needs.",
     step_2_title: "Consult Route & Date",
-    step_2_desc: "Contact us via WhatsApp for availability, itinerary, and price quotes.",
-    step_3_title: "Enjoy Comfortable Travel",
-    step_3_desc: "Our professional driver will pick you up on time and take you safely to your destination.",
+    step_2_desc: "Chat with our admin on WhatsApp (0813-2126-4200) to confirm pickup location and schedule.",
+    step_3_title: "Enjoy Your Journey",
+    step_3_desc: "Our experienced driver will pick you up at your doorstep and take you safely to your destination.",
 
     // Testimonials
     testi_tag: "CUSTOMER REVIEWS",
-    testi_title: "Experience With Restu Tour & Transport",
-    testi_desc: "Your satisfaction and comfort are our top priority.",
-    testi_rating_label: "SATISFACTION RATING",
-    testi_rented_model: "Fleet / Service:",
+    testi_title: "What Our Customers Say",
+    testi_desc: "Commitment to providing safe, comfortable, and reliable journeys.",
+    testi_rating_label: "SATISFACTION",
+    testi_rented_model: "Vehicle / Route:",
     testi_btn_next: "Next",
     testi_btn_prev: "Previous",
 
     // Booking Modal
-    modal_title: "RESERVATION FORM",
-    modal_desc: "Fill in the reservation draft below to connect directly with Restu Tour & Transport WhatsApp.",
-    modal_summary_base: "Service / Fleet",
-    modal_summary_total_days: "Duration",
-    modal_field_name: "Customer Name",
-    modal_field_phone: "WhatsApp Number",
-    modal_field_date: "Departure Date",
+    modal_title: "TRIP RESERVATION DRAFT",
+    modal_desc: "Fill in the details below to connect directly with Putri Munggaran Tour & Travel WhatsApp.",
+    modal_summary_base: "Selected Vehicle",
+    modal_summary_total_days: "Trip Duration",
+    modal_field_name: "Customer Name *",
+    modal_field_phone: "WhatsApp Number *",
+    modal_field_date: "Departure Date *",
     modal_field_time: "Pickup Time",
-    modal_field_duration: "Duration (Days)",
-    modal_field_extra_allin: "Driver & Fuel Included",
-    modal_field_extra_detail: "Includes professional driver service & estimated fuel",
-    modal_field_address: "Pickup Location",
-    modal_field_notes: "Group Count & Travel Notes",
-    modal_btn_confirm: "Send Draft via WhatsApp ➔",
+    modal_field_duration: "Trip Duration",
+    modal_field_extra_allin: "Door-to-Door Service Included",
+    modal_field_extra_detail: "Direct pickup at agreed location with experienced driver",
+    modal_field_address: "Pickup Address *",
+    modal_field_notes: "Destination & Special Notes",
+    modal_btn_confirm: "Send Reservation via WhatsApp ➔",
     modal_err_name: "Customer name is required.",
     modal_err_phone: "WhatsApp number is required.",
-    modal_err_address: "Pickup location is required.",
+    modal_err_address: "Pickup address is required.",
 
     // Footer Section
-    footer_callout_badge: "TRIP CONSULTATION 24/7",
-    footer_callout_title: "Plan Your Trip With Us Today",
-    footer_callout_desc: "Get affordable vehicle rentals & travel packages with well-maintained fleets and top service.",
-    footer_callout_wa_btn: "WhatsApp: 08562042336",
-    footer_col1_desc: "Transportation and tour service provider catering to individuals, families, companies, and institutions with clean fleets and licensed professional drivers.",
-    footer_motto_label: "COMPANY MOTTO",
-    footer_motto_text: "\"Trusted Transportation & Tour Solution\"",
-    footer_address_title: "Official Head Office Address:",
-    footer_address_text: "Jl. Yudo No. 7, Arcamanik Endah, Bandung, West Java",
-    footer_wa_title: "Quick Response WhatsApp:",
+    footer_callout_badge: "DOOR-TO-DOOR TRAVEL 24/7",
+    footer_callout_title: "Plan Your Trip With Putri Munggaran",
+    footer_callout_desc: "Pangandaran – Bandung – Jabodetabek with experienced drivers and comfortable fleet.",
+    footer_callout_wa_btn: "WhatsApp: 0813-2126-4200",
+    footer_col1_desc: "Layanan transportasi dan perjalanan Pangandaran – Bandung – Jabodetabek dengan konsep door-to-door service. Aman, Nyaman, Sampai Tujuan.",
+    footer_motto_label: "TAGLINE",
+    footer_motto_text: "“Aman, Nyaman, Sampai Tujuan.”",
+    footer_address_title: "Office Location:",
+    footer_address_text: "Jl. Raya Parigi, Blok Kemplung, Kabupaten Pangandaran",
+    footer_wa_title: "WhatsApp / Contact:",
+    footer_facebook_title: "Official Facebook:",
+    footer_facebook_link: "Tatakusmawan68",
     footer_quick_nav_title: "Quick Navigation"
   },
   ID: {
     // SEO & Head Metadata
-    seo_title: "Restu Tour & Transport - Solusi Transportasi & Wisata Terpercaya",
-    seo_description: "Restu Tour & Transport - Penyedia layanan sewa mobil, bus pariwisata, dan paket wisata terpercaya di Bandung, Jawa Barat. Melayani sewa mobil Avanza, Innova, Alphard, Hiace, Elf, Medium Bus & Big Bus ke berbagai destinasi di Indonesia.",
+    seo_title: "Putri Munggaran Tour & Travel - Aman, Nyaman, Sampai Tujuan",
+    seo_description: "Putri Munggaran Tour & Travel - Layanan transportasi dan perjalanan Pangandaran – Bandung – Jabodetabek dengan konsep door-to-door service. Aman, Nyaman, Sampai Tujuan.",
 
     // Navigation
     nav_home: "Beranda",
-    nav_about: "Profil & Visi Misi",
-    nav_destinations: "Rute & Layanan",
-    nav_rentals: "Sewa Armada",
-    nav_packages: "Paket Wisata",
-    nav_gallery: "Galeri",
+    nav_about: "Tentang Kami",
+    nav_destinations: "Destinasi Wisata",
+    nav_rentals: "Armada",
+    nav_services: "Layanan",
     nav_contact: "Kontak & Alamat",
-    nav_book_btn: "HUBUNGI KAMI",
+    nav_book_btn: "PESAN VIA WHATSAPP",
 
     // Top Bar
-    topbar_address: "📍 Jl. Yudo No. 7, Arcamanik Endah, Bandung",
-    topbar_whatsapp: "WhatsApp: 0856-2042-336",
-    topbar_service: "Solusi Transportasi & Wisata Terpercaya",
+    topbar_address: "📍 Jl. Raya Parigi, Blok Kemplung, Kabupaten Pangandaran",
+    topbar_whatsapp: "WhatsApp: 0813-2126-4200",
+    topbar_service: "Layanan Transportasi & Antar-Jemput Door-to-Door",
 
     // Hero Section
-    hero_explore: "Partner Perjalanan Terpercaya ke Seluruh Indonesia",
-    hero_title_1: "Restu Tour & Transport",
-    hero_motto: "SOLUSI TRANSPORTASI & WISATA TERPERCAYA",
-    hero_subtitle: "Penyedia layanan transportasi dan perjalanan wisata melayani kebutuhan individu, keluarga, perusahaan, hingga instansi. Dengan armada yang terawat, pengemudi profesional, dan pelayanan mengutamakan kenyamanan.",
+    hero_explore: "Aman, Nyaman, Sampai Tujuan",
+    hero_title_1: "Putri Munggaran Tour & Travel",
+    hero_motto: "“AMAN, NYAMAN, SAMPAI TUJUAN.”",
+    hero_subtitle: "Layanan transportasi dan perjalanan yang melayani rute Pangandaran menuju Bandung, Jabodetabek, serta berbagai tujuan lainnya dengan konsep praktis Door-to-Door Service.",
     hero_cta_wa: "Hubungi via WhatsApp",
-    hero_cta_cars: "Pilihan Mobil & Bus",
-    search_dest_cat: "Pilih Destinasi Tour",
+    hero_cta_cars: "Lihat Pilihan Armada",
+    search_dest_cat: "Pilih Rute Perjalanan",
     search_travel_date: "Tanggal Rencana Perjalanan",
     search_date_placeholder: "Kapan rencana perjalanan Anda?",
     search_btn: "KONSULTASI PERJALANAN",
 
     // Destinations Section & Page
-    dest_tag: "AREA LAYANAN & RUTE POPULER",
-    dest_title: "Destinasi Perjalanan Wisata",
-    dest_desc: "Melayani rute dalam Kota Bandung, Jawa Barat, serta perjalanan ke berbagai kota di Pulau Jawa, Bali, dan destinasi lainnya di Indonesia.",
-    dest_select_cat: "PILIH AREA DESTINASI",
-    dest_cat_subtitle: "Jelajahi Destinasi Wisata Impian Anda",
-    dest_cat_all: "Semua Destinasi",
-    dest_cat_jabar: "Jawa Barat",
-    dest_cat_jateng: "Jawa Tengah & Jogja",
-    dest_cat_jatim: "Jawa Timur & Bromo",
-    dest_cat_bali: "Bali & Nusantara",
-    dest_spots_label: "Layanan Populer:",
-    dest_wa_consult: "Konsultasi Rute via WA",
-    dest_view_all: "Lihat Selengkapnya",
+    dest_tag: "RUTE & AREA LAYANAN",
+    dest_title: "Rute & Area Layanan",
+    dest_desc: "Melayani perjalanan dari Pangandaran menuju Bandung, Jabodetabek, serta berbagai tujuan lainnya sesuai kebutuhan pelanggan dengan penjemputan door-to-door.",
+    dest_select_cat: "PILIH KATEGORI RUTE",
+    dest_cat_subtitle: "Jelajahi Rute Perjalanan Populer Kami",
+    dest_cat_all: "Semua Rute",
+    dest_cat_pangandaran: "Pangandaran",
+    dest_cat_bandung: "Bandung",
+    dest_cat_jabodetabek: "Jabodetabek",
+    dest_cat_other: "Antar Kota & Lainnya",
+    dest_spots_label: "Keunggulan Rute:",
+    dest_wa_consult: "Konsultasi via WA",
+    dest_view_all: "Lihat Semua Rute",
     dest_breadcrumb_home: "BERANDA",
-    dest_breadcrumb_page: "RUTE & LAYANAN",
+    dest_breadcrumb_page: "RUTE & AREA LAYANAN",
 
-    // Package Tour Page
-    pkg_tag: "PAKET WISATA TERFAVORIT",
-    pkg_title: "PAKET TOUR JAWA, BALI & NUSANTARA",
-    pkg_subtitle: "Pilihan paket perjalanan wisata terpadu untuk keluarga, instansi, sekolah, dan perusahaan dengan fasilitas lengkap.",
-    pkg_filter_heading: "PILIH KATEGORI WISATA",
-    pkg_filter_all: "Semua Paket Wisata",
-    pkg_filter_domestik: "Wisata Pulau Jawa & Bali",
-    pkg_filter_internasional: "Destinasi Nusantara Lainnya",
-    pkg_route_label: "Rute Perjalanan",
-    pkg_starting_from: "Mulai Dari",
-    pkg_per_person: "/ org",
-    pkg_detail_btn: "Detail Paket",
-    pkg_modal_duration: "Durasi Perjalanan",
-    pkg_modal_tier_title: "PILIHAN ARMADA & FASILITAS",
-    pkg_modal_hotel: "Fasilitas Akomodasi",
-    pkg_modal_notes: "Catatan",
-    pkg_modal_highlights: "Destinasi & Highlight Tour",
-    pkg_modal_includes: "Termasuk (Include)",
-    pkg_modal_excludes: "Tidak Termasuk (Exclude)",
-    pkg_modal_selected: "Pilihan Terpilih",
-    pkg_modal_wa_btn: "Pesan via WhatsApp",
-
-    // About Section (Visi & Misi)
-    about_tag: "PROFIL & LAYANAN KAMI",
-    about_title_1: "Restu Tour & Transport",
-    about_title_2: "Solusi Transportasi & Wisata Terpercaya",
-    about_desc_1: "Restu Tour & Transport adalah penyedia layanan transportasi dan perjalanan wisata yang melayani kebutuhan individu, keluarga, perusahaan, hingga instansi. Dengan armada yang terawat, pengemudi profesional, dan pelayanan yang mengutamakan kenyamanan, kami siap menjadi partner perjalanan Anda ke berbagai destinasi di Indonesia.",
-    about_desc_2: "Layanan kami meliputi Sewa Mobil Harian, Sewa Mobil dengan Sopir, Sewa Bus Pariwisata, Paket Tour Domestik, Perjalanan Wisata, Perjalanan Dinas, Antar Jemput Bandara, Family Trip, Corporate Gathering, Study Tour, Ziarah, hingga Event & Perjalanan Rombongan.",
+    // About Section
+    about_tag: "PROFIL BISNIS",
+    about_title_1: "Putri Munggaran Tour & Travel",
+    about_title_2: "Tour & Travel, Transportasi & Antar-Jemput",
+    about_desc_1: "Putri Munggaran Tour & Travel merupakan layanan transportasi dan perjalanan yang melayani kebutuhan perjalanan dari Pangandaran menuju Bandung, Jabodetabek, serta berbagai tujuan lainnya sesuai kebutuhan pelanggan.",
+    about_desc_2: "Dengan konsep door-to-door service, pelanggan dapat menikmati perjalanan yang lebih praktis tanpa harus repot berpindah kendaraan. Putri Munggaran Tour & Travel didukung oleh pengemudi yang berpengalaman dan pilihan armada yang dapat disesuaikan dengan kebutuhan perjalanan.",
+    about_desc_3: "Kami berkomitmen memberikan perjalanan yang aman, nyaman, dan tepat sampai tujuan, baik untuk perjalanan pribadi, keluarga, perjalanan bisnis, maupun kebutuhan rombongan.",
     about_read_more: "Lihat Selengkapnya",
     about_read_less: "Tutup Detail",
-    about_badge: "ARMADA LENGKAP & SOPIR PROFESIONAL",
-    about_card_tag: "Restu Tour & Transport",
-    about_card_sub: "SOLUSI TRANSPORTASI & WISATA TERPERCAYA",
+    about_badge: "DOOR-TO-DOOR SERVICE & PENGEMUDI BERPENGALAMAN",
+    about_card_tag: "Putri Munggaran Tour & Travel",
+    about_card_sub: "“AMAN, NYAMAN, SAMPAI TUJUAN.”",
     about_card_rating_label: "KEPUASAN PELANGGAN",
 
     // Vision
-    vision_title: "Visi Perusahaan",
-    vision_1: "Menjadi perusahaan transportasi dan tour terpercaya yang memberikan pengalaman perjalanan terbaik bagi setiap pelanggan.",
-    vision_2: "Mengedepankan standar keselamatan, kebersihan armada, serta kualitas pelayanan nomor satu.",
-    vision_3: "Menjadi mitra perjalanan utama dan terbaik untuk wilayah Bandung, Jawa Barat, hingga seluruh Nusantara.",
+    vision_title: "Visi Kami",
+    vision_1: "Menjadi layanan tour & travel terpercaya yang memberikan pengalaman perjalanan aman, nyaman, praktis, dan berkualitas bagi setiap pelanggan.",
 
     // Mission
-    mission_title: "Misi Utama Kami",
-    mission_1: "Mengutamakan kepuasan dan kenyamanan pelanggan.",
-    mission_2: "Menyediakan armada yang aman, bersih, dan berkualitas.",
-    mission_3: "Memberikan pelayanan yang profesional, ramah, dan tepat waktu.",
-    mission_4: "Menjadi mitra perjalanan yang dapat diandalkan untuk berbagai kebutuhan transportasi dan wisata.",
+    mission_title: "Misi Kami",
+    mission_1: "Memberikan layanan door-to-door yang praktis dan memudahkan pelanggan.",
+    mission_2: "Menyediakan pengemudi yang berpengalaman dan mengutamakan keselamatan.",
+    mission_3: "Menjaga kenyamanan pelanggan selama perjalanan.",
+    mission_4: "Menyediakan pilihan armada sesuai kebutuhan perjalanan.",
+    mission_5: "Memberikan pelayanan yang ramah, profesional, dan responsif.",
+    mission_6: "Mengutamakan kepuasan pelanggan dari proses pemesanan hingga sampai tujuan.",
+    mission_7: "Membangun kepercayaan pelanggan melalui pelayanan transportasi yang konsisten dan berkualitas.",
 
     // Strengths
-    strength_clean_title: "Armada Bersih & Terawat",
-    strength_clean_desc: "Kendaraan selalu dalam kondisi prima, bersih, harum, dan nyaman untuk segala jenis perjalanan.",
-    strength_driver_title: "Sopir Profesional & Tepat Waktu",
-    strength_driver_desc: "Pengemudi berpengalaman, ramah, menguasai rute, dan selalu mengutamakan ketepatan waktu.",
-    strength_price_title: "Harga Kompetitif",
-    strength_price_desc: "Penawaran harga terbaik dan transparan sesuai dengan kebutuhan perjalanan Anda.",
-    strength_time_title: "Layanan Dalam & Luar Kota",
-    strength_time_desc: "Melayani rute Bandung, Jawa Barat, Jawa Tengah, Jawa Timur, Bali hingga berbagai kota di Indonesia.",
+    strengths_tag: "KEUNGGULAN KAMI",
+    strengths_title: "Keunggulan Putri Munggaran Tour & Travel",
+    strengths_desc: "Alasan mengapa pelanggan mempercayakan perjalanan mereka bersama Putri Munggaran Tour & Travel.",
+    strength_door_title: "Door-to-Door Service",
+    strength_door_desc: "Pelanggan tidak perlu repot mencari transportasi tambahan karena perjalanan dapat dilakukan dari titik penjemputan menuju tujuan.",
+    strength_driver_title: "Pengemudi Berpengalaman",
+    strength_driver_desc: "Didukung pengemudi yang berpengalaman dalam melayani perjalanan antarkota dengan aman dan ramah.",
+    strength_safety_title: "Aman & Nyaman",
+    strength_safety_desc: "Keselamatan dan kenyamanan pelanggan selalu menjadi prioritas utama selama perjalanan.",
+    strength_fleet_title: "Pilihan Armada",
+    strength_fleet_desc: "Tersedia beberapa pilihan kendaraan (Avanza, Calya, Rush, Hiace) yang dapat disesuaikan dengan jumlah penumpang.",
+    strength_route_title: "Rute Strategis",
+    strength_route_desc: "Melayani perjalanan Pangandaran – Bandung – Jabodetabek dan tujuan lainnya sesuai kebutuhan.",
+    strength_booking_title: "Reservasi Mudah",
+    strength_booking_desc: "Pemesanan tiket / armada dapat dilakukan dengan sangat mudah dan cepat melalui WhatsApp.",
+
+    // Services Section
+    services_tag: "LAYANAN KAMI",
+    services_title: "Layanan Transportasi & Perjalanan Terlengkap",
+    services_desc: "Solusi perjalanan lengkap untuk kebutuhan individu, keluarga, dinas, hingga rombongan.",
+    service_1_title: "Door-to-Door Service",
+    service_1_desc: "Pelanggan dapat dijemput dari lokasi yang telah disepakati dan diantar langsung menuju tujuan tanpa perlu repot berganti kendaraan.",
+    service_2_title: "Travel Antar Kota",
+    service_2_desc: "Melayani perjalanan dari Pangandaran menuju Bandung, Jabodetabek, serta rute lainnya sesuai kesepakatan dan ketersediaan.",
+    service_3_title: "Private Trip",
+    service_3_desc: "Layanan perjalanan pribadi untuk pelanggan yang menginginkan perjalanan lebih fleksibel dan nyaman bersama keluarga atau teman.",
+    service_4_title: "Transportasi Keluarga",
+    service_4_desc: "Pilihan kendaraan yang dapat digunakan untuk perjalanan keluarga, mudik, kunjungan keluarga, maupun kebutuhan perjalanan lainnya.",
+    service_5_title: "Perjalanan Bisnis",
+    service_5_desc: "Mendukung kebutuhan transportasi untuk perjalanan kerja, kunjungan bisnis, meeting, maupun kegiatan perusahaan.",
+    service_6_title: "Transportasi Rombongan",
+    service_6_desc: "Tersedia pilihan kendaraan dengan kapasitas lebih besar untuk kebutuhan perjalanan bersama atau rombongan.",
 
     // Cars Section
-    cars_tag: "KATALOG ARMADA KENDARAAN",
-    cars_title: "Pilihan Sewa Mobil & Bus Pariwisata",
-    cars_desc: "Kami menyediakan pilihan Sewa Mobil (Avanza, Innova Reborn, Alphard, Hiace, Elf) dan Sewa Bus Pariwisata (Medium Bus & Big Bus) terlengkap.",
+    cars_tag: "PILIHAN ARMADA",
+    cars_title: "Pilihan Kendaraan",
+    cars_desc: "Putri Munggaran Tour & Travel menyediakan beberapa pilihan kendaraan terawat untuk kenyamanan perjalanan Anda.",
+    cars_note: "*Catatan: Harga setiap kendaraan dapat disesuaikan berdasarkan rute, jumlah penumpang, tanggal perjalanan, durasi, serta jenis layanan yang dipilih. Hubungi admin untuk mendapatkan informasi harga dan ketersediaan terbaru.",
     cars_seats: "Kursi",
     cars_transmission_auto: "Matic",
     cars_transmission_manual: "Manual",
-    cars_included_label: "Fasilitas & Layanan:",
-    cars_driver_friendly: "Sopir Profesional + BBM Terjangkau",
-    cars_book_btn: "Konsultasi & Sewa via WA",
+    cars_included_label: "Fasilitas & Karakter:",
+    cars_driver_friendly: "Driver Berpengalaman + AC Nyaman",
+    cars_book_btn: "Konsultasi via WhatsApp",
 
     // Steps
-    steps_tag: "CARA PEMESANAN PRAKTIS",
+    steps_tag: "CARA PEMESANAN",
     steps_title: "3 Langkah Pemesanan Mudah",
-    steps_desc: "Proses reservasi cepat, ramah, dan transparan bersama Restu Tour & Transport.",
+    steps_desc: "Proses reservasi cepat, ramah, dan transparan bersama Putri Munggaran Tour & Travel.",
     step_1_title: "Pilih Armada & Layanan",
-    step_1_desc: "Tentukan pilihan Sewa Mobil (Avanza, Innova, Hiace, Elf) atau Bus Pariwisata sesuai jumlah rombongan.",
+    step_1_desc: "Tentukan pilihan kendaraan (Avanza, Calya, Rush, Hiace) sesuai jumlah penumpang dan jenis layanan.",
     step_2_title: "Konsultasi Rute & Tanggal",
-    step_2_desc: "Hubungi tim kami via WhatsApp untuk ketersediaan armada, itinerary, dan penawaran harga.",
-    step_3_title: "Nikmati Perjalanan Nyaman",
-    step_3_desc: "Sopir profesional kami siap menjemput tepat waktu dan mengantar Anda ke destinasi impian dengan aman.",
+    step_2_desc: "Hubungi admin kami via WhatsApp (0813-2126-4200) untuk titik penjemputan, jadwal & ketersediaan armada.",
+    step_3_title: "Nikmati Perjalanan Anda",
+    step_3_desc: "Pengemudi berpengalaman kami akan menjemput di lokasi yang disepakati dan mengantar Anda sampai tujuan dengan aman dan nyaman.",
 
     // Testimonials
     testi_tag: "TESTIMONI PELANGGAN",
-    testi_title: "Pengalaman Bersama Restu Tour & Transport",
+    testi_title: "Pengalaman Bersama Putri Munggaran Tour & Travel",
     testi_desc: "Kepuasan dan kenyamanan perjalanan Anda adalah komitmen utama kami.",
     testi_rating_label: "RATING KEPUASAN",
-    testi_rented_model: "Armada / Layanan:",
+    testi_rented_model: "Armada / Rute:",
     testi_btn_next: "Selanjutnya",
     testi_btn_prev: "Sebelumnya",
 
     // Booking Modal
-    modal_title: "FORM RESERVASI KENDARAAN & TOUR",
-    modal_desc: "Isi draf reservasi di bawah ini untuk terhubung langsung dengan WhatsApp Restu Tour & Transport.",
-    modal_summary_base: "Layanan / Armada",
-    modal_summary_total_days: "Durasi Sewa / Perjalanan",
-    modal_field_name: "Nama Pemesan",
-    modal_field_phone: "Nomor WhatsApp",
-    modal_field_date: "Tanggal Keberangkatan",
+    modal_title: "FORM RESERVASI PERJALANAN",
+    modal_desc: "Isi draf reservasi di bawah ini untuk terhubung langsung dengan WhatsApp Putri Munggaran Tour & Travel.",
+    modal_summary_base: "Armada Pilihan",
+    modal_summary_total_days: "Durasi / Jenis Perjalanan",
+    modal_field_name: "Nama Pemesan *",
+    modal_field_phone: "Nomor WhatsApp *",
+    modal_field_date: "Tanggal Keberangkatan *",
     modal_field_time: "Jam Penjemputan",
-    modal_field_duration: "Durasi (Hari)",
-    modal_field_extra_allin: "Sewa Lengkap Sopir & BBM",
-    modal_field_extra_detail: "Termasuk layanan pengemudi profesional & estimasi bahan bakar",
-    modal_field_address: "Lokasi Penjemputan",
-    modal_field_notes: "Jumlah Rombongan & Catatan Perjalanan",
-    modal_btn_confirm: "Kirim Draf via WhatsApp ➔",
+    modal_field_duration: "Durasi / Jenis Layanan",
+    modal_field_extra_allin: "Termasuk Layanan Door-to-Door",
+    modal_field_extra_detail: "Penjemputan langsung di lokasi yang disepakati & diantar ke tujuan",
+    modal_field_address: "Lokasi Penjemputan *",
+    modal_field_notes: "Kota Tujuan & Catatan Tambahan",
+    modal_btn_confirm: "Kirim Reservasi via WhatsApp ➔",
     modal_err_name: "Nama pemesan wajib diisi.",
     modal_err_phone: "Nomor WhatsApp wajib diisi.",
     modal_err_address: "Lokasi penjemputan wajib diisi.",
 
     // Footer Section
-    footer_callout_badge: "KONSULTASI PERJALANAN 24/7",
+    footer_callout_badge: "LAYANAN DOOR-TO-DOOR 24 JAM",
     footer_callout_title: "Rencanakan Perjalanan Anda Bersama Kami",
-    footer_callout_desc: "Dapatkan penawaran sewa kendaraan & paket wisata terjangkau dengan armada terawat dan pelayanan prima.",
-    footer_callout_wa_btn: "WhatsApp: 08562042336",
-    footer_col1_desc: "Penyedia layanan transportasi dan perjalanan wisata melayani kebutuhan individu, keluarga, perusahaan, hingga instansi dengan armada terawat, pengemudi profesional, dan pelayanan mengutamakan kenyamanan.",
-    footer_motto_label: "MOTTO PERUSAHAAN",
-    footer_motto_text: "\"Solusi Transportasi & Wisata Terpercaya\"",
-    footer_address_title: "Alamat Kantor Resmi:",
-    footer_address_text: "Jl. Yudo No. 7, Arcamanik Endah, Bandung, Jawa Barat",
-    footer_wa_title: "WhatsApp Respon Cepat:",
+    footer_callout_desc: "Pangandaran – Bandung – Jabodetabek dengan pengemudi berpengalaman dan armada terawat.",
+    footer_callout_wa_btn: "WhatsApp: 0813-2126-4200",
+    footer_col1_desc: "Layanan transportasi dan perjalanan Pangandaran – Bandung – Jabodetabek dengan konsep door-to-door service. Aman, Nyaman, Sampai Tujuan.",
+    footer_motto_label: "TAGLINE BISNIS",
+    footer_motto_text: "“Aman, Nyaman, Sampai Tujuan.”",
+    footer_address_title: "Alamat Kantor / Garasi:",
+    footer_address_text: "Jl. Raya Parigi, Blok Kemplung, Kabupaten Pangandaran",
+    footer_wa_title: "WhatsApp & Kontak Admin:",
+    footer_facebook_title: "Facebook Resmi:",
+    footer_facebook_link: "Tatakusmawan68",
     footer_quick_nav_title: "Navigasi Cepat"
   }
 };
@@ -527,7 +546,7 @@ export const TRANSLATIONS: Record<'EN' | 'ID', TranslationSchema> = {
   }
 })();
 
-// Strict Translation Getter Function (Throws explicit warning if key is missing)
+// Strict Translation Getter Function
 export function getTranslation(lang: 'EN' | 'ID', key: keyof TranslationSchema): string {
   const dict = TRANSLATIONS[lang];
   if (!dict || !dict[key]) {

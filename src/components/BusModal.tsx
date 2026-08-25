@@ -121,10 +121,10 @@ export default function BusModal({ isOpen, onClose, lang = 'EN' }: BusModalProps
   const isEN = lang === 'EN';
 
   const handleWhatsAppBooking = (busName: string, seatsDisplay: string) => {
-    const waNumber = '628562042336';
+    const waNumber = '6281321264200';
     const message = isEN
-      ? `Hello Restu Tour & Transport, I am interested in renting Tourism Bus type: ${busName} (${seatsDisplay}). Please inform price quote & date availability. Thank you!`
-      : `Halo Restu Tour & Transport, saya berminat sewa Bus Pariwisata tipe: ${busName} (${seatsDisplay}). Mohon informasi penawaran harga & ketersediaan jadwal. Terima kasih!`;
+      ? `Hello Putri Munggaran Tour & Travel, I am interested in vehicle type: ${busName} (${seatsDisplay}). Please inform price quote & date availability. Thank you!`
+      : `Halo Putri Munggaran Tour & Travel, saya berminat sewa armada tipe: ${busName} (${seatsDisplay}). Mohon informasi penawaran harga & ketersediaan jadwal. Terima kasih!`;
     window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
@@ -227,7 +227,7 @@ export default function BusModal({ isOpen, onClose, lang = 'EN' }: BusModalProps
 
           {/* Modal Footer */}
           <div className="bg-white p-4 sm:p-5 border-t border-slate-200 text-center flex items-center justify-between text-xs text-slate-500 font-medium">
-            <span>📍 Restu Tour & Transport - Jl. Yudo No. 7, Arcamanik Endah, Bandung, West Java</span>
+            <span>📍 Putri Munggaran Tour & Travel - Jl. Raya Parigi, Blok Kemplung, Kabupaten Pangandaran</span>
             <button
               onClick={onClose}
               className="px-5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold uppercase cursor-pointer"

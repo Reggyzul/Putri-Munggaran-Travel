@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Car } from '../types';
 import { CARS } from '../data/cars';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Calendar, Clock, MapPin, User, Phone, CheckCircle2, Sparkles, Award } from 'lucide-react';
+import { X, Calendar, Clock, MapPin, User, Phone, CheckCircle2, Sparkles, Award, ShieldCheck } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface BookingModalProps {
@@ -13,18 +13,16 @@ interface BookingModalProps {
 }
 
 export default function BookingModal({ car, onClose, lang, onCarChange }: BookingModalProps) {
-  const [routeCategory, setRouteCategory] = useState<'car_rental' | 'bus_rental' | 'tour_package' | 'gathering'>('car_rental');
-  const [selectedCarId, setSelectedCarId] = useState<string>(car?.id || 'avanza');
+  const [serviceCategory, setServiceCategory] = useState<string>('door-to-door');
+  const [selectedCarId, setSelectedCarId] = useState<string>(car?.id || 'toyota-avanza');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [passengers, setPassengers] = useState(lang === 'EN' ? '40 Passengers (1 Bus)' : '40 Orang (1 Bus)');
+  const [passengers, setPassengers] = useState(lang === 'EN' ? '4 Passengers' : '4 Orang');
   const [departureDate, setDepartureDate] = useState('');
-  const [pickupTime, setPickupTime] = useState(lang === 'EN' ? '07:00 AM' : '07:00 (Pagi)');
-  const [durationDays, setDurationDays] = useState(lang === 'EN' ? '3 Days 2 Nights' : '3 Hari 2 Malam');
+  const [pickupTime, setPickupTime] = useState(lang === 'EN' ? '08:00 AM' : '08:00 (Pagi)');
   const [pickupAddress, setPickupAddress] = useState('');
-  const [destinations, setDestinations] = useState('');
+  const [destinationAddress, setDestinationAddress] = useState('');
   const [notes, setNotes] = useState('');
-  const [isBooked, setIsBooked] = useState(false);
 
   const t = TRANSLATIONS[lang];
   const isEN = lang === 'EN';
@@ -52,345 +50,303 @@ export default function BookingModal({ car, onClose, lang, onCarChange }: Bookin
       return;
     }
 
-    const waNumber = '628562042336';
+    const waNumber = '6281321264200';
 
-    let routeText = isEN ? 'Car Rental Service' : 'Sewa Mobil & Kendaraan';
-    if (routeCategory === 'bus_rental') routeText = isEN ? 'Tourism Bus Rental' : 'Sewa Bus Pariwisata';
-    if (routeCategory === 'tour_package') routeText = isEN ? 'Tour Package' : 'Paket Wisata & Tour';
-    if (routeCategory === 'gathering') routeText = isEN ? 'Corporate Gathering / Event' : 'Perjalanan Dinas / Gathering / Event';
+    const serviceNameMap: Record<string, { id: string; en: string }> = {
+      'door-to-door': { id: 'Door-to-Door Service', en: 'Door-to-Door Service' },
+      'travel-antar-kota': { id: 'Travel Antar Kota (Pangandaran - Bandung / Jabodetabek)', en: 'Inter-City Travel' },
+      'private-trip': { id: 'Private Trip (Fleksibel & Eksklusif)', en: 'Private Trip' },
+      'transportasi-keluarga': { id: 'Transportasi Keluarga / Mudik', en: 'Family Transportation' },
+      'perjalanan-bisnis': { id: 'Perjalanan Bisnis & Dinas', en: 'Business Travel' },
+      'transportasi-rombongan': { id: 'Transportasi Rombongan (Hiace)', en: 'Group Transportation' }
+    };
+
+    const chosenServiceName = isEN 
+      ? (serviceNameMap[serviceCategory]?.en || 'Door-to-Door Travel') 
+      : (serviceNameMap[serviceCategory]?.id || 'Door-to-Door Travel');
 
     const textTemplate = isEN
-      ? `Hello Restu Tour & Transport, I would like to consult & reserve:
+      ? `Hello Putri Munggaran Tour & Travel, I would like to consult & reserve travel:
 
 📋 *RESERVATION DETAILS:*
-• Service Category: *${routeText}*
-• Fleet Choice: *${currentSelectedCar.name}* (${currentSelectedCar.category})
+• Service: *${chosenServiceName}*
+• Vehicle: *${currentSelectedCar.name}*
 • Departure Date: *${departureDate}*
 • Pickup Time: *${pickupTime}*
-• Duration: *${durationDays}*
-• Group Size: *${passengers}*
+• Passenger Count: *${passengers}*
 
 👤 *CUSTOMER DATA:*
 • Name: *${name}*
-• WhatsApp No: *${phone}*
+• WhatsApp Number: *${phone}*
 • Pickup Address: *${pickupAddress}*
-• Destination Wish: *${destinations || '-'}*
-• Notes: *${notes || '-'}*
+• Destination Address: *${destinationAddress || '-'}*
+• Special Notes: *${notes || '-'}*
 
-Please confirm availability, schedule & best rate quotes. Thank you!`
-      : `Halo Restu Tour & Transport, saya ingin berkonsultasi & melakukan reservasi:
+Please confirm route availability, schedule & rate quote. Thank you!`
+      : `Halo Putri Munggaran Tour & Travel, saya ingin berkonsultasi & melakukan reservasi:
 
 📋 *DETAIL RESERVASI PERJALANAN:*
-• Layanan / Kategori: *${routeText}*
-• Armada Pilihan: *${currentSelectedCar.name}* (${currentSelectedCar.category})
-• Tanggal Pelaksanaan: *${departureDate}*
+• Jenis Layanan: *${chosenServiceName}*
+• Pilihan Armada: *${currentSelectedCar.name}*
+• Tanggal Keberangkatan: *${departureDate}*
 • Jam Penjemputan: *${pickupTime}*
-• Durasi Perjalanan: *${durationDays}*
-• Jumlah Peserta: *${passengers}*
+• Jumlah Penumpang: *${passengers}*
 
-👤 *DATA PEMESAN / INSTANSI:*
+👤 *DATA PEMESAN:*
 • Nama Pemesan: *${name}*
 • No. WhatsApp: *${phone}*
-• Alamat Penjemputan: *${pickupAddress}*
-• Impian Destinasi: *${destinations || '-'}*
+• Lokasi / Alamat Penjemputan: *${pickupAddress}*
+• Alamat / Kota Tujuan: *${destinationAddress || '-'}*
 • Catatan Khusus: *${notes || '-'}*
 
-Mohon konfirmasi ketersediaan armada, jadwal & penawaran harga terbaik. Terima kasih!`;
+Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terbaik. Terima kasih!`;
 
     const encodedText = encodeURIComponent(textTemplate);
-    const waUrl = `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodedText}`;
-    
-    window.open(waUrl, '_blank', 'noreferrer');
-    setIsBooked(true);
+    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodedText}`, '_blank', 'noreferrer');
+    onClose();
   };
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex flex-col items-center justify-start pt-24 sm:pt-28 pb-6 px-3 sm:px-6 overflow-hidden">
-        {/* Backdrop overlay */}
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 text-left">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-0"
-          id="booking-backdrop"
-        />
-
-        {/* Modal Panel Container */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="bg-white rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 z-10 my-auto border border-slate-200 max-h-[calc(100vh-8.5rem)]"
-          id="booking-modal-panel"
+          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 relative my-8"
         >
-          
-          {/* LEFT SIDEBAR: CAR & COMPANY PREVIEW */}
-          <div className="lg:col-span-4 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-950 text-white p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden text-left">
-            <div className="space-y-5 relative z-10">
-              
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/20 border border-red-500/30 text-red-400 text-[10px] font-extrabold uppercase tracking-widest">
-                <Sparkles className="w-3.5 h-3.5 text-red-400" />
-                <span>RESTU TOUR &amp; TRANSPORT</span>
-              </div>
-
-              <div>
-                <h3 className="font-display font-black text-2xl text-white uppercase tracking-tight">
-                  {currentSelectedCar.name}
-                </h3>
-                <p className="font-sans text-xs text-red-400 font-bold mt-0.5">
-                  {currentSelectedCar.category} ({currentSelectedCar.seats} {isEN ? 'Seats' : 'Kursi'})
-                </p>
-              </div>
-
-              {/* Car Cutout Photo */}
-              <div className="rounded-2xl overflow-hidden border border-white/10 shadow-lg bg-slate-800/80 aspect-[16/10] p-2 flex items-center justify-center">
-                <img
-                  src={currentSelectedCar.image}
-                  alt={currentSelectedCar.name}
-                  className="w-full h-full object-contain drop-shadow-md"
-                />
-              </div>
-
-              {/* Specs & Facility List */}
-              <div className="space-y-2 text-xs text-slate-300 border-t border-white/10 pt-4">
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">{isEN ? 'Capacity:' : 'Kapasitas:'}</span>
-                  <span className="font-semibold text-white">{currentSelectedCar.seats} {isEN ? 'Seats' : 'Kursi'}</span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">{isEN ? 'Amenities:' : 'Fasilitas:'}</span>
-                  <span className="font-semibold text-green-400">Full AC, USB, Reclining</span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">{isEN ? 'Driver Service:' : 'Pelayanan:'}</span>
-                  <span className="font-semibold text-red-400">{isEN ? 'Pro Licensed Driver' : 'Driver & Kru Ramah'}</span>
-                </div>
-              </div>
-
-              {/* Motto Card */}
-              <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-left space-y-1">
-                <div className="flex items-center gap-1.5 text-red-400 font-extrabold text-[11px] uppercase tracking-wide">
-                  <Award className="w-4 h-4 shrink-0 text-red-400" />
-                  <span>{t.hero_motto}</span>
-                </div>
-                <p className="font-sans text-[11px] text-slate-300 leading-relaxed font-medium">
-                  {t.about_desc_1}
-                </p>
-              </div>
-
-            </div>
-
-            {/* Footer Trust Info */}
-            <div className="pt-4 border-t border-white/10 mt-6 text-[10px] text-slate-400 font-medium flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
-              <span>{isEN ? 'Instant Response via WhatsApp Official' : 'Respon Cepat via WhatsApp Official'}</span>
-            </div>
-          </div>
-
-          {/* RIGHT SIDEBAR: PROFESSIONAL WA FORM */}
-          <div className="lg:col-span-8 p-6 sm:p-8 bg-white max-h-[80vh] overflow-y-auto relative text-left">
-            
-            {/* Close Button */}
+          {/* Modal Header Banner */}
+          <div className="bg-gradient-to-r from-[#0f2b5c] via-blue-900 to-[#dc2626] p-6 text-white relative">
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 sm:top-5 sm:right-5 w-9 h-9 rounded-full bg-red-600 hover:bg-red-700 text-white transition-all flex items-center justify-center shadow-2xl cursor-pointer z-50 hover:scale-110 border-2 border-white"
-              id="close-booking-modal"
-              title={isEN ? 'Close Modal' : 'Tutup Modal'}
+              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center text-white transition-colors cursor-pointer"
             >
-              <X className="w-5 h-5 stroke-[2.5]" />
+              <X className="w-5 h-5" />
             </button>
 
-            {!isBooked ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                
-                {/* Header Title */}
-                <div>
-                  <h4 className="font-display font-black text-xl sm:text-2xl text-[#0f172a] uppercase tracking-tight">
-                    {t.modal_title}
-                  </h4>
-                  <p className="font-sans text-xs text-slate-500 leading-relaxed font-medium mt-1">
-                    {t.modal_desc}
-                  </p>
-                </div>
-
-                {/* 1. SELECT CATEGORY */}
-                <div className="space-y-4 pt-2">
-                  <span className="text-xs font-extrabold uppercase tracking-wider text-red-600 block">
-                    1. {isEN ? 'SELECT SERVICE CATEGORY' : 'PILIH KATEGORI LAYANAN'}
-                  </span>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setRouteCategory('car_rental')}
-                      className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
-                        routeCategory === 'car_rental'
-                          ? 'border-red-500 bg-red-50/70 text-red-950 font-bold shadow-xs'
-                          : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium'
-                      }`}
-                    >
-                      <span className="text-[11px] font-bold block">{isEN ? 'Car Rental' : 'Sewa Mobil'}</span>
-                      <span className="text-[9px] text-slate-500 block">MPV &amp; VIP</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setRouteCategory('bus_rental')}
-                      className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
-                        routeCategory === 'bus_rental'
-                          ? 'border-amber-500 bg-red-50/70 text-red-950 font-bold shadow-xs'
-                          : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium'
-                      }`}
-                    >
-                      <span className="text-[11px] font-bold block">{isEN ? 'Tourism Bus' : 'Bus Pariwisata'}</span>
-                      <span className="text-[9px] text-slate-500 block">Medium &amp; Big Bus</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setRouteCategory('tour_package')}
-                      className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
-                        routeCategory === 'tour_package'
-                          ? 'border-blue-500 bg-blue-50/70 text-blue-950 font-bold shadow-xs'
-                          : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium'
-                      }`}
-                    >
-                      <span className="text-[11px] font-bold block">{isEN ? 'Tour Package' : 'Paket Tour'}</span>
-                      <span className="text-[9px] text-slate-500 block">Java, Bali, etc.</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setRouteCategory('gathering')}
-                      className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
-                        routeCategory === 'gathering'
-                          ? 'border-green-500 bg-green-100/70 text-green-600 font-bold shadow-xs'
-                          : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium'
-                      }`}
-                    >
-                      <span className="text-[11px] font-bold block">{isEN ? 'Gathering' : 'Gathering/Dinas'}</span>
-                      <span className="text-[9px] text-slate-500 block">Corporate / Group</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* 2. CUSTOMER DATA FORM */}
-                <div className="space-y-4 pt-2 border-t border-slate-100">
-                  <span className="text-xs font-extrabold uppercase tracking-wider text-red-600 block">
-                    2. {isEN ? 'CUSTOMER DATA & DEPARTURE DETAILS' : 'DATA PEMESAN & JADWAL PERJALANAN'}
-                  </span>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                        <User className="w-3.5 h-3.5 text-red-500" />
-                        <span>{t.modal_field_name} *</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder={isEN ? "Enter full name..." : "Masukkan nama lengkap..."}
-                        className="w-full text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 bg-slate-50"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                        <Phone className="w-3.5 h-3.5 text-red-500" />
-                        <span>{t.modal_field_phone} *</span>
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder={isEN ? "Example: 081234567890" : "Contoh: 081234567890"}
-                        className="w-full text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 bg-slate-50"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 text-red-500" />
-                        <span>{t.modal_field_date} *</span>
-                      </label>
-                      <input
-                        type="date"
-                        required
-                        value={departureDate}
-                        onChange={(e) => setDepartureDate(e.target.value)}
-                        className="w-full text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 bg-slate-50"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-red-500" />
-                        <span>{t.modal_field_time}</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={pickupTime}
-                        onChange={(e) => setPickupTime(e.target.value)}
-                        placeholder={isEN ? "Example: 07:00 AM" : "Contoh: 07:00 Pagi"}
-                        className="w-full text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 bg-slate-50"
-                      />
-                    </div>
-
-                    <div className="sm:col-span-2 space-y-1">
-                      <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-red-500" />
-                        <span>{t.modal_field_address} *</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={pickupAddress}
-                        onChange={(e) => setPickupAddress(e.target.value)}
-                        placeholder={isEN ? "Hotel / Address / Airport location..." : "Alamat / Hotel / Bandara penjemputan..."}
-                        className="w-full text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 bg-slate-50"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* SUBMIT BUTTON */}
-                <div className="pt-4 border-t border-slate-100">
-                  <button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-display font-black text-xs uppercase py-4 rounded-2xl shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
-                  >
-                    <span>{t.modal_btn_confirm}</span>
-                  </button>
-                </div>
-
-              </form>
-            ) : (
-              <div className="py-12 text-center space-y-4">
-                <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-md">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <h4 className="font-display font-black text-2xl text-[#0d1b37] uppercase">
-                  {isEN ? 'Reservation Draft Sent!' : 'Draf Reservasi Terkirim!'}
-                </h4>
-                <p className="font-sans text-xs text-slate-600 leading-relaxed font-medium max-w-md mx-auto">
-                  {isEN ? 'Thank you! You have been redirected to WhatsApp. Our team will respond immediately.' : 'Terima kasih! Anda telah terhubung langsung dengan WhatsApp Official Restu Tour & Transport. Tim kami akan merespons dalam hitungan menit.'}
-                </p>
-                <button
-                  onClick={onClose}
-                  className="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs uppercase cursor-pointer"
-                >
-                  {isEN ? 'Close Window' : 'Tutup Jendela'}
-                </button>
-              </div>
-            )}
-
+            <div className="space-y-1">
+              <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-black/30 px-3 py-1 rounded-full inline-block">
+                PUTRI MUNGGARAN TOUR &amp; TRAVEL
+              </span>
+              <h3 className="font-display font-black text-2xl uppercase tracking-tight">
+                {t.modal_title}
+              </h3>
+              <p className="font-sans text-xs text-slate-200">
+                {t.modal_desc}
+              </p>
+            </div>
           </div>
 
+          {/* Form Content */}
+          <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6 max-h-[75vh] overflow-y-auto">
+            
+            {/* Step 1: Vehicle & Service Type Selection */}
+            <div className="space-y-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+              <span className="text-[11px] font-black uppercase text-red-600 tracking-wider block">
+                1. {isEN ? 'Choose Service & Vehicle' : 'Pilih Layanan & Armada'}
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Service Type */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {isEN ? 'Service Type' : 'Jenis Layanan'}
+                  </label>
+                  <select
+                    value={serviceCategory}
+                    onChange={(e) => setServiceCategory(e.target.value)}
+                    className="w-full text-xs font-bold p-3 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  >
+                    <option value="door-to-door">Door-to-Door Service</option>
+                    <option value="travel-antar-kota">Travel Antar Kota (Pangandaran - Bandung / Jabodetabek)</option>
+                    <option value="private-trip">Private Trip (Fleksibel &amp; Nyaman)</option>
+                    <option value="transportasi-keluarga">Transportasi Keluarga / Mudik</option>
+                    <option value="perjalanan-bisnis">Perjalanan Bisnis &amp; Dinas</option>
+                    <option value="transportasi-rombongan">Transportasi Rombongan</option>
+                  </select>
+                </div>
+
+                {/* Vehicle Selection */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {t.modal_summary_base}
+                  </label>
+                  <select
+                    value={selectedCarId}
+                    onChange={(e) => {
+                      setSelectedCarId(e.target.value);
+                      const found = CARS.find(c => c.id === e.target.value);
+                      if (found && onCarChange) onCarChange(found);
+                    }}
+                    className="w-full text-xs font-bold p-3 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  >
+                    {CARS.map(c => (
+                      <option key={c.id} value={c.id}>
+                        {c.name} ({c.seats} {t.cars_seats})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 2: Customer Identity */}
+            <div className="space-y-4">
+              <span className="text-[11px] font-black uppercase text-red-600 tracking-wider block">
+                2. {isEN ? 'Customer Information' : 'Data Pemesan'}
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {t.modal_field_name}
+                  </label>
+                  <div className="relative">
+                    <User className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                    <input
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder={isEN ? 'e.g. Budi Santoso' : 'Contoh: Bapak / Ibu Agus'}
+                      className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {t.modal_field_phone}
+                  </label>
+                  <div className="relative">
+                    <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                    <input
+                      type="tel"
+                      required
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="0813-xxxx-xxxx"
+                      className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 3: Trip Details & Addresses */}
+            <div className="space-y-4">
+              <span className="text-[11px] font-black uppercase text-red-600 tracking-wider block">
+                3. {isEN ? 'Schedule & Address Details' : 'Jadwal & Lokasi Penjemputan'}
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {t.modal_field_date}
+                  </label>
+                  <div className="relative">
+                    <Calendar className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                    <input
+                      type="date"
+                      required
+                      value={departureDate}
+                      onChange={(e) => setDepartureDate(e.target.value)}
+                      className="w-full text-xs font-medium pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {t.modal_field_time}
+                  </label>
+                  <div className="relative">
+                    <Clock className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                    <input
+                      type="text"
+                      value={pickupTime}
+                      onChange={(e) => setPickupTime(e.target.value)}
+                      placeholder="08:00"
+                      className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    {isEN ? 'Passengers' : 'Jumlah Penumpang'}
+                  </label>
+                  <input
+                    type="text"
+                    value={passengers}
+                    onChange={(e) => setPassengers(e.target.value)}
+                    placeholder="Contoh: 4 Orang"
+                    className="w-full text-xs font-medium px-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Pickup Address */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  {t.modal_field_address}
+                </label>
+                <div className="relative">
+                  <MapPin className="w-4 h-4 text-red-500 absolute left-3 top-3.5" />
+                  <input
+                    type="text"
+                    required
+                    value={pickupAddress}
+                    onChange={(e) => setPickupAddress(e.target.value)}
+                    placeholder={isEN ? 'Street / hotel / home address for pickup' : 'Alamat lengkap penjemputan (Rumah / Hotel / Titik Temu)'}
+                    className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Destination Address */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  {isEN ? 'Destination Address / City' : 'Alamat / Kota Tujuan'}
+                </label>
+                <div className="relative">
+                  <MapPin className="w-4 h-4 text-blue-600 absolute left-3 top-3.5" />
+                  <input
+                    type="text"
+                    value={destinationAddress}
+                    onChange={(e) => setDestinationAddress(e.target.value)}
+                    placeholder={isEN ? 'Destination city & address (e.g. Bandung / Jakarta)' : 'Kota tujuan & alamat pengantaran (Contoh: Bandung / Jakarta Selatan)'}
+                    className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Notes */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  {t.modal_field_notes}
+                </label>
+                <textarea
+                  rows={2}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  placeholder={isEN ? 'Additional requests, luggage info, mudik notes...' : 'Catatan tambahan perjalanan, barang bawaan, kebutuhan khusus...'}
+                  className="w-full text-xs font-medium p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none resize-none"
+                />
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="pt-2">
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-[#0f2b5c] via-blue-900 to-[#dc2626] hover:from-[#dc2626] hover:to-[#0f2b5c] text-white font-display font-black text-xs uppercase py-4 rounded-2xl shadow-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer tracking-wider"
+              >
+                <span>{t.modal_btn_confirm}</span>
+              </button>
+            </div>
+
+          </form>
         </motion.div>
       </div>
     </AnimatePresence>

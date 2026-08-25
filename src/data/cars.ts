@@ -16,240 +16,115 @@ export interface TestimonialItem {
 }
 
 export const CARS: Car[] = [
-  // 1. CAR RENTAL (MPV, VIP & HIACE/ELF)
+  // 1. TOYOTA AVANZA
   {
-    id: 'avanza',
+    id: 'toyota-avanza',
     name: 'Toyota Avanza',
-    category: 'Car Rental',
+    category: 'Sewa Mobil',
     pricePerDay: 0,
-    priceDisplay: 'Contact for Best Rates',
+    priceDisplay: 'Hubungi Admin untuk Harga Terbaik',
     image: '/avanza.avif',
     seats: 7,
-    transmission: 'Manual / Automatic',
-    fuel: 'Petrol (Included / Optional)',
+    transmission: 'Manual / Matic',
+    fuel: 'Bensin',
     includeList: [
-      'Multi-Blower Cold AC',
-      'Bluetooth / USB Audio System',
-      'Ergonomic Reclining Seats',
-      'Clean & Fragrant Interior',
-      'Licensed Professional Driver & Fuel'
+      'AC Dingin Double Blower',
+      'Audio & Bluetooth System',
+      'Kabin Bersih, Harum & Terawat',
+      'Kapasitas 6 - 7 Penumpang',
+      'Pengemudi Berpengalaman'
     ],
-    description: 'The most popular MPV for family trips, business travel, airport transfers, and exploring Bandung & inter-city destinations.',
+    description: 'Cocok untuk perjalanan keluarga dan perjalanan pribadi. Nyaman dan lincah untuk rute Pangandaran, Bandung, Jabodetabek dan sekitarnya.',
     rating: 4.9,
-    reviewsCount: 145,
+    reviewsCount: 156,
     specifications: [
-      { label: 'Capacity', value: '6 - 7 Passengers' },
-      { label: 'Service', value: 'Daily Rental + Driver / All-In' },
-      { label: 'Use Case', value: 'Family, Business & Airport Transfer' }
-    ]
-  },
-  {
-    id: 'innova-reborn',
-    name: 'Toyota Innova Reborn',
-    category: 'Car Rental',
-    pricePerDay: 0,
-    priceDisplay: 'Contact for Best Rates',
-    image: '/innova3.avif',
-    seats: 7,
-    transmission: 'Manual / Automatic',
-    fuel: 'Petrol / Euro 4 Diesel',
-    includeList: [
-      'Triple Zone Climate AC',
-      'Ultra Quiet & Spacious Cabin',
-      'Touchscreen Infotainment',
-      'Captain / Standard Seats',
-      'Licensed Pro Driver'
-    ],
-    description: 'Premium MPV featuring superior suspension comfort and silent cabin, ideal for executive business trips & family road trips.',
-    rating: 5.0,
-    reviewsCount: 182,
-    specifications: [
-      { label: 'Capacity', value: '7 Passengers' },
-      { label: 'Features', value: 'Smooth Suspension, Per-Row AC, Quiet Cabin' },
-      { label: 'Service', value: 'Java & Bali Experienced Driver' }
-    ]
-  },
-  {
-    id: 'alphard',
-    name: 'Toyota Alphard / Vellfire',
-    category: 'Car Rental',
-    pricePerDay: 0,
-    priceDisplay: 'Contact for VIP Pricing',
-    image: '/alphard.avif',
-    seats: 7,
-    transmission: 'Automatic',
-    fuel: 'Premium Petrol',
-    includeList: [
-      'First Class Captain Seats',
-      'Power Sliding Doors',
-      'Sunroof / Moonroof',
-      'Automatic Climate Control',
-      'Formally Dressed VIP Driver'
-    ],
-    description: 'Top-tier luxury MPV for VIP guests, corporate executives, wedding events, and high-profile delegations.',
-    rating: 5.0,
-    reviewsCount: 94,
-    specifications: [
-      { label: 'Capacity', value: '6 - 7 VIP Seats' },
-      { label: 'Interior', value: 'Leather Captain Seat + Ottoman' },
-      { label: 'Service', value: 'Formal VIP Driver & Punctual Service' }
-    ]
-  },
-  {
-    id: 'hiace-premio-luxury',
-    name: 'Toyota Hiace Premio Luxury',
-    category: 'Car Rental',
-    pricePerDay: 0,
-    priceDisplay: 'Contact for Best Rates',
-    image: '/hiace_premio.avif',
-    seats: 10,
-    transmission: 'Manual',
-    fuel: 'High Power Diesel',
-    includeList: [
-      'Captain Leather Seats (8, 9 & 10 Seats)',
-      'Smart TV & Sound System',
-      'USB Charging Ports per Row',
-      'Ducting Cold Air Conditioning',
-      'Licensed Pro Driver'
-    ],
-    description: 'Luxury Premio Luxury microbus configured with 8, 9 & 10 Captain Seats for exclusive group tours.',
-    rating: 5.0,
-    reviewsCount: 110,
-    specifications: [
-      { label: 'Seat Options', value: '8, 9 & 10 Seats (Captain Seats)' },
-      { label: 'Amenities', value: 'Smart TV, Karaoke Sound, USB Ports, AC' },
-      { label: 'Service', value: 'Corporate Gathering & VIP Tour' }
-    ]
-  },
-  {
-    id: 'hiace-commuter',
-    name: 'Toyota Hiace Commuter',
-    category: 'Car Rental',
-    pricePerDay: 0,
-    priceDisplay: 'Contact for Best Rates',
-    image: '/hiace.avif',
-    seats: 14,
-    transmission: 'Manual',
-    fuel: 'Diesel',
-    includeList: [
-      '14 Reclining Passenger Seats',
-      'Ceiling Cold AC Ducting',
-      'Full Audio Player',
-      'Spacious & Comfortable Cabin',
-      'Friendly Licensed Driver'
-    ],
-    description: 'The preferred 14-seater van for family trips, school excursions, corporate outings, and inter-city travel.',
-    rating: 4.9,
-    reviewsCount: 168,
-    specifications: [
-      { label: 'Capacity', value: '14 Passengers' },
-      { label: 'Amenities', value: 'Ceiling AC, Reclining Seats, Luggage Space' },
-      { label: 'Coverage', value: 'Bandung City Tour & Java-Bali Trips' }
-    ]
-  },
-  {
-    id: 'hiace-premio-standard',
-    name: 'Toyota Hiace Premio (14 Seats)',
-    category: 'Car Rental',
-    pricePerDay: 0,
-    priceDisplay: 'Contact for Best Rates',
-    image: '/hiace_premio.avif',
-    seats: 14,
-    transmission: 'Manual',
-    fuel: 'Euro 4 Diesel',
-    includeList: [
-      '14 Ergonomic Seats',
-      'Monocoque Quiet Cabin Design',
-      'Individual Air Ducting',
-      'ABS & VSC Safety Systems',
-      'Professional Driver'
-    ],
-    description: 'Latest generation 14-seater Hiace Premio featuring modern exterior, quiet ride, and enhanced safety features.',
-    rating: 4.9,
-    reviewsCount: 125,
-    specifications: [
-      { label: 'Capacity', value: '14 Passengers' },
-      { label: 'Suspension', value: 'Smoother & Stable Ride' },
-      { label: 'Service', value: 'Inter-City Travel & Family Trips' }
-    ]
-  },
-  {
-    id: 'elf-short-coaster',
-    name: 'Isuzu Elf Short / Coaster',
-    category: 'Car Rental',
-    pricePerDay: 0,
-    priceDisplay: 'Contact for Best Rates',
-    image: '/elf_long.avif',
-    seats: 17,
-    transmission: 'Manual',
-    fuel: 'Diesel',
-    includeList: [
-      '17 Passenger Seats',
-      'Multi-Blower Air Conditioning',
-      'Karaoke Audio System',
-      'Mountain Terrain Expert Driver',
-      'Efficient Group Size'
-    ],
-    description: 'Agile 17-seater Isuzu Elf Short ideal for navigating hilly routes and West Java destinations for medium-sized groups.',
-    rating: 4.8,
-    reviewsCount: 92,
-    specifications: [
-      { label: 'Capacity', value: '17 Passengers' },
-      { label: 'Amenities', value: 'Ceiling AC, Karaoke Sound System' },
-      { label: 'Use Case', value: 'School Trips, Group Outings & Pilgrimages' }
-    ]
-  },
-  {
-    id: 'elf-long',
-    name: 'Isuzu Elf Long',
-    category: 'Car Rental',
-    pricePerDay: 0,
-    priceDisplay: 'Contact for Best Rates',
-    image: '/elf_long.avif',
-    seats: 19,
-    transmission: 'Manual',
-    fuel: 'High Power Diesel',
-    includeList: [
-      '19 Reclining Seats',
-      'Cold Air Ducting AC',
-      'TV & Sound Karaoke System',
-      'Extra Large Luggage Space',
-      'Experienced Route Driver'
-    ],
-    description: 'Spacious 19-seater microbus featuring generous legroom and rear cargo capacity for large group tours.',
-    rating: 4.9,
-    reviewsCount: 140,
-    specifications: [
-      { label: 'Capacity', value: '19 Passengers' },
-      { label: 'Amenities', value: 'Cold AC, TV Audio, Charging Ports' },
-      { label: 'Coverage', value: 'Java, Bali & Nationwide Group Events' }
+      { label: 'Kapasitas', value: '6 - 7 Penumpang' },
+      { label: 'Layanan', value: 'Door-to-Door / Private Trip' },
+      { label: 'Karakteristik', value: 'Keluarga & Pribadi' }
     ]
   },
 
-  // 2. SINGLE CARD FOR TOURISM BUS RENTAL
+  // 2. NEW CALYA
   {
-    id: 'sewa-bus-pariwisata',
-    name: 'Tourism Bus Rental',
-    category: 'Tourism Bus Rental',
+    id: 'new-calya',
+    name: 'New Calya',
+    category: 'Sewa Mobil',
     pricePerDay: 0,
-    priceDisplay: 'Contact for Custom Quotes',
-    image: '/restu_bus.avif',
-    seats: 59,
-    transmission: 'Manual',
-    fuel: 'Heavy Duty Diesel',
+    priceDisplay: 'Hubungi Admin untuk Harga Terbaik',
+    image: '/calya.avif',
+    seats: 7,
+    transmission: 'Manual / Matic',
+    fuel: 'Bensin Hemat',
     includeList: [
-      'Medium Bus Legrest (18 Seats)',
-      'Medium Bus (31, 35 & 39 Seats)',
-      'Big Bus Legrest (32 Seats)',
-      'Big Bus (47, 50 & 59 Seats)'
+      'AC Dingin & Nyaman',
+      'Kabin Ergonomis',
+      'Sangat Hemat Bahan Bakar',
+      'Kapasitas 5 - 7 Penumpang',
+      'Driver Ramah & Tepat Waktu'
     ],
-    description: 'Comprehensive Tourism Bus Rental services for study tours, corporate gatherings, and group travel. Click to view all 4 bus categories.',
-    rating: 5.0,
-    reviewsCount: 250,
+    description: 'Pilihan praktis dan ekonomis untuk perjalanan. Solusi hemat untuk perjalanan antar kota dengan kenyamanan door-to-door.',
+    rating: 4.8,
+    reviewsCount: 132,
     specifications: [
-      { label: 'Bus Options', value: 'Medium Bus & Big Bus' },
-      { label: 'Amenities', value: 'Full AC, Toilet, Karaoke TV, Legrest, Charger' },
-      { label: 'Service', value: 'Primary Licensed Bus Driver & Co-Driver' }
+      { label: 'Kapasitas', value: '5 - 7 Penumpang' },
+      { label: 'Layanan', value: 'Travel Antar Kota / Private' },
+      { label: 'Karakteristik', value: 'Praktis & Ekonomis' }
+    ]
+  },
+
+  // 3. TOYOTA RUSH
+  {
+    id: 'toyota-rush',
+    name: 'Toyota Rush',
+    category: 'Sewa Mobil',
+    pricePerDay: 0,
+    priceDisplay: 'Hubungi Admin untuk Harga Terbaik',
+    image: '/rush.jpg',
+    seats: 7,
+    transmission: 'Manual / Matic',
+    fuel: 'Bensin',
+    includeList: [
+      'Suspensi Tangguh & Nyaman',
+      'Ground Clearance Tinggi',
+      'Interior Modern & Lega',
+      'Kapasitas 7 Penumpang',
+      'Pengemudi Handal Antar Kota'
+    ],
+    description: 'Nyaman untuk perjalanan keluarga dan perjalanan jarak jauh. Tangguh melibas berbagai kondisi rute dengan kenyamanan maksimal.',
+    rating: 5.0,
+    reviewsCount: 148,
+    specifications: [
+      { label: 'Kapasitas', value: '7 Penumpang' },
+      { label: 'Layanan', value: 'Keluarga, Bisnis & Jarak Jauh' },
+      { label: 'Karakteristik', value: 'Tangguh & Nyaman' }
+    ]
+  },
+
+  // 4. TOYOTA HIACE
+  {
+    id: 'toyota-hiace',
+    name: 'Toyota Hiace',
+    category: 'Sewa Mobil',
+    pricePerDay: 0,
+    priceDisplay: 'Hubungi Admin untuk Harga Terbaik',
+    image: '/hiace.avif',
+    seats: 14,
+    transmission: 'Manual',
+    fuel: 'Diesel Bertenaga',
+    includeList: [
+      'Kapasitas 10 - 14 Kursi Reclining',
+      'Ducting AC Dingin Merata',
+      'Bagasi Luas & Lega',
+      'Audio & Charging Port',
+      'Pengemudi Rombongan Berpengalaman'
+    ],
+    description: 'Cocok untuk perjalanan bersama dan rombongan. Pilihan utama untuk family gathering, rombongan kantor, dan perjalanan wisata.',
+    rating: 5.0,
+    reviewsCount: 175,
+    specifications: [
+      { label: 'Kapasitas', value: '10 - 14 Penumpang' },
+      { label: 'Layanan', value: 'Transportasi Rombongan / Wisata' },
+      { label: 'Karakteristik', value: 'Luas, Nyaman & Rombongan' }
     ]
   }
 ];
@@ -257,43 +132,43 @@ export const CARS: Car[] = [
 export const TESTIMONIALS: TestimonialItem[] = [
   {
     id: '1',
-    name: 'Hendra Wijaya',
-    roleEN: 'Corporate Gathering Committee - Jakarta',
-    roleID: 'Panitia Corporate Gathering - Jakarta',
-    textEN: 'Rented Big Bus Legrest from Restu Tour & Transport for our Corporate Gathering to Bandung & Lembang. Very clean bus, cold AC, punctual driver and knew the routes well. Highly recommended!',
-    textID: 'Sewa Big Bus Legrest di Restu Tour & Transport untuk acara Gathering Perusahaan ke Bandung & Lembang. Bus sangat bersih, AC dingin, driver ramah dan tepat waktu. Sangat direkomendasikan!',
+    name: 'Budi Santoso',
+    roleEN: 'Customer - Jakarta to Pangandaran',
+    roleID: 'Pelanggan Rute Jakarta – Pangandaran',
+    textEN: 'Super convenient door-to-door service! Picked up right from my house in Jakarta and arrived safely in Pangandaran without switching vehicles. Clean car and experienced driver.',
+    textID: 'Layanan door-to-door dari Putri Munggaran Tour & Travel sangat praktis! Dijemput langsung di depan rumah di Jakarta dan diantar sampai tujuan di Pangandaran dengan aman dan nyaman tanpa repot ganti kendaraan.',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-    carModelEN: 'Big Tourism Bus',
-    carModelID: 'Big Bus Pariwisata',
+    carModelEN: 'Toyota Rush',
+    carModelID: 'Toyota Rush',
     dateEN: 'January 2026',
     dateID: 'Januari 2026'
   },
   {
     id: '2',
-    name: 'Ratna Dewi',
-    roleEN: 'Family Trip Organizer - Bandung',
-    roleID: 'Panitia Family Trip - Bandung',
-    textEN: 'Rented Toyota Hiace Premio Luxury for a big family vacation to Pangandaran. Extremely comfortable captain seats, clean cabin, and driver Mr. Agus was polite and helpful throughout the trip.',
-    textID: 'Sewa Toyota Hiace Premio Luxury untuk liburan keluarga besar ke Pangandaran. Kursi captain seat sangat nyaman, kabin harum bersih, dan pak driver sangat ramah membantu sepanjang jalan.',
+    name: 'Ibu Ratna Dewi',
+    roleEN: 'Family Trip - Pangandaran to Bandung',
+    roleID: 'Perjalanan Keluarga Pangandaran – Bandung',
+    textEN: 'Used Toyota Avanza for family trip to Bandung. The driver was polite, punctual, and drove very smoothly. Truly living up to their tagline: Safe, Comfortable, Reach the Destination!',
+    textID: 'Perjalanan keluarga dari Pangandaran ke Bandung menggunakan Toyota Avanza sangat nyaman. Driver ramah, tepat waktu, dan mengemudi dengan sangat hati-hati. Benar-benar Aman, Nyaman, Sampai Tujuan!',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-    carModelEN: 'Hiace Premio Luxury',
-    carModelID: 'Hiace Premio Luxury',
+    carModelEN: 'Toyota Avanza',
+    carModelID: 'Toyota Avanza',
     dateEN: 'February 2026',
     dateID: 'Februari 2026'
   },
   {
     id: '3',
-    name: 'Dr. Ahmad Fauzi',
-    roleEN: 'School Study Tour Coordinator',
-    roleID: 'Koordinator Study Tour Sekolah',
-    textEN: 'Restu Tour & Transport provided outstanding service! Transparent pricing, top-tier maintained bus unit, and safety-focused drivers for our school study tour to Jogja & Central Java.',
-    textID: 'Restu Tour & Transport memberikan pelayanan terbaik! Harga transparan, bus sangat terawat, dan pengemudi sangat mengutamakan keselamatan untuk study tour sekolah kami ke Jogja.',
+    name: 'Ahmad Faisal',
+    roleEN: 'Group Outing - Jabodetabek',
+    roleID: 'Rombongan Kantor – Jabodetabek',
+    textEN: 'Booked Toyota Hiace for our office group trip to Pangandaran. Spacious, cool AC, clean interior, and effortless WhatsApp booking. Highly recommended travel service!',
+    textID: 'Sewa Toyota Hiace untuk rombongan ke Pangandaran. Kabin luas, AC dingin, dan pemesanan via WhatsApp sangat mudah & responsif. Putri Munggaran Tour & Travel sangat kami rekomendasikan!',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
-    carModelEN: 'Medium Bus Leg Rest',
-    carModelID: 'Medium Bus Leg Rest',
+    carModelEN: 'Toyota Hiace',
+    carModelID: 'Toyota Hiace',
     dateEN: 'March 2026',
     dateID: 'Maret 2026'
   }

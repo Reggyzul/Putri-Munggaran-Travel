@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ShieldCheck, Award, Navigation, UserCheck, HeartHandshake, CheckCircle2 } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface AboutPageProps {
@@ -11,32 +11,13 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
   const t = TRANSLATIONS[lang];
   const isEN = lang === 'EN';
 
-  const servicesList = isEN ? [
-    'Daily Car Rental',
-    'Car Rental with Driver',
-    'Tourism Bus Rental',
-    'Domestic Tour Packages',
-    'Leisure & Sightseeing Trips',
-    'Corporate & Official Business Travel',
-    'Airport Pickup & Drop Transfers',
-    'Family Vacation Packages',
-    'Corporate Gatherings',
-    'School Study Tours',
-    'Pilgrimage Trips',
-    'Group Events & Delegations'
-  ] : [
-    'Sewa Mobil Harian',
-    'Sewa Mobil dengan Sopir',
-    'Sewa Bus Pariwisata',
-    'Paket Tour Domestik',
-    'Perjalanan Wisata',
-    'Perjalanan Dinas',
-    'Antar Jemput Bandara',
-    'Family Trip',
-    'Corporate Gathering',
-    'Study Tour',
-    'Ziarah',
-    'Event & Perjalanan Rombongan'
+  const servicesList = [
+    { title: t.service_1_title, desc: t.service_1_desc },
+    { title: t.service_2_title, desc: t.service_2_desc },
+    { title: t.service_3_title, desc: t.service_3_desc },
+    { title: t.service_4_title, desc: t.service_4_desc },
+    { title: t.service_5_title, desc: t.service_5_desc },
+    { title: t.service_6_title, desc: t.service_6_desc }
   ];
 
   return (
@@ -47,7 +28,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-50 transform scale-105"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&q=80&w=1920')`
+            backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1920')`
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/50 to-slate-950/80" />
@@ -74,19 +55,28 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             </div>
 
             <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37] uppercase tracking-tight">
-              {t.about_title_2}
+              {t.about_title_1}
             </h2>
+            <p className="font-sans text-sm font-bold text-red-600 uppercase">
+              {t.about_title_2} • {t.hero_motto}
+            </p>
           </div>
 
-          <p className="font-sans text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed">
+          <p className="font-sans text-xs sm:text-sm font-medium text-slate-700 leading-relaxed">
             {t.about_desc_1}
           </p>
+          <p className="font-sans text-xs sm:text-sm font-medium text-slate-700 leading-relaxed">
+            {t.about_desc_2}
+          </p>
+          <p className="font-sans text-xs sm:text-sm font-medium text-slate-700 leading-relaxed">
+            {t.about_desc_3}
+          </p>
 
-          <div className="space-y-4 text-xs sm:text-sm font-sans text-slate-700 leading-relaxed">
+          <div className="space-y-4 text-xs sm:text-sm font-sans text-slate-700 leading-relaxed pt-4">
             
             {/* Visi Perusahaan */}
-            <div className="flex items-start gap-3 p-5 bg-slate-50 rounded-2xl border border-slate-200">
-              <span className="text-[#dc2626] font-black text-base shrink-0 mt-0.5">✓</span>
+            <div className="flex items-start gap-3 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+              <Award className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
               <div className="space-y-1.5">
                 <span className="font-bold text-slate-900 text-base block">{t.vision_title}:</span>
                 <p className="text-slate-700 font-medium">
@@ -96,15 +86,25 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             </div>
 
             {/* Misi Perusahaan */}
-            <div className="flex items-start gap-3 p-5 bg-slate-50 rounded-2xl border border-slate-200">
-              <span className="text-[#dc2626] font-black text-base shrink-0 mt-0.5">✓</span>
-              <div className="space-y-1.5">
+            <div className="flex items-start gap-3 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+              <ShieldCheck className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
+              <div className="space-y-2">
                 <span className="font-bold text-slate-900 text-base block">{t.mission_title}:</span>
-                <ul className="list-disc pl-5 space-y-1 text-slate-700 font-medium">
-                  <li>{t.mission_1}</li>
-                  <li>{t.mission_2}</li>
-                  <li>{t.mission_3}</li>
-                  <li>{t.mission_4}</li>
+                <ul className="grid grid-cols-1 gap-2 text-slate-700 font-medium">
+                  {[
+                    t.mission_1,
+                    t.mission_2,
+                    t.mission_3,
+                    t.mission_4,
+                    t.mission_5,
+                    t.mission_6,
+                    t.mission_7
+                  ].map((misi, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="text-red-600 font-bold">✓</span>
+                      <span>{misi}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -116,24 +116,24 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         <section className="space-y-8 border-t border-slate-100 pt-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-100 text-red-600 font-display font-black text-xs sm:text-sm uppercase tracking-widest border border-red-200 shadow-sm">
             <Sparkles className="w-4 h-4 text-red-600" />
-            <span>{isEN ? 'Our Comprehensive Travel Services' : 'Layanan Kami & Area Operasional'}</span>
+            <span>{t.services_title}</span>
           </div>
 
-          <div className="space-y-4 text-xs sm:text-sm font-sans text-slate-700 leading-relaxed">
-            <h3 className="font-display font-bold text-lg sm:text-xl text-[#0d1b37]">
-              {isEN ? 'Service Coverage' : 'Cakupan Layanan Perjalanan'}
-            </h3>
-            <p>
-              {t.about_desc_2}
-            </p>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pl-2 text-slate-700 font-medium">
-              {servicesList.map((item, idx) => (
-                <li key={idx} className="flex items-center gap-2">🔹 {item}</li>
-              ))}
-            </ul>
-            <p className="pt-2 text-slate-600 font-medium">
-              {t.dest_desc}
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {servicesList.map((srv, idx) => (
+              <div key={idx} className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1.5">
+                <h4 className="font-display font-black text-sm text-[#0d1b37] uppercase flex items-center gap-2">
+                  <span className="text-red-600">0{idx + 1}.</span> {srv.title}
+                </h4>
+                <p className="font-sans text-xs text-slate-600 font-medium leading-relaxed">
+                  {srv.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="p-5 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 font-medium">
+            📍 <strong>{isEN ? 'Office Location:' : 'Alamat Operasional:'}</strong> {t.footer_address_text} | 📱 <strong>WhatsApp:</strong> 0813-2126-4200
           </div>
         </section>
 
