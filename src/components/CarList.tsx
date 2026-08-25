@@ -107,13 +107,13 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
               <div className="p-5 pt-0 space-y-2">
                 <button
                   onClick={() => onSelectCar(car)}
-                  className="w-full bg-slate-100 hover:bg-slate-200 text-[#0d1b37] font-display font-black text-xs uppercase py-2.5 rounded-xl transition-all cursor-pointer"
+                  className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-display font-black text-xs uppercase py-2.5 rounded-full transition-all cursor-pointer"
                 >
                   {isEN ? 'Reservation Draft' : 'Form Reservasi'}
                 </button>
                 <button
                   onClick={() => handleWhatsAppBooking(car)}
-                  className="w-full bg-[#dc2626] hover:bg-red-700 text-white font-display font-black text-xs uppercase py-3 rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                  className="w-full bg-[#06b6d4] hover:bg-[#0891b2] text-slate-950 hover:text-white font-display font-black text-xs uppercase tracking-wider py-3 rounded-full shadow-sm hover:shadow-cyan-500/20 transition-all cursor-pointer flex items-center justify-center gap-1.5"
                 >
                   <MessageCircle className="w-3.5 h-3.5 fill-current" />
                   <span>{t.cars_book_btn}</span>

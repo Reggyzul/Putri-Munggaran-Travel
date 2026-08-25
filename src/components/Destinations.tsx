@@ -331,7 +331,7 @@ export default function Destinations({ lang, onViewAllDestinations }: Destinatio
                 <div className="p-6 pt-0">
                   <button
                     onClick={() => handleWhatsAppConsult(name)}
-                    className="w-full bg-[#dc2626] hover:bg-red-700 text-white font-display font-extrabold text-xs uppercase py-3.5 rounded-2xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full bg-[#06b6d4] hover:bg-[#0891b2] text-slate-950 hover:text-white font-display font-black text-xs uppercase tracking-wider py-3.5 rounded-full shadow-sm hover:shadow-cyan-500/20 transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
                     <span>{isEN ? 'Consult Trip via WA' : 'Konsultasi Perjalanan via WA'}</span>
