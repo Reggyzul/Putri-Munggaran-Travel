@@ -1,79 +1,96 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Compass, MessageCircle, CheckCircle2, MapPin, Sparkles } from 'lucide-react';
-import { TRANSLATIONS } from '../utils/translations';
-import { PANGANDARAN_DESTINATIONS, DestinationItem } from './Destinations';
+import { Compass, MessageCircle, CheckCircle2 } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface DestinationHighlightsPageProps {
   lang: 'ID' | 'EN';
   onNavigateHome: () => void;
 }
 
-export default function DestinationHighlightsPage({ lang, onNavigateHome }: DestinationHighlightsPageProps) {
+export default function DestinationHighlightsPage({
+  lang,
+  onNavigateHome
+}: DestinationHighlightsPageProps) {
+  const { content } = useSiteContent();
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'pantai' | 'alam'>('all');
-  const t = TRANSLATIONS[lang];
+  const t = content.translations[lang];
   const isEN = lang === 'EN';
 
   const handleWhatsAppBooking = (destName: string) => {
-    const waNumber = '6281321264200';
+    const waNumber = content.brand.whatsappNumber;
     const message = isEN
-      ? `Hello Putri Munggaran Tour & Travel, I would like to consult on a trip to destination: ${destName}. Please provide price quote, route details & vehicle availability. Thank you!`
-      : `Halo Putri Munggaran Tour & Travel, saya ingin berkonsultasi mengenai perjalanan wisata ke: ${destName}. Mohon informasi penawaran harga, rute perjalanan & ketersediaan armada. Terima kasih!`;
-    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
+      ? `Hello ${content.brand.brandFirstName} ${content.brand.brandSecondName}, I would like to consult on a trip to destination: ${destName}. Please provide price quote, route details & vehicle availability. Thank you!`
+      : `Halo ${content.brand.brandFirstName} ${content.brand.brandSecondName}, saya ingin berkonsultasi mengenai perjalanan wisata ke: ${destName}. Mohon informasi penawaran harga, rute perjalanan & ketersediaan armada. Terima kasih!`;
+    window.open(
+      `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`,
+      '_blank',
+      'noreferrer'
+    );
   };
 
-  const filteredDestinations = PANGANDARAN_DESTINATIONS.filter((item) => {
+  const filteredDestinations = content.destinations.filter((item) => {
+    const cat =
+      item.category ||
+      (item.id.includes('green-canyon') || item.id.includes('citumang') ? 'alam' : 'pantai');
     if (selectedFilter === 'pantai') {
-      return item.id.includes('pantai') || item.id.includes('pasir-putih');
+      return cat === 'pantai';
     }
     if (selectedFilter === 'alam') {
-      return item.id.includes('green-canyon') || item.id.includes('citumang');
+      return cat === 'alam';
     }
     return true;
   });
 
   return (
     <div className="bg-white text-[#0d1b37] min-h-screen pt-20 text-left">
-      
       {/* TOP HEADER BANNER */}
       <div className="relative w-full h-[230px] sm:h-[290px] bg-slate-950 text-white overflow-hidden flex items-center justify-center">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-50 transform scale-105"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1920')`
-          }}
-        />
+        {content.banners.destinationsBannerImage && (
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-50 transform scale-105"
+            style={{
+              backgroundImage: `url('${content.banners.destinationsBannerImage}')`
+            }}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
             <Compass className="w-3.5 h-3.5 text-amber-300" />
-            <span>DESTINASI WISATA PANGANDARAN</span>
+            <span>
+              {isEN
+                ? content.banners.destinationsBannerBadgeEN
+                : content.banners.destinationsBannerBadgeID}
+            </span>
           </div>
 
           <h1 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight uppercase">
-            {isEN ? 'Pangandaran Top Destinations' : 'Destinasi Wisata Pilihan'}
+            {t.dest_title}
           </h1>
 
           <p className="font-sans text-xs font-bold text-slate-300 uppercase tracking-widest">
-            <span onClick={onNavigateHome} className="hover:text-emerald-400 cursor-pointer">{t.dest_breadcrumb_home}</span> / {isEN ? 'DESTINATIONS' : 'DESTINASI WISATA'}
+            <span onClick={onNavigateHome} className="hover:text-emerald-400 cursor-pointer">
+              {t.dest_breadcrumb_home}
+            </span>{' '}
+            / {t.nav_destinations}
           </p>
         </div>
       </div>
 
       {/* MAIN CONTENT CONTAINER */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-        
         {/* Page Description */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37]">
-            {isEN ? 'Explore 6 Premier Attractions in Pangandaran' : '6 Destinasi Wisata Favorit & Populer di Pangandaran'}
+            {isEN
+              ? content.banners.destinationsPageSubtitleEN
+              : content.banners.destinationsPageSubtitleID}
           </h2>
           <div className="w-16 h-1 bg-emerald-600 mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
-            {isEN
-              ? 'Enjoy seamless, safe, and comfortable door-to-door transport to all prominent beaches and nature attractions in Pangandaran.'
-              : 'Nikmati perjalanan liburan yang aman, nyaman, dan praktis bersama Putri Munggaran Tour & Travel langsung dari rumah Anda menuju destinasi wisata impian.'}
+            {t.dest_desc}
           </p>
         </div>
 
@@ -87,7 +104,9 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
             }`}
           >
-            {isEN ? 'All 6 Destinations' : 'Semua 6 Destinasi'}
+            {isEN
+              ? `All ${content.destinations.length} Destinations`
+              : `Semua ${content.destinations.length} Destinasi`}
           </button>
           <button
             onClick={() => setSelectedFilter('pantai')}
@@ -111,7 +130,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
           </button>
         </div>
 
-        {/* 6 Destinations Grid */}
+        {/* Destinations Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredDestinations.map((dest, idx) => {
             const name = isEN ? dest.nameEN : dest.name;
@@ -122,7 +141,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
 
             return (
               <motion.div
-                key={dest.id}
+                key={dest.id || idx}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.08 }}
@@ -130,16 +149,22 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
               >
                 <div>
                   <div className="relative h-56 bg-slate-100 overflow-hidden">
-                    <img
-                      src={dest.image}
-                      alt={name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                    {dest.image ? (
+                      <img
+                        src={dest.image}
+                        alt={name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-slate-200/70 flex items-center justify-center text-slate-400 text-xs font-semibold">
+                        Belum ada foto
+                      </div>
+                    )}
                     <div className="absolute top-4 left-4 bg-slate-900/85 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-md">
                       {badge}
                     </div>
                     <div className="absolute top-4 right-4 bg-emerald-600 text-white font-black text-xs w-7 h-7 rounded-full flex items-center justify-center shadow-md">
-                      0{idx + 1}
+                      {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                     </div>
                   </div>
 
@@ -163,7 +188,10 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
                       </span>
                       <ul className="space-y-1.5">
                         {highlights.map((spot, spotIdx) => (
-                          <li key={spotIdx} className="flex items-start gap-2 text-[11px] font-semibold text-slate-700">
+                          <li
+                            key={spotIdx}
+                            className="flex items-start gap-2 text-[11px] font-semibold text-slate-700"
+                          >
                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                             <span>{spot}</span>
                           </li>
@@ -179,7 +207,7 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
                     className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase py-3.5 rounded-full shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
-                    <span>{isEN ? 'Consult Trip via WA' : 'Konsultasi Perjalanan via WA'}</span>
+                    <span>{t.dest_wa_consult}</span>
                   </button>
                 </div>
               </motion.div>
@@ -191,15 +219,17 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
         <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#0b1736] via-[#0d2847] to-emerald-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="space-y-1 text-left">
             <span className="text-[10px] font-black uppercase tracking-widest text-emerald-300 bg-white/10 px-3 py-1 rounded-full inline-block">
-              DOOR-TO-DOOR TRIP PANGANDARAN
+              {content.banners.destinationsCalloutBadge}
             </span>
             <h3 className="font-display font-black text-xl sm:text-2xl uppercase">
-              {isEN ? 'Plan Your Pangandaran Tour With Us' : 'Ingin Mengunjungi Destinasi di Atas?'}
+              {isEN
+                ? content.banners.destinationsCalloutTitleEN
+                : content.banners.destinationsCalloutTitleID}
             </h3>
             <p className="font-sans text-xs text-slate-300 max-w-xl">
-              {isEN 
-                ? 'We pick you up from your doorstep in Bandung, Jabodetabek, or Pangandaran and take you directly to your chosen destinations.' 
-                : 'Kami siap menjemput Anda langsung dari rumah di Bandung, Jabodetabek, atau Pangandaran dan mengantar ke seluruh destinasi wisata favorit.'}
+              {isEN
+                ? content.banners.destinationsCalloutDescEN
+                : content.banners.destinationsCalloutDescID}
             </p>
           </div>
           <button
@@ -210,7 +240,6 @@ export default function DestinationHighlightsPage({ lang, onNavigateHome }: Dest
             <span>{isEN ? 'Book via WhatsApp' : 'Hubungi WhatsApp'}</span>
           </button>
         </div>
-
       </div>
     </div>
   );

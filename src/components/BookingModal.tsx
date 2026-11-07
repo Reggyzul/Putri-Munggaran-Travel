@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Car } from '../types';
-import { CARS } from '../data/cars';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Calendar, Clock, MapPin, User, Phone, CheckCircle2, Sparkles, Award, ShieldCheck } from 'lucide-react';
-import { TRANSLATIONS } from '../utils/translations';
+import { X, Calendar, Clock, MapPin, User, Phone } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface BookingModalProps {
   car: Car | null;
@@ -13,8 +12,9 @@ interface BookingModalProps {
 }
 
 export default function BookingModal({ car, onClose, lang, onCarChange }: BookingModalProps) {
+  const { content } = useSiteContent();
   const [serviceCategory, setServiceCategory] = useState<string>('door-to-door');
-  const [selectedCarId, setSelectedCarId] = useState<string>(car?.id || 'toyota-avanza');
+  const [selectedCarId, setSelectedCarId] = useState<string>(car?.id || content.cars[0]?.id || '');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [passengers, setPassengers] = useState(lang === 'EN' ? '4 Passengers' : '4 Orang');
@@ -24,7 +24,7 @@ export default function BookingModal({ car, onClose, lang, onCarChange }: Bookin
   const [destinationAddress, setDestinationAddress] = useState('');
   const [notes, setNotes] = useState('');
 
-  const t = TRANSLATIONS[lang];
+  const t = content.translations[lang];
   const isEN = lang === 'EN';
 
   useEffect(() => {
@@ -41,32 +41,29 @@ export default function BookingModal({ car, onClose, lang, onCarChange }: Bookin
 
   if (!car) return null;
 
-  const currentSelectedCar = CARS.find(c => c.id === selectedCarId) || car;
+  const currentSelectedCar = content.cars.find((c) => c.id === selectedCarId) || car;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone || !departureDate || !pickupAddress) {
-      alert(isEN ? 'Please complete all required fields (*)!' : 'Mohon lengkapi semua kolom yang wajib diisi (*)!');
+      alert(
+        isEN
+          ? 'Please complete all required fields (*)!'
+          : 'Mohon lengkapi semua kolom yang wajib diisi (*)!'
+      );
       return;
     }
 
-    const waNumber = '6281321264200';
-
-    const serviceNameMap: Record<string, { id: string; en: string }> = {
-      'door-to-door': { id: 'Door-to-Door Service', en: 'Door-to-Door Service' },
-      'travel-antar-kota': { id: 'Travel Antar Kota (Pangandaran - Bandung / Jabodetabek)', en: 'Inter-City Travel' },
-      'private-trip': { id: 'Private Trip (Fleksibel & Eksklusif)', en: 'Private Trip' },
-      'transportasi-keluarga': { id: 'Transportasi Keluarga / Mudik', en: 'Family Transportation' },
-      'perjalanan-bisnis': { id: 'Perjalanan Bisnis & Dinas', en: 'Business Travel' },
-      'transportasi-rombongan': { id: 'Transportasi Rombongan (Hiace)', en: 'Group Transportation' }
-    };
-
-    const chosenServiceName = isEN 
-      ? (serviceNameMap[serviceCategory]?.en || 'Door-to-Door Travel') 
-      : (serviceNameMap[serviceCategory]?.id || 'Door-to-Door Travel');
+    const waNumber = content.brand.whatsappNumber;
+    const foundOption = content.bookingServiceOptions.find((o) => o.value === serviceCategory);
+    const chosenServiceName = foundOption
+      ? isEN
+        ? foundOption.labelEN
+        : foundOption.labelID
+      : 'Door-to-Door Service';
 
     const textTemplate = isEN
-      ? `Hello Putri Munggaran Tour & Travel, I would like to consult & reserve travel:
+      ? `Hello ${content.brand.brandFirstName} ${content.brand.brandSecondName}, I would like to consult & reserve travel:
 
 📋 *RESERVATION DETAILS:*
 • Service: *${chosenServiceName}*
@@ -83,7 +80,7 @@ export default function BookingModal({ car, onClose, lang, onCarChange }: Bookin
 • Special Notes: *${notes || '-'}*
 
 Please confirm route availability, schedule & rate quote. Thank you!`
-      : `Halo Putri Munggaran Tour & Travel, saya ingin berkonsultasi & melakukan reservasi:
+      : `Halo ${content.brand.brandFirstName} ${content.brand.brandSecondName}, saya ingin berkonsultasi & melakukan reservasi:
 
 📋 *DETAIL RESERVASI PERJALANAN:*
 • Jenis Layanan: *${chosenServiceName}*
@@ -102,7 +99,11 @@ Please confirm route availability, schedule & rate quote. Thank you!`
 Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terbaik. Terima kasih!`;
 
     const encodedText = encodeURIComponent(textTemplate);
-    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodedText}`, '_blank', 'noreferrer');
+    window.open(
+      `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodedText}`,
+      '_blank',
+      'noreferrer'
+    );
     onClose();
   };
 
@@ -126,20 +127,18 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
 
             <div className="space-y-1">
               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-300 bg-black/30 px-3 py-1 rounded-full inline-block">
-                PUTRI MUNGGARAN TOUR &amp; TRAVEL
+                {content.brand.brandFirstName} {content.brand.brandSecondName}{' '}
+                {content.brand.brandSubtitle}
               </span>
               <h3 className="font-display font-black text-2xl uppercase tracking-tight">
                 {t.modal_title}
               </h3>
-              <p className="font-sans text-xs text-slate-200">
-                {t.modal_desc}
-              </p>
+              <p className="font-sans text-xs text-slate-200">{t.modal_desc}</p>
             </div>
           </div>
 
           {/* Form Content */}
           <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6 max-h-[75vh] overflow-y-auto">
-            
             {/* Step 1: Vehicle & Service Type Selection */}
             <div className="space-y-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
               <span className="text-[11px] font-black uppercase text-emerald-700 tracking-wider block">
@@ -155,14 +154,13 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                   <select
                     value={serviceCategory}
                     onChange={(e) => setServiceCategory(e.target.value)}
-                    className="w-full text-xs font-bold p-3 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    className="w-full text-xs font-bold p-3 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                   >
-                    <option value="door-to-door">Door-to-Door Service</option>
-                    <option value="travel-antar-kota">Travel Antar Kota (Pangandaran - Bandung / Jabodetabek)</option>
-                    <option value="private-trip">Private Trip (Fleksibel &amp; Nyaman)</option>
-                    <option value="transportasi-keluarga">Transportasi Keluarga / Mudik</option>
-                    <option value="perjalanan-bisnis">Perjalanan Bisnis &amp; Dinas</option>
-                    <option value="transportasi-rombongan">Transportasi Rombongan</option>
+                    {content.bookingServiceOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {isEN ? opt.labelEN : opt.labelID}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -175,12 +173,12 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                     value={selectedCarId}
                     onChange={(e) => {
                       setSelectedCarId(e.target.value);
-                      const found = CARS.find(c => c.id === e.target.value);
+                      const found = content.cars.find((c) => c.id === e.target.value);
                       if (found && onCarChange) onCarChange(found);
                     }}
-                    className="w-full text-xs font-bold p-3 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    className="w-full text-xs font-bold p-3 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                   >
-                    {CARS.map(c => (
+                    {content.cars.map((c) => (
                       <option key={c.id} value={c.id}>
                         {c.name} ({c.seats} {t.cars_seats})
                       </option>
@@ -192,7 +190,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
 
             {/* Step 2: Customer Identity */}
             <div className="space-y-4">
-              <span className="text-[11px] font-black uppercase text-red-600 tracking-wider block">
+              <span className="text-[11px] font-black uppercase text-emerald-700 tracking-wider block">
                 2. {isEN ? 'Customer Information' : 'Data Pemesan'}
               </span>
 
@@ -209,7 +207,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder={isEN ? 'e.g. Budi Santoso' : 'Contoh: Bapak / Ibu Agus'}
-                      className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                      className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -226,7 +224,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="0813-xxxx-xxxx"
-                      className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                      className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -235,7 +233,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
 
             {/* Step 3: Trip Details & Addresses */}
             <div className="space-y-4">
-              <span className="text-[11px] font-black uppercase text-red-600 tracking-wider block">
+              <span className="text-[11px] font-black uppercase text-emerald-700 tracking-wider block">
                 3. {isEN ? 'Schedule & Address Details' : 'Jadwal & Lokasi Penjemputan'}
               </span>
 
@@ -251,7 +249,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                       required
                       value={departureDate}
                       onChange={(e) => setDepartureDate(e.target.value)}
-                      className="w-full text-xs font-medium pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                      className="w-full text-xs font-medium pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -267,7 +265,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                       value={pickupTime}
                       onChange={(e) => setPickupTime(e.target.value)}
                       placeholder="08:00"
-                      className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                      className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -281,7 +279,7 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                     value={passengers}
                     onChange={(e) => setPassengers(e.target.value)}
                     placeholder="Contoh: 4 Orang"
-                    className="w-full text-xs font-medium px-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    className="w-full text-xs font-medium px-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -292,14 +290,18 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                   {t.modal_field_address}
                 </label>
                 <div className="relative">
-                  <MapPin className="w-4 h-4 text-red-500 absolute left-3 top-3.5" />
+                  <MapPin className="w-4 h-4 text-emerald-600 absolute left-3 top-3.5" />
                   <input
                     type="text"
                     required
                     value={pickupAddress}
                     onChange={(e) => setPickupAddress(e.target.value)}
-                    placeholder={isEN ? 'Street / hotel / home address for pickup' : 'Alamat lengkap penjemputan (Rumah / Hotel / Titik Temu)'}
-                    className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    placeholder={
+                      isEN
+                        ? 'Street / hotel / home address for pickup'
+                        : 'Alamat lengkap penjemputan (Rumah / Hotel / Titik Temu)'
+                    }
+                    className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -315,8 +317,12 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                     type="text"
                     value={destinationAddress}
                     onChange={(e) => setDestinationAddress(e.target.value)}
-                    placeholder={isEN ? 'Destination city & address (e.g. Bandung / Jakarta)' : 'Kota tujuan & alamat pengantaran (Contoh: Bandung / Jakarta Selatan)'}
-                    className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    placeholder={
+                      isEN
+                        ? 'Destination city & address (e.g. Bandung / Jakarta)'
+                        : 'Kota tujuan & alamat pengantaran (Contoh: Bandung / Jakarta Selatan)'
+                    }
+                    className="w-full text-xs font-medium pl-9 pr-3 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -330,8 +336,12 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                   rows={2}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder={isEN ? 'Additional requests, luggage info, mudik notes...' : 'Catatan tambahan perjalanan, barang bawaan, kebutuhan khusus...'}
-                  className="w-full text-xs font-medium p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:outline-none resize-none"
+                  placeholder={
+                    isEN
+                      ? 'Additional requests, luggage info, mudik notes...'
+                      : 'Catatan tambahan perjalanan, barang bawaan, kebutuhan khusus...'
+                  }
+                  className="w-full text-xs font-medium p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none resize-none"
                 />
               </div>
             </div>
@@ -345,7 +355,6 @@ Mohon konfirmasi ketersediaan armada, jadwal penjemputan & penawaran harga terba
                 <span>{t.modal_btn_confirm}</span>
               </button>
             </div>
-
           </form>
         </motion.div>
       </div>

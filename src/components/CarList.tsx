@@ -1,9 +1,8 @@
 import React from 'react';
-import { CARS } from '../data/cars';
 import { Car } from '../types';
-import { Users, CheckCircle2, MessageCircle, Sparkles, ShieldCheck } from 'lucide-react';
+import { Users, CheckCircle2, MessageCircle, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
-import { TRANSLATIONS } from '../utils/translations';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface CarListProps {
   onSelectCar: (car: Car) => void;
@@ -12,21 +11,28 @@ interface CarListProps {
 }
 
 export default function CarList({ onSelectCar, lang }: CarListProps) {
-  const t = TRANSLATIONS[lang];
+  const { content } = useSiteContent();
+  const t = content.translations[lang];
   const isEN = lang === 'EN';
 
   const handleWhatsAppBooking = (car: Car) => {
-    const waNumber = '6281321264200';
+    const waNumber = content.brand.whatsappNumber;
     const message = isEN
-      ? `Hello Putri Munggaran Tour & Travel, I am interested in reserving vehicle: ${car.name}. Please inform price quote & schedule availability. Thank you!`
-      : `Halo Putri Munggaran Tour & Travel, saya berminat sewa armada: ${car.name}. Mohon informasi penawaran harga & ketersediaan tanggal. Terima kasih!`;
-    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
+      ? `Hello ${content.brand.brandFirstName} ${content.brand.brandSecondName} ${content.brand.brandSubtitle}, I am interested in reserving vehicle: ${car.name}. Please inform price quote & schedule availability. Thank you!`
+      : `Halo ${content.brand.brandFirstName} ${content.brand.brandSecondName} ${content.brand.brandSubtitle}, saya berminat sewa armada: ${car.name}. Mohon informasi penawaran harga & ketersediaan tanggal. Terima kasih!`;
+    window.open(
+      `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`,
+      '_blank',
+      'noreferrer'
+    );
   };
 
   return (
-    <section id="cars" className="py-20 bg-slate-50 text-[#0d1b37] overflow-hidden relative border-b border-slate-200 text-left">
+    <section
+      id="cars"
+      className="py-20 bg-slate-50 text-[#0d1b37] overflow-hidden relative border-b border-slate-200 text-left"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
-        
         {/* Section Heading */}
         <div className="text-center max-w-4xl mx-auto space-y-3" id="cars-heading">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-extrabold text-[10px] uppercase tracking-widest border border-emerald-200">
@@ -35,7 +41,7 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
           </div>
 
           <h2 className="font-display font-black text-3xl sm:text-5xl text-[#0d1b37] tracking-tight leading-tight uppercase">
-            {isEN ? 'Our Fleet Selection' : 'Pilihan Armada Kendaraan'}
+            {t.cars_title}
           </h2>
 
           <div className="w-20 h-1 bg-emerald-600 mx-auto rounded-full" />
@@ -45,11 +51,11 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
           </p>
         </div>
 
-        {/* Cars Grid - 4 Vehicle Cards */}
+        {/* Cars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CARS.map((car, index) => (
+          {content.cars.map((car, index) => (
             <motion.div
-              key={car.id}
+              key={car.id || index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -59,16 +65,24 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
               <div>
                 {/* Car Image Preview */}
                 <div className="relative h-48 bg-slate-100 overflow-hidden flex items-center justify-center p-2">
-                  <img
-                    src={car.image}
-                    alt={car.name}
-                    className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
-                  />
-                  
+                  {car.image ? (
+                    <img
+                      src={car.image}
+                      alt={car.name}
+                      className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full rounded-2xl bg-slate-200/70 flex items-center justify-center text-slate-400 text-xs font-semibold">
+                      Belum ada foto
+                    </div>
+                  )}
+
                   {/* Capacity Badge */}
                   <div className="absolute top-4 right-4 bg-[#0d1b37]/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-sm">
                     <Users className="w-3 h-3 text-emerald-400" />
-                    <span>{car.seats} {t.cars_seats}</span>
+                    <span>
+                      {car.seats} {t.cars_seats}
+                    </span>
                   </div>
                 </div>
 
@@ -92,8 +106,11 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
                       {t.cars_included_label}
                     </span>
                     <ul className="space-y-1">
-                      {car.includeList.slice(0, 3).map((inc, i) => (
-                        <li key={i} className="flex items-start gap-1.5 text-[11px] font-semibold text-slate-700">
+                      {car.includeList.slice(0, 5).map((inc, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-1.5 text-[11px] font-semibold text-slate-700"
+                        >
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                           <span>{inc}</span>
                         </li>
@@ -123,13 +140,12 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
           ))}
         </div>
 
-        {/* Note from section 7 */}
+        {/* Note */}
         <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200/80 text-center max-w-3xl mx-auto">
           <p className="font-sans text-xs text-emerald-950 font-semibold leading-relaxed">
             {t.cars_note}
           </p>
         </div>
-
       </div>
     </section>
   );

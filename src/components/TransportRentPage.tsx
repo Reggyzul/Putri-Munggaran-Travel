@@ -1,9 +1,8 @@
 import React from 'react';
-import { CARS } from '../data/cars';
 import { Car } from '../types';
-import { Users, CheckCircle2, MessageCircle, Sparkles, ShieldCheck, Car as CarIcon } from 'lucide-react';
+import { Users, CheckCircle2, MessageCircle, Car as CarIcon } from 'lucide-react';
 import { motion } from 'motion/react';
-import { TRANSLATIONS } from '../utils/translations';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface TransportRentPageProps {
   onSelectCar: (car: Car) => void;
@@ -11,35 +10,47 @@ interface TransportRentPageProps {
   onNavigateHome: () => void;
 }
 
-export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }: TransportRentPageProps) {
-  const t = TRANSLATIONS[lang];
+export default function TransportRentPage({
+  onSelectCar,
+  lang,
+  onNavigateHome
+}: TransportRentPageProps) {
+  const { content } = useSiteContent();
+  const t = content.translations[lang];
   const isEN = lang === 'EN';
 
   const handleWhatsAppBooking = (car: Car) => {
-    const waNumber = '6281321264200';
+    const waNumber = content.brand.whatsappNumber;
     const message = isEN
-      ? `Hello Putri Munggaran Tour & Travel, I am interested in reserving: ${car.name}. Please inform rate quotes, schedule & unit availability. Thank you!`
-      : `Halo Putri Munggaran Tour & Travel, saya berminat memesan armada: ${car.name}. Mohon informasi penawaran tarif, jadwal & ketersediaan armada. Terima kasih!`;
-    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
+      ? `Hello ${content.brand.brandFirstName} ${content.brand.brandSecondName}, I am interested in reserving: ${car.name}. Please inform rate quotes, schedule & unit availability. Thank you!`
+      : `Halo ${content.brand.brandFirstName} ${content.brand.brandSecondName}, saya berminat memesan armada: ${car.name}. Mohon informasi penawaran tarif, jadwal & ketersediaan armada. Terima kasih!`;
+    window.open(
+      `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`,
+      '_blank',
+      'noreferrer'
+    );
   };
 
   return (
     <div className="bg-white text-[#0d1b37] min-h-screen pt-20 text-left">
-      
       {/* TOP HEADER BANNER */}
       <div className="relative w-full h-[230px] sm:h-[290px] bg-slate-950 text-white overflow-hidden flex items-center justify-center">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-50 transform scale-105"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&q=80&w=1920')`
-          }}
-        />
+        {content.banners.rentalsBannerImage && (
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-50 transform scale-105"
+            style={{
+              backgroundImage: `url('${content.banners.rentalsBannerImage}')`
+            }}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
             <CarIcon className="w-3.5 h-3.5 text-amber-300" />
-            <span>PUTRI MUNGGARAN TOUR &amp; TRAVEL</span>
+            <span>
+              {isEN ? content.banners.rentalsBannerBadgeEN : content.banners.rentalsBannerBadgeID}
+            </span>
           </div>
 
           <h1 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight uppercase">
@@ -47,14 +58,16 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
           </h1>
 
           <p className="font-sans text-xs font-bold text-slate-300 uppercase tracking-widest">
-            <span onClick={onNavigateHome} className="hover:text-emerald-400 cursor-pointer">{t.dest_breadcrumb_home}</span> / {t.nav_rentals}
+            <span onClick={onNavigateHome} className="hover:text-emerald-400 cursor-pointer">
+              {t.dest_breadcrumb_home}
+            </span>{' '}
+            / {t.nav_rentals}
           </p>
         </div>
       </div>
 
       {/* MAIN CONTENT CONTAINER */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-        
         {/* Page Description */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37]">
@@ -68,9 +81,9 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
 
         {/* Cars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CARS.map((car, index) => (
+          {content.cars.map((car, index) => (
             <motion.div
-              key={car.id}
+              key={car.id || index}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.08 }}
@@ -78,14 +91,22 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
             >
               <div>
                 <div className="relative h-48 bg-slate-100 overflow-hidden flex items-center justify-center p-2">
-                  <img
-                    src={car.image}
-                    alt={car.name}
-                    className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {car.image ? (
+                    <img
+                      src={car.image}
+                      alt={car.name}
+                      className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full rounded-2xl bg-slate-200/70 flex items-center justify-center text-slate-400 text-xs font-semibold">
+                      Belum ada foto
+                    </div>
+                  )}
                   <div className="absolute top-4 right-4 bg-[#0d1b37]/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-sm">
                     <Users className="w-3 h-3 text-emerald-400" />
-                    <span>{car.seats} {t.cars_seats}</span>
+                    <span>
+                      {car.seats} {t.cars_seats}
+                    </span>
                   </div>
                 </div>
 
@@ -109,7 +130,10 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                     </span>
                     <ul className="space-y-1">
                       {car.includeList.map((inc, idx) => (
-                        <li key={idx} className="flex items-start gap-1.5 text-[11px] font-semibold text-slate-700">
+                        <li
+                          key={idx}
+                          className="flex items-start gap-1.5 text-[11px] font-semibold text-slate-700"
+                        >
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                           <span>{inc}</span>
                         </li>
@@ -138,7 +162,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
           ))}
         </div>
 
-        {/* Note from section 7 */}
+        {/* Note */}
         <div className="p-6 rounded-3xl bg-emerald-50/60 border border-emerald-200/80 text-center max-w-3xl mx-auto space-y-2">
           <span className="inline-block bg-emerald-200 text-emerald-950 text-[10px] font-black uppercase px-3 py-1 rounded-full">
             Informasi Tarif &amp; Ketersediaan
@@ -147,7 +171,6 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
             {t.cars_note}
           </p>
         </div>
-
       </div>
     </div>
   );

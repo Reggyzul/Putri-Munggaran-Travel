@@ -7,7 +7,7 @@ export interface Car {
   priceDisplay?: string; // custom price text
   image: string;
   seats: number;
-  transmission: 'Automatic' | 'Manual' | 'Matic' | 'Manual/Matic';
+  transmission: 'Automatic' | 'Manual' | 'Matic' | 'Manual/Matic' | 'Manual / Matic' | string;
   fuel: string;
   fuelAr?: string;
   includeList: string[];

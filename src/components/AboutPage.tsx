@@ -1,7 +1,19 @@
 import React from 'react';
-import { Sparkles, ShieldCheck, Award, Navigation, UserCheck, HeartHandshake, CheckCircle2, Car, MessageCircle, MapPin, Phone, Facebook, Instagram } from 'lucide-react';
-import { TRANSLATIONS } from '../utils/translations';
+import {
+  Sparkles,
+  ShieldCheck,
+  Award,
+  Navigation,
+  UserCheck,
+  Car,
+  MessageCircle,
+  MapPin,
+  Phone,
+  Facebook,
+  Instagram
+} from 'lucide-react';
 import { motion } from 'motion/react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface AboutPageProps {
   lang: 'ID' | 'EN';
@@ -9,76 +21,53 @@ interface AboutPageProps {
 }
 
 export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
-  const t = TRANSLATIONS[lang];
+  const { content } = useSiteContent();
+  const t = content.translations[lang];
   const isEN = lang === 'EN';
 
-  const strengths = [
-    {
-      icon: <Navigation className="w-5 h-5 text-emerald-600" />,
-      title: t.strength_door_title,
-      desc: t.strength_door_desc
-    },
-    {
-      icon: <UserCheck className="w-5 h-5 text-emerald-600" />,
-      title: t.strength_driver_title,
-      desc: t.strength_driver_desc
-    },
-    {
-      icon: <ShieldCheck className="w-5 h-5 text-emerald-600" />,
-      title: t.strength_safety_title,
-      desc: t.strength_safety_desc
-    },
-    {
-      icon: <Car className="w-5 h-5 text-emerald-600" />,
-      title: t.strength_fleet_title,
-      desc: t.strength_fleet_desc
-    },
-    {
-      icon: <Award className="w-5 h-5 text-emerald-600" />,
-      title: t.strength_route_title,
-      desc: t.strength_route_desc
-    },
-    {
-      icon: <MessageCircle className="w-5 h-5 text-emerald-600" />,
-      title: t.strength_booking_title,
-      desc: t.strength_booking_desc
-    }
-  ];
-
-  const servicesList = [
-    { title: t.service_1_title, desc: t.service_1_desc },
-    { title: t.service_2_title, desc: t.service_2_desc },
-    { title: t.service_3_title, desc: t.service_3_desc },
-    { title: t.service_4_title, desc: t.service_4_desc },
-    { title: t.service_5_title, desc: t.service_5_desc },
-    { title: t.service_6_title, desc: t.service_6_desc }
+  const strengthIcons = [
+    <Navigation className="w-5 h-5 text-emerald-600" />,
+    <UserCheck className="w-5 h-5 text-emerald-600" />,
+    <ShieldCheck className="w-5 h-5 text-emerald-600" />,
+    <Car className="w-5 h-5 text-emerald-600" />,
+    <Award className="w-5 h-5 text-emerald-600" />,
+    <MessageCircle className="w-5 h-5 text-emerald-600" />
   ];
 
   const handleWhatsAppClick = () => {
-    const waNumber = '6281321264200';
+    const waNumber = content.brand.whatsappNumber;
     const message = isEN
-      ? `Hello Putri Munggaran Tour & Travel, I would like to ask more about your profile & travel services. Thank you!`
-      : `Halo Putri Munggaran Tour & Travel, saya ingin berkonsultasi mengenai layanan transportasi dan perjalanan. Terima kasih!`;
-    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
+      ? content.brand.whatsappDefaultMessageEN
+      : content.brand.whatsappDefaultMessageID;
+    window.open(
+      `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`,
+      '_blank',
+      'noreferrer'
+    );
   };
+
+  const missions = isEN ? content.missionsEN : content.missionsID;
 
   return (
     <div className="bg-white text-[#0d1b37] min-h-screen pt-20 text-left">
-      
       {/* 1. TOP HEADER BANNER */}
       <div className="relative w-full h-[230px] sm:h-[290px] bg-slate-950 text-white overflow-hidden flex items-center justify-center">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-50 transform scale-105"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1920')`
-          }}
-        />
+        {content.banners.aboutBannerImage && (
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-50 transform scale-105"
+            style={{
+              backgroundImage: `url('${content.banners.aboutBannerImage}')`
+            }}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
             <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            <span>TENTANG KAMI • PROFIL PERUSAHAAN</span>
+            <span>
+              {isEN ? content.banners.aboutBannerBadgeEN : content.banners.aboutBannerBadgeID}
+            </span>
           </div>
 
           <h1 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight uppercase">
@@ -86,31 +75,39 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           </h1>
 
           <p className="font-sans text-xs font-bold text-slate-300 uppercase tracking-widest">
-            <span onClick={onNavigateHome} className="hover:text-emerald-400 cursor-pointer">{t.dest_breadcrumb_home}</span> / {t.nav_about}
+            <span onClick={onNavigateHome} className="hover:text-emerald-400 cursor-pointer">
+              {t.dest_breadcrumb_home}
+            </span>{' '}
+            / {t.nav_about}
           </p>
         </div>
       </div>
 
       {/* MAIN CONTAINER CONTENT */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
-        
         {/* SECTION 1: BUSINESS PROFILE & DESCRIPTION */}
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-slate-100 pb-6">
-            <img
-              src="/pm_logo.jpg"
-              alt="Putri Munggaran Tour & Travel Logo"
-              className="h-20 w-20 rounded-full object-cover border-2 border-emerald-500 shadow-md shrink-0"
-            />
+            {content.brand.logoUrl ? (
+              <img
+                src={content.brand.logoUrl}
+                alt="Putri Munggaran Tour & Travel Logo"
+                className="h-20 w-20 rounded-full object-cover border-2 border-emerald-500 shadow-md shrink-0"
+              />
+            ) : (
+              <div className="h-20 w-20 rounded-full bg-emerald-50 border-2 border-emerald-200 shrink-0" />
+            )}
             <div className="space-y-1">
               <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-extrabold text-[10px] uppercase tracking-widest border border-emerald-200">
                 <span>{t.about_tag}</span>
               </div>
               <h2 className="font-display font-black text-2xl sm:text-4xl text-[#0d1b37] uppercase tracking-tight">
-                PUTRI <span className="text-emerald-600">MUNGGARAN</span> TOUR &amp; TRAVEL
+                {content.brand.brandFirstName}{' '}
+                <span className="text-emerald-600">{content.brand.brandSecondName}</span>{' '}
+                {content.brand.brandSubtitle}
               </h2>
               <p className="font-sans text-xs sm:text-sm font-bold text-emerald-700 uppercase tracking-wide">
-                {t.about_title_2} • “{t.hero_motto}”
+                {t.about_title_2} • {content.brand.motto}
               </p>
             </div>
           </div>
@@ -136,14 +133,24 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             <div className="bg-gradient-to-br from-[#0b1736] via-[#0d2847] to-slate-950 text-white rounded-3xl p-6 shadow-xl flex flex-col justify-between space-y-4">
               <div className="space-y-3">
                 <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-white/10 px-3 py-1 rounded-full inline-block">
-                  INFO RINGKAS
+                  {content.aboutQuickInfo.badgeText}
                 </span>
                 <div className="space-y-2 text-xs text-slate-200">
-                  <p><strong>Nama:</strong> Putri Munggaran Tour &amp; Travel</p>
-                  <p><strong>Tagline:</strong> “Aman, Nyaman, Sampai Tujuan.”</p>
-                  <p><strong>Layanan:</strong> Door-to-Door Travel, Antar-Jemput, Private Trip</p>
-                  <p><strong>Rute Utama:</strong> Pangandaran – Bandung – Jabodetabek</p>
-                  <p><strong>Armada:</strong> Avanza, Calya, Rush, Hiace</p>
+                  <p>
+                    <strong>Nama:</strong> {content.aboutQuickInfo.companyName}
+                  </p>
+                  <p>
+                    <strong>Tagline:</strong> {content.aboutQuickInfo.tagline}
+                  </p>
+                  <p>
+                    <strong>Layanan:</strong> {content.aboutQuickInfo.servicesSummary}
+                  </p>
+                  <p>
+                    <strong>Rute Utama:</strong> {content.aboutQuickInfo.mainRoute}
+                  </p>
+                  <p>
+                    <strong>Armada:</strong> {content.aboutQuickInfo.fleetSummary}
+                  </p>
                 </div>
               </div>
 
@@ -170,7 +177,6 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            
             {/* Visi */}
             <div className="lg:col-span-5 bg-gradient-to-br from-[#0b1736] via-[#0d2847] to-slate-950 text-white rounded-3xl p-8 shadow-xl flex flex-col justify-between space-y-6 border border-slate-700/60">
               <div className="space-y-4">
@@ -183,7 +189,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                       {t.vision_title}
                     </span>
                     <h4 className="font-display font-black text-xl text-white uppercase tracking-tight">
-                      PUTRI MUNGGARAN
+                      {content.brand.brandFirstName} {content.brand.brandSecondName}
                     </h4>
                   </div>
                 </div>
@@ -197,12 +203,12 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
 
               <div className="pt-4 border-t border-white/10 text-center">
                 <span className="font-display font-extrabold text-xs text-emerald-400 tracking-wider uppercase block">
-                  {t.hero_motto}
+                  {content.brand.motto}
                 </span>
               </div>
             </div>
 
-            {/* 7 Misi */}
+            {/* Misi */}
             <div className="lg:col-span-7 bg-white border border-slate-200/90 rounded-3xl p-8 shadow-lg space-y-5">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-sm">
@@ -210,7 +216,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                 </div>
                 <div>
                   <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 block">
-                    7 PILAR UTAMA
+                    {missions.length} PILAR UTAMA
                   </span>
                   <h4 className="font-display font-black text-2xl text-[#0d1b37] uppercase tracking-tight">
                     {t.mission_title}
@@ -219,16 +225,13 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {[
-                  t.mission_1,
-                  t.mission_2,
-                  t.mission_3,
-                  t.mission_4,
-                  t.mission_5,
-                  t.mission_6,
-                  t.mission_7
-                ].map((item, idx) => (
-                  <div key={idx} className={`p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-2.5 ${idx === 6 ? 'md:col-span-2' : ''}`}>
+                {missions.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className={`p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-2.5 ${
+                      idx === missions.length - 1 && missions.length % 2 === 1 ? 'md:col-span-2' : ''
+                    }`}
+                  >
                     <span className="w-5 h-5 rounded-full bg-emerald-600 text-white font-black text-[10px] flex items-center justify-center shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
@@ -239,11 +242,10 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                 ))}
               </div>
             </div>
-
           </div>
         </section>
 
-        {/* SECTION 3: 6 KEUNGGULAN */}
+        {/* SECTION 3: KEUNGGULAN */}
         <section className="space-y-6 border-t border-slate-100 pt-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="font-display font-black text-xs text-emerald-700 tracking-widest uppercase bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 inline-block">
@@ -252,15 +254,13 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             <h3 className="font-display font-black text-2xl sm:text-3xl text-[#0d1b37] uppercase">
               {t.strengths_title}
             </h3>
-            <p className="font-sans text-xs text-slate-600 font-medium">
-              {t.strengths_desc}
-            </p>
+            <p className="font-sans text-xs text-slate-600 font-medium">{t.strengths_desc}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {strengths.map((st, i) => (
+            {content.strengths.map((st, i) => (
               <motion.div
-                key={i}
+                key={st.id || i}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -268,20 +268,20 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                 className="bg-slate-50 rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition-all space-y-3"
               >
                 <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200 flex items-center justify-center shadow-xs">
-                  {st.icon}
+                  {strengthIcons[i % strengthIcons.length]}
                 </div>
                 <h4 className="font-display font-black text-base text-[#0d1b37] uppercase">
-                  {st.title}
+                  {isEN ? st.titleEN : st.titleID}
                 </h4>
                 <p className="font-sans text-xs text-slate-600 leading-relaxed font-medium">
-                  {st.desc}
+                  {isEN ? st.descEN : st.descID}
                 </p>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* SECTION 4: 6 LAYANAN UTAMA */}
+        {/* SECTION 4: LAYANAN UTAMA */}
         <section className="space-y-6 border-t border-slate-100 pt-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="font-display font-black text-xs text-emerald-700 tracking-widest uppercase bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 inline-block">
@@ -293,13 +293,17 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {servicesList.map((srv, idx) => (
-              <div key={idx} className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2">
+            {content.services.map((srv, idx) => (
+              <div
+                key={srv.id || idx}
+                className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2"
+              >
                 <h4 className="font-display font-black text-sm text-[#0d1b37] uppercase flex items-center gap-2">
-                  <span className="text-emerald-600">0{idx + 1}.</span> {srv.title}
+                  <span className="text-emerald-600">0{idx + 1}.</span>{' '}
+                  {isEN ? srv.titleEN : srv.titleID}
                 </h4>
                 <p className="font-sans text-xs text-slate-600 font-medium leading-relaxed">
-                  {srv.desc}
+                  {isEN ? srv.descEN : srv.descID}
                 </p>
               </div>
             ))}
@@ -310,10 +314,12 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         <section className="p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
             <h3 className="font-display font-black text-xl text-[#0d1b37] uppercase">
-              {isEN ? 'Office Location, Google Maps & Social Media' : 'Lokasi Kantor, Google Maps & Media Sosial'}
+              {isEN
+                ? 'Office Location, Google Maps & Social Media'
+                : 'Lokasi Kantor, Google Maps & Media Sosial'}
             </h3>
             <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block self-start sm:self-auto">
-              📍 Koordinat: 8G69+C9M Karangbenda, Parigi
+              📍 {content.brand.officeCoordinates}
             </span>
           </div>
 
@@ -323,9 +329,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                 <MapPin className="w-4 h-4" />
                 <span>Alamat Kantor:</span>
               </div>
-              <p className="text-slate-700">
-                Jl. Raya Parigi, Blok Kemplung, Karangbenda, Kec. Parigi, Kab. Pangandaran, Jawa Barat 46393
-              </p>
+              <p className="text-slate-700">{content.brand.officeAddress}</p>
             </div>
 
             <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5">
@@ -334,12 +338,12 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                 <span>WhatsApp / HP:</span>
               </div>
               <a
-                href="https://api.whatsapp.com/send?phone=6281321264200"
+                href={`https://api.whatsapp.com/send?phone=${content.brand.whatsappNumber}`}
                 target="_blank"
                 rel="noreferrer"
                 className="text-emerald-700 font-bold hover:underline block"
               >
-                0813-2126-4200
+                {content.brand.whatsappDisplay}
               </a>
             </div>
 
@@ -349,12 +353,12 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                 <span>Instagram Resmi:</span>
               </div>
               <a
-                href="https://www.instagram.com/putri_munggaran_travel?igsi=MTFidmlwbWRjY3VvYw=="
+                href={content.brand.instagramUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="text-pink-600 font-semibold hover:underline block"
               >
-                @putri_munggaran_travel
+                {content.brand.instagramHandle}
               </a>
             </div>
 
@@ -364,12 +368,12 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                 <span>Facebook Resmi:</span>
               </div>
               <a
-                href="https://facebook.com/Tatakusmawan68"
+                href={content.brand.facebookUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="text-blue-600 font-semibold hover:underline block"
               >
-                Tatakusmawan68
+                {content.brand.facebookName}
               </a>
             </div>
           </div>
@@ -378,7 +382,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           <div className="w-full h-64 rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative bg-slate-100">
             <iframe
               title="Google Maps PM Tour & Travel"
-              src="https://maps.google.com/maps?q=8G69%2BC9M+PM+TOUR+and+TRAVEL,+Jl.+Raya+Parigi,+Karangbenda,+Kec.+Parigi,+Kab.+Pangandaran,+Jawa+Barat+46393&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              src={content.brand.googleMapsEmbedUrl}
               className="w-full h-full border-0"
               loading="lazy"
               allowFullScreen
@@ -394,7 +398,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             </button>
             <div className="flex items-center gap-3">
               <a
-                href="https://maps.app.goo.gl/7sMozjfWKuEdYJ6P9?g_st=awb"
+                href={content.brand.googleMapsUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="px-5 py-3 rounded-full bg-slate-900 hover:bg-black text-white font-display font-bold text-xs uppercase flex items-center gap-2 cursor-pointer shadow-sm transition-all"
@@ -412,7 +416,6 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             </div>
           </div>
         </section>
-
       </div>
     </div>
   );

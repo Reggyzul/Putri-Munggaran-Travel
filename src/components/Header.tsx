@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, MessageCircle } from 'lucide-react';
+import { Menu, X, MessageCircle, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { TRANSLATIONS } from '../utils/translations';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface HeaderProps {
   activeSection: string;
@@ -15,13 +15,13 @@ export default function Header({
   activeSection,
   onNavClick,
   lang,
-  setLang,
-  onBookingClick
+  setLang
 }: HeaderProps) {
+  const { content } = useSiteContent();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const t = TRANSLATIONS[lang];
+  const t = content.translations[lang];
   const isEN = lang === 'EN';
 
   useEffect(() => {
@@ -42,16 +42,19 @@ export default function Header({
   };
 
   const navItems = [
-    { id: 'home', label: isEN ? 'HOME' : 'HOME' },
-    { id: 'about-page', label: isEN ? 'ABOUT US' : 'TENTANG KAMI' },
-    { id: 'cars', label: isEN ? 'ARMADA' : 'ARMADA' },
-    { id: 'destinations', label: isEN ? 'DESTINATIONS' : 'DESTINASI WISATA' },
-    { id: 'footer-contact', label: isEN ? 'KONTAK' : 'KONTAK' }
+    { id: 'home', label: t.nav_home || (isEN ? 'HOME' : 'BERANDA') },
+    { id: 'about-page', label: t.nav_about || (isEN ? 'ABOUT US' : 'TENTANG KAMI') },
+    { id: 'cars', label: t.nav_rentals || (isEN ? 'ARMADA' : 'ARMADA') },
+    { id: 'destinations', label: t.nav_destinations || (isEN ? 'DESTINATIONS' : 'DESTINASI WISATA') },
+    { id: 'footer-contact', label: t.nav_contact || (isEN ? 'CONTACT' : 'KONTAK') }
   ];
+
+  const waUrl = `https://api.whatsapp.com/send?phone=${content.brand.whatsappNumber}&text=${encodeURIComponent(
+    isEN ? content.brand.whatsappDefaultMessageEN : content.brand.whatsappDefaultMessageID
+  )}`;
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
-      
       {/* MAIN CLEAN WHITE NAVBAR */}
       <div
         className={`w-full bg-white transition-all duration-300 ${
@@ -62,40 +65,49 @@ export default function Header({
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-6">
-            
-            {/* Left: Enlarger & Crisp Brand Logo + Typography */}
-            <div 
+            {/* Left: Brand Logo + Typography */}
+            <div
               onClick={() => handleItemClick('home')}
               className="flex items-center gap-3.5 cursor-pointer group shrink-0"
               id="header-logo"
             >
-              <img
-                src="/pm_logo.jpg"
-                alt="Putri Munggaran Tour & Travel Logo"
-                className="h-11 sm:h-12 w-auto object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform shrink-0"
-              />
-              
+              {content.brand.logoUrl ? (
+                <img
+                  src={content.brand.logoUrl}
+                  alt={`${content.brand.brandFirstName} ${content.brand.brandSecondName} Logo`}
+                  className="h-11 sm:h-12 w-auto object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform shrink-0"
+                />
+              ) : (
+                <div className="h-11 sm:h-12 w-11 sm:w-12 rounded-xl bg-emerald-50 border border-emerald-200 shrink-0" />
+              )}
+
               <div className="flex flex-col leading-tight">
                 <span className="font-display font-black text-lg sm:text-2xl tracking-tight text-slate-900 uppercase">
-                  PUTRI <span className="text-emerald-600">MUNGGARAN</span>
+                  {content.brand.brandFirstName}{' '}
+                  <span className="text-emerald-600">{content.brand.brandSecondName}</span>
                 </span>
                 <span className="font-sans font-bold text-[9.5px] sm:text-[10.5px] text-slate-500 tracking-widest uppercase">
-                  TOUR &amp; TRAVEL
+                  {content.brand.brandSubtitle}
                 </span>
               </div>
             </div>
 
             {/* Right: Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center justify-end gap-8 text-[13px] uppercase tracking-wider font-sans font-extrabold text-slate-800" id="desktop-nav">
+            <nav
+              className="hidden lg:flex items-center justify-end gap-7 text-[13px] uppercase tracking-wider font-sans font-extrabold text-slate-800"
+              id="desktop-nav"
+            >
               {navItems.map((item) => {
-                const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
+                const isActive =
+                  activeSection === item.id ||
+                  (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
                   <button
                     key={item.id}
                     onClick={() => handleItemClick(item.id)}
-                    className={`relative py-1 transition-all duration-200 cursor-pointer ${
-                      isActive 
-                        ? 'text-emerald-600 font-black' 
+                    className={`relative py-1 transition-all duration-200 cursor-pointer uppercase ${
+                      isActive
+                        ? 'text-emerald-600 font-black'
                         : 'text-slate-800 hover:text-emerald-600'
                     }`}
                   >
@@ -111,7 +123,7 @@ export default function Header({
               })}
 
               {/* Language Switcher Toggle */}
-              <div className="flex items-center gap-1 bg-slate-100 px-2.5 py-1 rounded-full text-xs font-bold text-slate-600 ml-2">
+              <div className="flex items-center gap-1 bg-slate-100 px-2.5 py-1 rounded-full text-xs font-bold text-slate-600 ml-1">
                 <button
                   onClick={() => setLang('ID')}
                   className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
@@ -133,13 +145,13 @@ export default function Header({
 
               {/* Quick WhatsApp Contact Pill */}
               <a
-                href="https://api.whatsapp.com/send?phone=6281321264200&text=Halo%20Putri%20Munggaran%20Tour%20%26%20Travel,%20saya%20ingin%20konsultasi%20perjalanan"
+                href={waUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-full shadow-sm hover:shadow-emerald-600/25 transition-all flex items-center gap-1.5 cursor-pointer ml-1 transform hover:-translate-y-0.5"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-full shadow-sm hover:shadow-emerald-600/25 transition-all flex items-center gap-1.5 cursor-pointer transform hover:-translate-y-0.5"
               >
                 <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                <span>{isEN ? 'CONTACT' : 'CONTACT'}</span>
+                <span>{isEN ? content.heroCtaPrimaryEN : content.heroCtaPrimaryID}</span>
               </a>
             </nav>
 
@@ -152,7 +164,6 @@ export default function Header({
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
-
           </div>
         </div>
       </div>
@@ -169,12 +180,14 @@ export default function Header({
           >
             <div className="px-5 pt-3 pb-6 space-y-2 text-slate-800">
               {navItems.map((item) => {
-                const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
+                const isActive =
+                  activeSection === item.id ||
+                  (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
                   <button
                     key={item.id}
                     onClick={() => handleItemClick(item.id)}
-                    className={`block w-full text-left font-display font-bold text-sm py-2.5 border-b border-slate-100 transition-colors ${
+                    className={`block w-full text-left font-display font-bold text-sm py-2.5 border-b border-slate-100 uppercase transition-colors ${
                       isActive ? 'text-emerald-600 font-extrabold' : 'text-slate-800 hover:text-emerald-600'
                     }`}
                   >
@@ -210,9 +223,9 @@ export default function Header({
               </div>
 
               {/* Mobile Contact Button */}
-              <div className="pt-3">
+              <div className="pt-3 space-y-2">
                 <a
-                  href="https://api.whatsapp.com/send?phone=6281321264200&text=Halo%20Putri%20Munggaran%20Tour%20%26%20Travel,%20saya%20ingin%20konsultasi%20perjalanan"
+                  href={waUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-xs uppercase py-3.5 rounded-full shadow-md flex items-center justify-center gap-2 cursor-pointer"
@@ -220,6 +233,13 @@ export default function Header({
                   <MessageCircle className="w-4 h-4 fill-current" />
                   <span>CONTACT WHATSAPP</span>
                 </a>
+                <button
+                  onClick={() => handleItemClick('admin')}
+                  className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-sans font-bold text-xs py-2.5 rounded-full flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Shield className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Dashboard Admin</span>
+                </button>
               </div>
             </div>
           </motion.div>

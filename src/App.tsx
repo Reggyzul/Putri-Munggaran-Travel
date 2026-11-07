@@ -10,34 +10,72 @@ import BookingSteps from './components/BookingSteps';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
+import AdminDashboard from './components/admin/AdminDashboard';
 import { Car } from './types';
-import { CARS } from './data/cars';
-import { ChevronUp } from 'lucide-react';
+import { ChevronUp, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { TRANSLATIONS } from './utils/translations';
+import { SiteContentProvider, useSiteContent } from './context/SiteContentContext';
+import { SiteContent } from './data/defaultSiteContent';
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'rentals' | 'destinations'>('home');
+export type PageRoute = 'home' | 'about' | 'rentals' | 'destinations' | 'admin';
+
+function resolveInitialPage(initialPath?: string): PageRoute {
+  const path =
+    initialPath ||
+    (typeof window !== 'undefined' ? window.location.pathname + window.location.hash : '/');
+  const lower = path.toLowerCase();
+  if (lower.startsWith('/admin') || lower.includes('#admin')) return 'admin';
+  if (lower.startsWith('/about')) return 'about';
+  if (lower.startsWith('/rentals') || lower.startsWith('/armada')) return 'rentals';
+  if (lower.startsWith('/destinations') || lower.startsWith('/destinasi')) return 'destinations';
+  return 'home';
+}
+
+function MainApp({ initialPath }: { initialPath?: string }) {
+  const { content, isLoading } = useSiteContent();
+  const [currentPage, setCurrentPage] = useState<PageRoute>(() => resolveInitialPage(initialPath));
   const [activeSection, setActiveSection] = useState('home');
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [lang, setLang] = useState<'EN' | 'ID'>(() => {
-    const saved = localStorage.getItem('pm_travel_lang');
-    return (saved === 'ID' || saved === 'EN') ? saved : 'ID';
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('pm_travel_lang');
+        if (saved === 'ID' || saved === 'EN') return saved;
+      } catch {
+        // ignore
+      }
+    }
+    return 'ID';
   });
 
-  const t = TRANSLATIONS[lang];
+  const t = content.translations[lang];
 
   const handleSetLang = (newLang: 'EN' | 'ID') => {
     setLang(newLang);
-    localStorage.setItem('pm_travel_lang', newLang);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('pm_travel_lang', newLang);
+      } catch {
+        // ignore
+      }
+    }
   };
 
   useEffect(() => {
-    // Dynamic SEO Metadata Synchronization
+    const onPopState = () => {
+      setCurrentPage(resolveInitialPage());
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+
     document.documentElement.lang = lang === 'EN' ? 'en' : 'id';
     document.title = t.seo_title;
-    
+
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
       metaDesc = document.createElement('meta');
@@ -45,7 +83,17 @@ export default function App() {
       document.head.appendChild(metaDesc);
     }
     metaDesc.setAttribute('content', t.seo_description);
-  }, [lang, t.seo_title, t.seo_description]);
+
+    if (content.brand.faviconUrl) {
+      let linkIcon = document.querySelector('link[rel="icon"]') as HTMLLinkElement | null;
+      if (!linkIcon) {
+        linkIcon = document.createElement('link');
+        linkIcon.rel = 'icon';
+        document.head.appendChild(linkIcon);
+      }
+      linkIcon.href = content.brand.faviconUrl;
+    }
+  }, [isLoading, lang, t.seo_title, t.seo_description, content.brand.faviconUrl]);
 
   useEffect(() => {
     if (currentPage === 'about') {
@@ -58,6 +106,9 @@ export default function App() {
     }
     if (currentPage === 'rentals') {
       setActiveSection('cars');
+      return;
+    }
+    if (currentPage === 'admin') {
       return;
     }
 
@@ -90,19 +141,39 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentPage]);
 
+  const navigateUrl = (path: string) => {
+    if (typeof window !== 'undefined' && window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
+    }
+  };
+
   const handleNavClick = (sectionId: string) => {
+    if (sectionId === 'admin') {
+      setCurrentPage('admin');
+      navigateUrl('/admin');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     if (sectionId === 'about' || sectionId === 'about-page') {
       setCurrentPage('about');
+      navigateUrl('/about');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (sectionId === 'rentals' || sectionId === 'cars-page') {
       setCurrentPage('rentals');
+      navigateUrl('/rentals');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (sectionId === 'destinations-page') {
       setCurrentPage('destinations');
+      navigateUrl('/destinations');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (sectionId === 'destinations' || sectionId === 'cars' || sectionId === 'footer-contact') {
+    } else if (
+      sectionId === 'destinations' ||
+      sectionId === 'cars' ||
+      sectionId === 'footer-contact'
+    ) {
       if (currentPage !== 'home') {
         setCurrentPage('home');
+        navigateUrl('/');
         setTimeout(() => {
           const element = document.getElementById(sectionId);
           if (element) {
@@ -117,6 +188,7 @@ export default function App() {
       }
     } else {
       setCurrentPage('home');
+      navigateUrl('/');
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -128,6 +200,43 @@ export default function App() {
     }
   };
 
+  // Show clean loading state until Supabase finishes loading so NO fallback image ever flashes
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 text-slate-800">
+        <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-200 max-w-md w-full text-center space-y-5">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto">
+            <Loader2 className="w-8 h-8 text-emerald-600 animate-spin" />
+          </div>
+          <div className="space-y-1.5">
+            <h2 className="font-display font-black text-lg sm:text-xl text-slate-900 uppercase tracking-tight">
+              Memuat Data dari Supabase...
+            </h2>
+            <p className="text-xs text-slate-500 font-medium">
+              Mohon tunggu sebentar, sedang menyinkronkan konten &amp; gambar terbaru.
+            </p>
+          </div>
+          <div className="space-y-2.5 pt-2">
+            <div className="h-3 w-3/4 mx-auto rounded-full bg-slate-100 animate-pulse" />
+            <div className="h-3 w-1/2 mx-auto rounded-full bg-slate-100 animate-pulse" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentPage === 'admin') {
+    return (
+      <AdminDashboard
+        onExitAdmin={() => {
+          setCurrentPage('home');
+          navigateUrl('/');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
+    );
+  }
+
   const handleSelectCar = (car: Car) => {
     setSelectedCar(car);
   };
@@ -136,35 +245,38 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const waUrl = `https://api.whatsapp.com/send?phone=${content.brand.whatsappNumber}&text=${encodeURIComponent(
+    lang === 'EN' ? content.brand.whatsappDefaultMessageEN : content.brand.whatsappDefaultMessageID
+  )}`;
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between font-sans antialiased selection:bg-emerald-600 selection:text-white">
-      
       {/* Header Bar */}
       <Header
         activeSection={activeSection}
         onNavClick={handleNavClick}
         lang={lang}
         setLang={handleSetLang}
-        onBookingClick={() => setSelectedCar(CARS[0])}
+        onBookingClick={() => setSelectedCar(content.cars[0] || null)}
       />
 
       {/* Main Page Dynamic Router View */}
       <main className="flex-grow">
         {currentPage === 'home' ? (
           <>
-            <Hero 
-              onExploreClick={() => handleNavClick('cars')} 
-              lang={lang} 
-              onBookingClick={() => setSelectedCar(CARS[0])} 
+            <Hero
+              onExploreClick={() => handleNavClick('cars')}
+              lang={lang}
+              onBookingClick={() => setSelectedCar(content.cars[0] || null)}
             />
 
-            <CarList 
-              onSelectCar={handleSelectCar} 
-              lang={lang} 
+            <CarList
+              onSelectCar={handleSelectCar}
+              lang={lang}
               onViewAllCars={() => handleNavClick('rentals')}
             />
 
-            <Destinations 
+            <Destinations
               lang={lang}
               onViewAllDestinations={() => handleNavClick('destinations-page')}
             />
@@ -178,10 +290,10 @@ export default function App() {
         ) : currentPage === 'destinations' ? (
           <DestinationHighlightsPage lang={lang} onNavigateHome={() => handleNavClick('home')} />
         ) : (
-          <TransportRentPage 
-            onSelectCar={handleSelectCar} 
-            lang={lang} 
-            onNavigateHome={() => handleNavClick('home')} 
+          <TransportRentPage
+            onSelectCar={handleSelectCar}
+            lang={lang}
+            onNavigateHome={() => handleNavClick('home')}
           />
         )}
       </main>
@@ -190,7 +302,12 @@ export default function App() {
       <Footer onNavigateSection={handleNavClick} lang={lang} />
 
       {/* Booking Popup Modal */}
-      <BookingModal car={selectedCar} onClose={() => setSelectedCar(null)} lang={lang} onCarChange={setSelectedCar} />
+      <BookingModal
+        car={selectedCar}
+        onClose={() => setSelectedCar(null)}
+        lang={lang}
+        onCarChange={setSelectedCar}
+      />
 
       {/* FLOATING ASSISTANT AVATAR WIDGET */}
       <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
@@ -202,7 +319,7 @@ export default function App() {
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={scrollToTop}
               className="w-10 h-10 rounded-full bg-[#0d1b37] text-white flex items-center justify-center shadow-lg hover:bg-slate-800 transition-colors cursor-pointer border border-slate-700"
-              title={lang === 'EN' ? "Scroll to top" : "Kembali ke atas"}
+              title={lang === 'EN' ? 'Scroll to top' : 'Kembali ke atas'}
             >
               <ChevronUp className="w-5 h-5" />
             </motion.button>
@@ -213,25 +330,40 @@ export default function App() {
         <motion.a
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          href="https://api.whatsapp.com/send?phone=6281321264200&text=Halo%20Putri%20Munggaran%20Tour%20%26%20Travel,%20saya%20ingin%20konsultasi%20layanan%20transportasi%20dan%20perjalanan"
+          href={waUrl}
           target="_blank"
           rel="noreferrer"
           className="relative group flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-2xl hover:scale-110 transition-transform duration-300 border-2 border-white cursor-pointer"
-          title={lang === 'EN' ? "Chat with Putri Munggaran on WhatsApp" : "Hubungi Putri Munggaran via WhatsApp"}
+          title={
+            lang === 'EN'
+              ? `Chat with ${content.brand.brandFirstName} ${content.brand.brandSecondName} on WhatsApp`
+              : `Hubungi ${content.brand.brandFirstName} ${content.brand.brandSecondName} via WhatsApp`
+          }
         >
-          {/* Authentic WhatsApp Logo SVG */}
           <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
             <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.76.459 3.474 1.333 4.988l-1.417 5.174 5.293-1.389c1.455.793 3.096 1.211 4.777 1.212h.004c5.505 0 9.989-4.478 9.99-9.985.001-2.668-1.034-5.176-2.919-7.061-1.885-1.884-4.394-2.922-7.061-2.923zm5.952 14.183c-.251.706-1.258 1.346-1.742 1.402-.457.052-1.042.1-3.056-.731-2.585-1.066-4.227-3.704-4.356-3.876-.128-.172-1.047-1.396-1.047-2.663 0-1.267.662-1.889.897-2.14.235-.251.512-.314.683-.314.171 0 .342.002.49.009.158.007.37-.06.578.439.214.513.726 1.77.79 1.9.064.129.107.279.021.45-.085.171-.128.278-.256.427-.128.149-.27.333-.385.448-.128.128-.261.268-.112.524.15.255.664 1.096 1.427 1.776.981.874 1.808 1.144 2.064 1.272.256.128.406.107.556-.064.15-.171.641-.748.812-1.004.171-.256.342-.214.577-.128.235.085 1.493.704 1.75 1.004.256.3.256.556.005 1.262z" />
           </svg>
 
-          {/* Active online pulse ring */}
           <span className="absolute top-0 right-0 flex h-3.5 w-3.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white"></span>
           </span>
         </motion.a>
       </div>
-
     </div>
+  );
+}
+
+export default function App({
+  initialContent,
+  initialPath
+}: {
+  initialContent?: SiteContent;
+  initialPath?: string;
+} = {}) {
+  return (
+    <SiteContentProvider initialContent={initialContent}>
+      <MainApp initialPath={initialPath} />
+    </SiteContentProvider>
   );
 }

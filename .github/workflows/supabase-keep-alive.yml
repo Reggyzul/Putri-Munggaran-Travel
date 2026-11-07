@@ -1,0 +1,38 @@
+name: Supabase Keep-Alive (Anti-Pause 7 Hari)
+
+on:
+  schedule:
+    # Berjalan otomatis setiap 12 jam (2x sehari) agar Supabase Free Tier tidak pernah dinonaktifkan
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase Auth & REST API Keep-Alive
+        run: |
+          SUPABASE_URL="https://jidystlcsojdjfzajudh.supabase.co"
+          SUPABASE_KEY="sb_publishable__GnSHtZVSUCi1S07DsJ6CA_dQMrslOF"
+          NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          echo "1. Pinging Supabase Auth settings..."
+          curl -s -o /dev/null -w "Auth HTTP Status: %{http_code}\n" \
+            "${SUPABASE_URL}/auth/v1/settings" \
+            -H "apikey: ${SUPABASE_KEY}"
+
+          echo "2. Reading from public.site_content..."
+          curl -s -o /dev/null -w "REST Read HTTP Status: %{http_code}\n" \
+            "${SUPABASE_URL}/rest/v1/site_content?select=id,updated_at&limit=1" \
+            -H "apikey: ${SUPABASE_KEY}"
+
+          echo "3. Upserting keep_alive_heartbeat row..."
+          curl -s -o /dev/null -w "REST Write HTTP Status: %{http_code}\n" \
+            -X POST "${SUPABASE_URL}/rest/v1/site_content" \
+            -H "apikey: ${SUPABASE_KEY}" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: resolution=merge-duplicates" \
+            -d "{\"id\":\"keep_alive_heartbeat\",\"data\":{\"pinged_at\":\"${NOW_ISO}\",\"source\":\"GitHub-Actions-Cron\",\"status\":\"ACTIVE\"},\"updated_at\":\"${NOW_ISO}\"}"
+
+          echo "✅ Supabase Keep-Alive selesai pada ${NOW_ISO}"
+

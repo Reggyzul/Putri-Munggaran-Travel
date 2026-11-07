@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { TESTIMONIALS, TestimonialItem } from '../data/cars';
 import { Star, Quote, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { TRANSLATIONS } from '../utils/translations';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface TestimonialsProps {
   lang: 'ID' | 'EN';
 }
 
 export default function Testimonials({ lang }: TestimonialsProps) {
-  const [reviews] = useState<TestimonialItem[]>(TESTIMONIALS);
+  const { content } = useSiteContent();
+  const reviews = content.testimonials;
   const [activeIdx, setActiveIdx] = useState(0);
-  const t = TRANSLATIONS[lang];
+  const t = content.translations[lang];
   const isEN = lang === 'EN';
 
   const handlePrev = () => {
@@ -22,20 +22,25 @@ export default function Testimonials({ lang }: TestimonialsProps) {
     setActiveIdx((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
   };
 
-  // Auto scroll testimonials periodically
   useEffect(() => {
+    if (reviews.length <= 1) return;
     const interval = setInterval(() => {
-      setActiveIdx((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
+      setActiveIdx((prev) => (prev >= reviews.length - 1 ? 0 : prev + 1));
     }, 6000);
     return () => clearInterval(interval);
   }, [reviews.length]);
 
-  const currentRev = reviews[activeIdx];
+  const safeIdx = activeIdx < reviews.length ? activeIdx : 0;
+  const currentRev = reviews[safeIdx];
+
+  if (!currentRev) return null;
 
   return (
-    <section id="testimonials" className="py-24 bg-slate-50 overflow-hidden text-left border-b border-slate-200">
+    <section
+      id="testimonials"
+      className="py-24 bg-slate-50 overflow-hidden text-left border-b border-slate-200"
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-3" id="testimonials-heading">
           <span className="font-display font-extrabold text-xs text-emerald-700 tracking-widest uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
@@ -51,17 +56,16 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
         {/* Full-width Testimonial Carousel */}
         <div className="flex flex-col items-center" id="testimonials-carousel-section">
-
           <AnimatePresence mode="wait">
             {reviews.length > 0 && (
               <motion.div
-                key={activeIdx}
+                key={safeIdx}
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.45 }}
                 className="w-full bg-white rounded-[32px] p-8 sm:p-12 border border-slate-200 shadow-xl relative"
-                id={`testimonial-bubble-${activeIdx}`}
+                id={`testimonial-bubble-${safeIdx}`}
               >
                 {/* Decorative quote icon */}
                 <div className="absolute top-8 right-8 text-slate-200">
@@ -71,7 +75,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                 <div className="space-y-6 relative z-10 text-left">
                   {/* Stars row */}
                   <div className="flex text-amber-400">
-                    {[...Array(currentRev.rating)].map((_, i) => (
+                    {[...Array(Math.max(1, Math.min(5, currentRev.rating || 5)))].map((_, i) => (
                       <Star key={i} className="w-5 h-5 fill-current" />
                     ))}
                   </div>
@@ -83,12 +87,18 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
                   {/* Renter profile */}
                   <div className="flex items-center gap-4 pt-4 border-t border-slate-100">
-                    <img
-                      src={currentRev.image}
-                      alt={currentRev.name}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-emerald-500 shadow-sm"
-                      referrerPolicy="no-referrer"
-                    />
+                    {currentRev.image ? (
+                      <img
+                        src={currentRev.image}
+                        alt={currentRev.name}
+                        className="w-14 h-14 rounded-full object-cover border-2 border-emerald-500 shadow-sm"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="w-14 h-14 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center text-emerald-800 font-display font-black text-lg shrink-0">
+                        {currentRev.name?.charAt(0)?.toUpperCase() || 'P'}
+                      </div>
+                    )}
                     <div>
                       <h4 className="font-display font-black text-base text-[#0d1b37] uppercase tracking-wide">
                         {currentRev.name}
@@ -99,7 +109,9 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                       <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-emerald-200 mt-1">
                         <Sparkles className="w-2.5 h-2.5" />
                         <span>
-                          {t.testi_rented_model} {isEN ? currentRev.carModelEN : currentRev.carModelID} ({isEN ? currentRev.dateEN : currentRev.dateID})
+                          {t.testi_rented_model}{' '}
+                          {isEN ? currentRev.carModelEN : currentRev.carModelID} (
+                          {isEN ? currentRev.dateEN : currentRev.dateID})
                         </span>
                       </span>
                     </div>
@@ -123,9 +135,8 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                 <button
                   key={idx}
                   onClick={() => setActiveIdx(idx)}
-                  className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                    activeIdx === idx ? 'w-8 bg-emerald-600' : 'w-2.5 bg-slate-300'
-                  }`}
+                  className={`h-2.5 rounded-full transition-all cursor-pointer ${safeIdx === idx ? 'w-8 bg-emerald-600' : 'w-2.5 bg-slate-300'
+                    }`}
                 />
               ))}
             </div>
@@ -137,9 +148,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
-
         </div>
-
       </div>
     </section>
   );

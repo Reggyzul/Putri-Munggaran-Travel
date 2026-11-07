@@ -1,43 +1,34 @@
 import React from 'react';
-import { Car, MessageSquare, ShieldCheck, Sparkles } from 'lucide-react';
-import { TRANSLATIONS } from '../utils/translations';
+import { Car, MessageSquare, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface BookingStepsProps {
   lang: 'ID' | 'EN';
 }
 
 export default function BookingSteps({ lang }: BookingStepsProps) {
-  const t = TRANSLATIONS[lang];
+  const { content } = useSiteContent();
+  const t = content.translations[lang];
+  const isEN = lang === 'EN';
 
-  const stepsList = [
-    {
-      step: '01',
-      title: t.step_1_title,
-      description: t.step_1_desc,
-      icon: <Car className="w-7 h-7 text-white" />,
-      bgGradient: 'bg-gradient-to-br from-emerald-600 to-teal-700',
-    },
-    {
-      step: '02',
-      title: t.step_2_title,
-      description: t.step_2_desc,
-      icon: <MessageSquare className="w-7 h-7 text-white" />,
-      bgGradient: 'bg-gradient-to-br from-[#0f2b5c] to-emerald-800',
-    },
-    {
-      step: '03',
-      title: t.step_3_title,
-      description: t.step_3_desc,
-      icon: <ShieldCheck className="w-7 h-7 text-white" />,
-      bgGradient: 'bg-gradient-to-br from-emerald-700 to-[#0b1736]',
-    },
+  const icons = [
+    <Car className="w-7 h-7 text-white" />,
+    <MessageSquare className="w-7 h-7 text-white" />,
+    <ShieldCheck className="w-7 h-7 text-white" />
+  ];
+  const gradients = [
+    'bg-gradient-to-br from-emerald-600 to-teal-700',
+    'bg-gradient-to-br from-[#0f2b5c] to-emerald-800',
+    'bg-gradient-to-br from-emerald-700 to-[#0b1736]'
   ];
 
   return (
-    <section id="steps" className="py-20 bg-slate-50 overflow-hidden border-t border-b border-slate-200 text-left">
+    <section
+      id="steps"
+      className="py-20 bg-slate-50 overflow-hidden border-t border-b border-slate-200 text-left"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <span className="font-display font-black text-xs text-emerald-700 tracking-widest uppercase bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 inline-block">
@@ -58,7 +49,7 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
           <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] h-1 bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-600 -translate-y-14 z-0 opacity-20" />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
-            {stepsList.map((stepItem, index) => (
+            {content.steps.map((stepItem, index) => (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -69,22 +60,26 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
               >
                 {/* Step Icon Circle + Step Badge */}
                 <div className="relative mb-6">
-                  <div className={`w-20 h-20 rounded-3xl ${stepItem.bgGradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    {stepItem.icon}
+                  <div
+                    className={`w-20 h-20 rounded-3xl ${
+                      gradients[index % gradients.length]
+                    } flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    {icons[index % icons.length]}
                   </div>
-                  
+
                   {/* Step Number Tag */}
                   <span className="absolute -top-2 -right-2 bg-[#0d1b37] text-white text-[11px] font-black px-2.5 py-0.5 rounded-full border-2 border-white shadow-sm">
-                    {stepItem.step}
+                    {stepItem.step || `0${index + 1}`}
                   </span>
                 </div>
-                
+
                 <h3 className="font-display font-black text-xl text-[#0d1b37] mb-2 uppercase group-hover:text-emerald-600 transition-colors">
-                  {stepItem.title}
+                  {isEN ? stepItem.titleEN : stepItem.titleID}
                 </h3>
 
                 <p className="font-sans text-xs text-slate-600 leading-relaxed font-medium">
-                  {stepItem.description}
+                  {isEN ? stepItem.descEN : stepItem.descID}
                 </p>
 
                 {/* Decorative Hover Glow */}
@@ -93,7 +88,6 @@ export default function BookingSteps({ lang }: BookingStepsProps) {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

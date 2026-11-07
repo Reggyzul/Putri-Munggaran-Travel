@@ -1,4 +1,5 @@
 export interface TranslationSchema {
+  [key: string]: string;
   // SEO & Head Metadata
   seo_title: string;
   seo_description: string;
@@ -550,8 +551,8 @@ export const TRANSLATIONS: Record<'EN' | 'ID', TranslationSchema> = {
 export function getTranslation(lang: 'EN' | 'ID', key: keyof TranslationSchema): string {
   const dict = TRANSLATIONS[lang];
   if (!dict || !dict[key]) {
-    console.error(`MISSING TRANSLATION KEY: [${lang}] "${key}"`);
-    return TRANSLATIONS.EN[key] || key;
+    console.error(`MISSING TRANSLATION KEY: [${lang}] "${String(key)}"`);
+    return TRANSLATIONS.EN[key] || String(key);
   }
   return dict[key];
 }
