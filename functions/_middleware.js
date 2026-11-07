@@ -1,7 +1,7 @@
 const SUPABASE_BASE_URL = 'https://jidystlcsojdjfzajudh.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable__GnSHtZVSUCi1S07DsJ6CA_dQMrslOF';
 
-export const onRequest = async (context: any) => {
+export const onRequest = async (context) => {
   const url = new URL(context.request.url);
 
   // Skip static assets and API routes
@@ -14,28 +14,34 @@ export const onRequest = async (context: any) => {
   }
 
   // Non-blocking background Keep-Alive heartbeat on Cloudflare Edge
-  context.waitUntil(
-    fetch(`${SUPABASE_BASE_URL}/rest/v1/site_content`, {
-      method: 'POST',
-      headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'resolution=merge-duplicates'
-      },
-      body: JSON.stringify({
-        id: 'keep_alive_heartbeat',
-        data: {
-          pinged_at: new Date().toISOString(),
-          source: 'Cloudflare-Edge-Middleware',
-          status: 'ACTIVE'
+  if (typeof context.waitUntil === 'function') {
+    context.waitUntil(
+      fetch(`${SUPABASE_BASE_URL}/rest/v1/site_content?on_conflict=id`, {
+        method: 'POST',
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'resolution=merge-duplicates,return=minimal'
         },
-        updated_at: new Date().toISOString()
-      })
-    }).catch(() => {})
-  );
+        body: JSON.stringify({
+          id: 'keep_alive_heartbeat',
+          data: {
+            pinged_at: new Date().toISOString(),
+            source: 'Cloudflare-Edge-Middleware',
+            status: 'ACTIVE'
+          },
+          updated_at: new Date().toISOString()
+        })
+      }).catch(() => {})
+    );
+  }
 
-  const response = await context.next();
+  let response = await context.next();
+  if (response.status === 404 && context.env && context.env.ASSETS) {
+    response = await context.env.ASSETS.fetch(new URL('/index.html', context.request.url));
+  }
+
   const contentType = response.headers.get('content-type') || '';
   if (!contentType.includes('text/html')) {
     return response;
@@ -53,8 +59,8 @@ export const onRequest = async (context: any) => {
     );
 
     if (supRes.ok) {
-      const rows: any[] = await supRes.json();
-      if (Array.isArray(rows) && rows[0]?.data && Object.keys(rows[0].data).length > 0) {
+      const rows = await supRes.json();
+      if (Array.isArray(rows) && rows[0] && rows[0].data && Object.keys(rows[0].data).length > 0) {
         const siteData = {
           ...rows[0].data,
           _fromSupabase: true
@@ -77,3 +83,4 @@ export const onRequest = async (context: any) => {
 
   return response;
 };
+

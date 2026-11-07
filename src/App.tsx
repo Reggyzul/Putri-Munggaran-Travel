@@ -200,6 +200,18 @@ function MainApp({ initialPath }: { initialPath?: string }) {
     }
   };
 
+  if (currentPage === 'admin') {
+    return (
+      <AdminDashboard
+        onExitAdmin={() => {
+          setCurrentPage('home');
+          navigateUrl('/');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
+    );
+  }
+
   // Show clean loading state until Supabase finishes loading so NO fallback image ever flashes
   if (isLoading) {
     return (
@@ -222,18 +234,6 @@ function MainApp({ initialPath }: { initialPath?: string }) {
           </div>
         </div>
       </div>
-    );
-  }
-
-  if (currentPage === 'admin') {
-    return (
-      <AdminDashboard
-        onExitAdmin={() => {
-          setCurrentPage('home');
-          navigateUrl('/');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      />
     );
   }
 

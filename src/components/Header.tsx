@@ -153,6 +153,17 @@ export default function Header({
                 <MessageCircle className="w-3.5 h-3.5 fill-current" />
                 <span>{isEN ? content.heroCtaPrimaryEN : content.heroCtaPrimaryID}</span>
               </a>
+
+              {/* Admin Dashboard Quick Access Button */}
+              <button
+                type="button"
+                onClick={() => handleItemClick('admin')}
+                className="bg-slate-900 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase px-4 py-2.5 rounded-full shadow-sm transition-all flex items-center gap-1.5 cursor-pointer transform hover:-translate-y-0.5"
+                title="Buka Dashboard Admin"
+              >
+                <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Admin</span>
+              </button>
             </nav>
 
             {/* Mobile Hamburger Toggle Button */}

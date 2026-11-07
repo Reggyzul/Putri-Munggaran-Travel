@@ -1,4 +1,3 @@
-import { createClient } from '@supabase/supabase-js';
 import { SiteContent, mergeSiteContent } from '../data/defaultSiteContent';
 
 // User-provided Supabase credentials
@@ -8,14 +7,398 @@ export const SUPABASE_REST_URL = `${SUPABASE_BASE_URL}/rest/v1`;
 export const SUPABASE_ANON_KEY = 'sb_publishable__GnSHtZVSUCi1S07DsJ6CA_dQMrslOF';
 
 const isBrowser = typeof window !== 'undefined';
+const AUTH_STORAGE_KEY = 'pm_supabase_auth_session_v1';
 
-export const supabase = createClient(SUPABASE_BASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    persistSession: isBrowser,
-    autoRefreshToken: isBrowser,
-    detectSessionInUrl: isBrowser
+export interface SupabaseUser {
+  id: string;
+  email?: string;
+  [key: string]: any;
+}
+
+export interface SupabaseSession {
+  access_token: string;
+  refresh_token?: string;
+  expires_in?: number;
+  expires_at?: number;
+  token_type?: string;
+  user: SupabaseUser;
+}
+
+type AuthChangeCallback = (event: string, session: SupabaseSession | null) => void;
+const authListeners = new Set<AuthChangeCallback>();
+
+function readStoredSession(): SupabaseSession | null {
+  if (!isBrowser) return null;
+  try {
+    const raw = window.localStorage.getItem(AUTH_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.access_token && parsed.user) {
+      return parsed as SupabaseSession;
+    }
+  } catch {
+    // ignore storage errors
   }
-});
+  return null;
+}
+
+function writeStoredSession(session: SupabaseSession | null) {
+  if (!isBrowser) return;
+  try {
+    if (!session) {
+      window.localStorage.removeItem(AUTH_STORAGE_KEY);
+    } else {
+      window.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
+    }
+  } catch {
+    // ignore storage errors
+  }
+}
+
+function notifyAuthListeners(event: string, session: SupabaseSession | null) {
+  authListeners.forEach((cb) => {
+    try {
+      cb(event, session);
+    } catch {
+      // ignore listener errors
+    }
+  });
+}
+
+function getBearerToken(): string {
+  const session = readStoredSession();
+  return session?.access_token || SUPABASE_ANON_KEY;
+}
+
+// Zero-dependency native fetch Supabase client (works in Browser, Cloudflare Pages Edge, and Node SSR)
+export const supabase = {
+  auth: {
+    async signInWithPassword({
+      email,
+      password
+    }: {
+      email: string;
+      password: string;
+    }): Promise<{
+      data: { session: SupabaseSession | null; user: SupabaseUser | null };
+      error: { message: string } | null;
+    }> {
+      try {
+        const res = await fetch(`${SUPABASE_BASE_URL}/auth/v1/token?grant_type=password`, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const json = await res.json().catch(() => ({}));
+
+        if (!res.ok || !json.access_token) {
+          const message =
+            json.msg ||
+            json.error_description ||
+            json.message ||
+            json.error ||
+            'Invalid login credentials';
+          return {
+            data: { session: null, user: null },
+            error: { message: String(message) }
+          };
+        }
+
+        const session: SupabaseSession = {
+          access_token: json.access_token,
+          refresh_token: json.refresh_token,
+          expires_in: json.expires_in,
+          expires_at:
+            json.expires_at ||
+            (json.expires_in ? Math.floor(Date.now() / 1000) + Number(json.expires_in) : undefined),
+          token_type: json.token_type || 'bearer',
+          user: json.user || { id: 'admin', email }
+        };
+
+        writeStoredSession(session);
+        notifyAuthListeners('SIGNED_IN', session);
+
+        return {
+          data: { session, user: session.user },
+          error: null
+        };
+      } catch (err: any) {
+        return {
+          data: { session: null, user: null },
+          error: { message: err?.message || 'Network error while connecting to Supabase Auth' }
+        };
+      }
+    },
+
+    async getSession(): Promise<{
+      data: { session: SupabaseSession | null };
+      error: null;
+    }> {
+      const session = readStoredSession();
+      if (!session) {
+        return { data: { session: null }, error: null };
+      }
+
+      const nowSec = Math.floor(Date.now() / 1000);
+      if (session.expires_at && session.expires_at < nowSec + 60 && session.refresh_token) {
+        try {
+          const res = await fetch(`${SUPABASE_BASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+            method: 'POST',
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ refresh_token: session.refresh_token })
+          });
+          if (res.ok) {
+            const json = await res.json();
+            if (json.access_token) {
+              const refreshed: SupabaseSession = {
+                access_token: json.access_token,
+                refresh_token: json.refresh_token || session.refresh_token,
+                expires_in: json.expires_in,
+                expires_at:
+                  json.expires_at ||
+                  (json.expires_in ? nowSec + Number(json.expires_in) : undefined),
+                token_type: json.token_type || 'bearer',
+                user: json.user || session.user
+              };
+              writeStoredSession(refreshed);
+              return { data: { session: refreshed }, error: null };
+            }
+          }
+        } catch {
+          // keep existing session if offline
+        }
+      }
+
+      return { data: { session }, error: null };
+    },
+
+    onAuthStateChange(callback: AuthChangeCallback) {
+      authListeners.add(callback);
+      return {
+        data: {
+          subscription: {
+            unsubscribe: () => {
+              authListeners.delete(callback);
+            }
+          }
+        }
+      };
+    },
+
+    async signOut() {
+      const token = getBearerToken();
+      writeStoredSession(null);
+      notifyAuthListeners('SIGNED_OUT', null);
+      try {
+        await fetch(`${SUPABASE_BASE_URL}/auth/v1/logout`, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${token}`
+          }
+        });
+      } catch {
+        // ignore
+      }
+      return { error: null };
+    }
+  },
+
+  from(table: string) {
+    return {
+      select(columns = '*') {
+        return {
+          async limit(count = 1): Promise<{
+            data: any[] | null;
+            error: { code?: string; message: string } | null;
+          }> {
+            try {
+              const cleanCols = columns.replace(/\s+/g, '');
+              const url = `${SUPABASE_REST_URL}/${encodeURIComponent(
+                table
+              )}?select=${encodeURIComponent(cleanCols)}&limit=${count}`;
+              const res = await fetch(url, {
+                headers: {
+                  apikey: SUPABASE_ANON_KEY,
+                  Authorization: `Bearer ${getBearerToken()}`,
+                  Accept: 'application/json'
+                }
+              });
+              if (!res.ok) {
+                const errJson = await res.json().catch(() => ({}));
+                return {
+                  data: null,
+                  error: {
+                    code: errJson.code || String(res.status),
+                    message: errJson.message || res.statusText || 'Failed to query Supabase'
+                  }
+                };
+              }
+              const rows = await res.json().catch(() => []);
+              return { data: Array.isArray(rows) ? rows : [], error: null };
+            } catch (err: any) {
+              return { data: null, error: { message: err?.message || 'Network error' } };
+            }
+          },
+          eq(column: string, value: string) {
+            return {
+              async maybeSingle(): Promise<{
+                data: any;
+                error: { code?: string; message: string } | null;
+              }> {
+                try {
+                  const cleanCols = columns.replace(/\s+/g, '');
+                  const url = `${SUPABASE_REST_URL}/${encodeURIComponent(
+                    table
+                  )}?select=${encodeURIComponent(cleanCols)}&${encodeURIComponent(
+                    column
+                  )}=eq.${encodeURIComponent(value)}`;
+
+                  const res = await fetch(url, {
+                    headers: {
+                      apikey: SUPABASE_ANON_KEY,
+                      Authorization: `Bearer ${getBearerToken()}`,
+                      Accept: 'application/json'
+                    }
+                  });
+
+                  if (!res.ok) {
+                    const errJson = await res.json().catch(() => ({}));
+                    return {
+                      data: null,
+                      error: {
+                        code: errJson.code || String(res.status),
+                        message: errJson.message || res.statusText || 'Failed to query Supabase'
+                      }
+                    };
+                  }
+
+                  const rows = await res.json().catch(() => []);
+                  const first = Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
+                  return { data: first, error: null };
+                } catch (err: any) {
+                  return {
+                    data: null,
+                    error: { message: err?.message || 'Network error' }
+                  };
+                }
+              }
+            };
+          }
+        };
+      },
+
+      async upsert(
+        payload: Record<string, any>,
+        options?: { onConflict?: string }
+      ): Promise<{
+        data: any;
+        error: { code?: string; message: string } | null;
+      }> {
+        try {
+          const conflictQuery = options?.onConflict
+            ? `?on_conflict=${encodeURIComponent(options.onConflict)}`
+            : '';
+          const url = `${SUPABASE_REST_URL}/${encodeURIComponent(table)}${conflictQuery}`;
+
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${getBearerToken()}`,
+              'Content-Type': 'application/json',
+              Prefer: 'resolution=merge-duplicates,return=minimal'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (!res.ok) {
+            const errJson = await res.json().catch(() => ({}));
+            return {
+              data: null,
+              error: {
+                code: errJson.code || String(res.status),
+                message: errJson.message || res.statusText || 'Failed to upsert to Supabase'
+              }
+            };
+          }
+
+          return { data: payload, error: null };
+        } catch (err: any) {
+          return {
+            data: null,
+            error: { message: err?.message || 'Network error' }
+          };
+        }
+      }
+    };
+  },
+
+  storage: {
+    from(bucket: string) {
+      return {
+        async upload(
+          path: string,
+          blob: Blob,
+          options?: { contentType?: string; upsert?: boolean }
+        ): Promise<{ data: any; error: { message: string } | null }> {
+          try {
+            const cleanPath = path.replace(/^\/+/, '');
+            const res = await fetch(
+              `${SUPABASE_BASE_URL}/storage/v1/object/${encodeURIComponent(bucket)}/${cleanPath}`,
+              {
+                method: 'POST',
+                headers: {
+                  apikey: SUPABASE_ANON_KEY,
+                  Authorization: `Bearer ${getBearerToken()}`,
+                  'Content-Type': options?.contentType || 'application/octet-stream',
+                  'x-upsert': options?.upsert ? 'true' : 'false'
+                },
+                body: blob
+              }
+            );
+
+            if (!res.ok) {
+              const errJson = await res.json().catch(() => ({}));
+              return {
+                data: null,
+                error: { message: errJson.message || errJson.error || res.statusText }
+              };
+            }
+
+            const data = await res.json().catch(() => ({ Key: `${bucket}/${cleanPath}` }));
+            return { data, error: null };
+          } catch (err: any) {
+            return {
+              data: null,
+              error: { message: err?.message || 'Storage upload failed' }
+            };
+          }
+        },
+
+        getPublicUrl(path: string): { data: { publicUrl: string } } {
+          const cleanPath = path.replace(/^\/+/, '');
+          return {
+            data: {
+              publicUrl: `${SUPABASE_BASE_URL}/storage/v1/object/public/${encodeURIComponent(
+                bucket
+              )}/${cleanPath}`
+            }
+          };
+        }
+      };
+    }
+  }
+};
 
 export const SUPABASE_SETUP_SQL = `-- ============================================================================
 -- SQL SETUP UNTUK PUTRI MUNGGARAN TOUR & TRAVEL (SUPABASE)
@@ -203,7 +586,11 @@ export async function saveSiteContentEverywhere(content: SiteContent): Promise<S
 }
 
 // Client-side image compressor & smart uploader (Supabase Storage -> Local Server /api/upload -> Data URI)
-export async function compressImageFile(file: File, maxWidth = 1400, quality = 0.84): Promise<{ blob: Blob; dataUrl: string }> {
+export async function compressImageFile(
+  file: File,
+  maxWidth = 1400,
+  quality = 0.84
+): Promise<{ blob: Blob; dataUrl: string }> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (ev) => {
@@ -246,7 +633,9 @@ export async function compressImageFile(file: File, maxWidth = 1400, quality = 0
   });
 }
 
-export async function uploadImageSmart(file: File): Promise<{ url: string; source: 'supabase' | 'server' | 'inline' }> {
+export async function uploadImageSmart(
+  file: File
+): Promise<{ url: string; source: 'supabase' | 'server' | 'inline' }> {
   const { blob, dataUrl } = await compressImageFile(file);
   const ext = file.type === 'image/png' ? 'png' : 'jpg';
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_').replace(/\.[^.]+$/, '');
@@ -296,4 +685,3 @@ export async function uploadImageSmart(file: File): Promise<{ url: string; sourc
   // 3. Fallback to compressed data URL so image preview & saving ALWAYS works 100%
   return { url: dataUrl, source: 'inline' };
 }
-
