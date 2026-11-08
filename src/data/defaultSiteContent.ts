@@ -435,6 +435,10 @@ export function mergeSiteContent(raw?: Partial<SiteContent> | null): SiteContent
     cars: Array.isArray(raw.cars)
       ? raw.cars.map((c, idx) => ({
           ...c,
+          priceDisplay:
+            c.priceDisplay !== undefined
+              ? c.priceDisplay
+              : DEFAULT_SITE_CONTENT.cars[idx]?.priceDisplay || 'Hubungi Admin untuk Harga Terbaik',
           image:
             c.image ||
             defaultCarsMap.get(c.id) ||
@@ -445,6 +449,17 @@ export function mergeSiteContent(raw?: Partial<SiteContent> | null): SiteContent
     destinations: Array.isArray(raw.destinations)
       ? raw.destinations.map((d, idx) => ({
           ...d,
+          priceDisplay:
+            d.priceDisplay !== undefined
+              ? d.priceDisplay
+              : DEFAULT_SITE_CONTENT.destinations[idx]?.priceDisplay ||
+                'Hubungi Admin untuk Harga Paket',
+          priceDisplayEN:
+            d.priceDisplayEN !== undefined
+              ? d.priceDisplayEN
+              : d.priceDisplay ||
+                DEFAULT_SITE_CONTENT.destinations[idx]?.priceDisplayEN ||
+                'Contact Admin for Package Rate',
           image:
             d.image ||
             defaultDestMap.get(d.id) ||

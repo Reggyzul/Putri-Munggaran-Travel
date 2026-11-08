@@ -1275,7 +1275,7 @@ export default function AdminDashboard({ onExitAdmin }: AdminDashboardProps) {
                       }}
                     />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                       <div>
                         <label className="block text-xs font-extrabold text-slate-700 mb-1">
                           Nama Kendaraan
@@ -1289,6 +1289,23 @@ export default function AdminDashboard({ onExitAdmin }: AdminDashboardProps) {
                             setContent((prev) => ({ ...prev, cars: arr }));
                           }}
                           className="w-full bg-slate-50 px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-extrabold text-emerald-700 mb-1">
+                          Harga / Tarif Sewa Armada
+                        </label>
+                        <input
+                          type="text"
+                          value={car.priceDisplay || ''}
+                          onChange={(e) => {
+                            const arr = [...content.cars];
+                            arr[idx] = { ...arr[idx], priceDisplay: e.target.value };
+                            setContent((prev) => ({ ...prev, cars: arr }));
+                          }}
+                          placeholder="Contoh: Rp 600.000 / Hari atau Hubungi Admin"
+                          className="w-full bg-emerald-50/70 px-3.5 py-2.5 rounded-xl border border-emerald-300 text-sm font-extrabold text-emerald-900 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                         />
                       </div>
 
@@ -1444,6 +1461,8 @@ export default function AdminDashboard({ onExitAdmin }: AdminDashboardProps) {
                         image: '',
                         badge: 'Wisata Populer',
                         badgeEN: 'Popular Spot',
+                        priceDisplay: 'Hubungi Admin untuk Harga Paket',
+                        priceDisplayEN: 'Contact Admin for Package Rate',
                         highlights: ['Pemandangan alam indah', 'Spot foto menarik', 'Akses nyaman bersama kami'],
                         highlightsEN: ['Scenic natural views', 'Great photo spots', 'Comfortable access with us']
                       };
@@ -1655,7 +1674,7 @@ export default function AdminDashboard({ onExitAdmin }: AdminDashboardProps) {
                         }}
                       />
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         <div>
                           <label className="block text-xs font-extrabold text-slate-700 mb-1">
                             Nama Destinasi ({editLang})
@@ -1673,6 +1692,35 @@ export default function AdminDashboard({ onExitAdmin }: AdminDashboardProps) {
                               setContent((prev) => ({ ...prev, destinations: arr }));
                             }}
                             className="w-full bg-slate-50 px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-extrabold text-emerald-700 mb-1">
+                            Harga Paket / Wisata ({editLang})
+                          </label>
+                          <input
+                            type="text"
+                            value={
+                              editLang === 'ID'
+                                ? dest.priceDisplay || ''
+                                : dest.priceDisplayEN || dest.priceDisplay || ''
+                            }
+                            onChange={(e) => {
+                              const arr = [...content.destinations];
+                              if (editLang === 'ID') {
+                                arr[idx] = {
+                                  ...arr[idx],
+                                  priceDisplay: e.target.value,
+                                  priceDisplayEN: arr[idx].priceDisplayEN || e.target.value
+                                };
+                              } else {
+                                arr[idx] = { ...arr[idx], priceDisplayEN: e.target.value };
+                              }
+                              setContent((prev) => ({ ...prev, destinations: arr }));
+                            }}
+                            placeholder="Contoh: Mulai Rp 350.000 / Org"
+                            className="w-full bg-emerald-50/70 px-3.5 py-2.5 rounded-xl border border-emerald-300 text-sm font-extrabold text-emerald-900 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                           />
                         </div>
 

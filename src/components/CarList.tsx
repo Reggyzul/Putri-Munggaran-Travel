@@ -101,6 +101,21 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
                     {car.description}
                   </p>
 
+                  {/* Price / Rate Box */}
+                  <div className="bg-emerald-50/90 border border-emerald-200/80 rounded-2xl px-3.5 py-2.5 flex items-center justify-between gap-2">
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800">
+                      {isEN ? 'Rate / Price' : 'Harga / Tarif'}
+                    </span>
+                    <span className="font-display font-black text-xs sm:text-sm text-emerald-700 text-right">
+                      {car.priceDisplay ||
+                        (car.pricePerDay > 0
+                          ? `Rp ${car.pricePerDay.toLocaleString('id-ID')}`
+                          : isEN
+                          ? 'Contact Admin'
+                          : 'Hubungi Admin')}
+                    </span>
+                  </div>
+
                   <div className="space-y-1.5 pt-3 border-t border-slate-100">
                     <span className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider block">
                       {t.cars_included_label}

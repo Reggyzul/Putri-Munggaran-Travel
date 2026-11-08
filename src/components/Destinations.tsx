@@ -14,6 +14,8 @@ export interface DestinationItem {
   image: string;
   badge: string;
   badgeEN: string;
+  priceDisplay?: string;
+  priceDisplayEN?: string;
   highlights: string[];
   highlightsEN: string[];
   category?: 'pantai' | 'alam';
@@ -33,6 +35,8 @@ export const PANGANDARAN_DESTINATIONS: DestinationItem[] = [
     image: '/dest_batu_hiu.jpg',
     badge: 'Wisata Populer',
     badgeEN: 'Popular Spot',
+    priceDisplay: 'Hubungi Admin untuk Harga Paket',
+    priceDisplayEN: 'Contact Admin for Package Rate',
     highlights: [
       'Pemandangan laut lepas Samudra Hindia',
       'Bukit rumput hijau asri & spot foto tebing',
@@ -59,6 +63,8 @@ export const PANGANDARAN_DESTINATIONS: DestinationItem[] = [
     image: '/dest_batukaras.jpg',
     badge: 'Favorit Wisatawan',
     badgeEN: 'Tourist Favorite',
+    priceDisplay: 'Hubungi Admin untuk Harga Paket',
+    priceDisplayEN: 'Contact Admin for Package Rate',
     highlights: [
       'Suasana pantai nyaman & ramah keluarga',
       'Ombak landai & spot surfing favorit',
@@ -85,6 +91,8 @@ export const PANGANDARAN_DESTINATIONS: DestinationItem[] = [
     image: '/dest_madasari.jpg',
     badge: 'Alam Tenang & Asri',
     badgeEN: 'Peaceful Nature',
+    priceDisplay: 'Hubungi Admin untuk Harga Paket',
+    priceDisplayEN: 'Contact Admin for Package Rate',
     highlights: [
       'Suasana alami tenang & jauh dari keramaian',
       'Gugusan batu karang megah di tepi laut',
@@ -111,6 +119,8 @@ export const PANGANDARAN_DESTINATIONS: DestinationItem[] = [
     image: '/dest_green_canyon.jpg',
     badge: 'Ikon Wisata Alam',
     badgeEN: 'Iconic Wonder',
+    priceDisplay: 'Hubungi Admin untuk Harga Paket',
+    priceDisplayEN: 'Contact Admin for Package Rate',
     highlights: [
       'Menyusuri sungai Cijulang berair hijau toska',
       'Ngarai tebing batu tinggi dengan lumut & tanaman alami',
@@ -137,6 +147,8 @@ export const PANGANDARAN_DESTINATIONS: DestinationItem[] = [
     image: '/dest_citumang.jpg',
     badge: 'Aktivitas Petualangan',
     badgeEN: 'Adventure Activity',
+    priceDisplay: 'Hubungi Admin untuk Harga Paket',
+    priceDisplayEN: 'Contact Admin for Package Rate',
     highlights: [
       'Menyusuri aliran sungai alami berair jernih kebiruan',
       'Sensasi meluncur di arus sungai & lompat tebing',
@@ -163,6 +175,8 @@ export const PANGANDARAN_DESTINATIONS: DestinationItem[] = [
     image: '/dest_pasir_putih.jpg',
     badge: 'Eksotis & Snorkeling',
     badgeEN: 'Exotic & Snorkeling',
+    priceDisplay: 'Hubungi Admin untuk Harga Paket',
+    priceDisplayEN: 'Contact Admin for Package Rate',
     highlights: [
       'Hamparan pasir putih lembut & air laut jernih',
       'Spot snorkeling terumbu karang & bangkai kapal karam',
@@ -328,6 +342,17 @@ export default function Destinations({ lang }: DestinationsProps) {
                     <p className="font-sans text-xs text-slate-600 leading-relaxed font-medium">
                       {description}
                     </p>
+
+                    {/* Price / Rate Box */}
+                    <div className="bg-emerald-50/90 border border-emerald-200/80 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-2">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800">
+                        {isEN ? 'Package / Trip Rate' : 'Harga / Paket Wisata'}
+                      </span>
+                      <span className="font-display font-black text-xs sm:text-sm text-emerald-700 text-right">
+                        {(isEN ? dest.priceDisplayEN || dest.priceDisplay : dest.priceDisplay) ||
+                          (isEN ? 'Contact Admin' : 'Hubungi Admin')}
+                      </span>
+                    </div>
 
                     <div className="space-y-1.5 pt-3 border-t border-slate-100">
                       <span className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider block">
