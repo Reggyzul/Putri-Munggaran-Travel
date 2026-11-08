@@ -159,8 +159,8 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     brandSecondName: 'MUNGGARAN',
     brandSubtitle: 'TOUR & TRAVEL',
     motto: '“AMAN, NYAMAN, SAMPAI TUJUAN.”',
-    logoUrl: '',
-    faviconUrl: '',
+    logoUrl: '/pm_logo.jpg',
+    faviconUrl: '/pm_logo.jpg',
     whatsappNumber: '6281321264200',
     whatsappDisplay: '0813-2126-4200',
     whatsappDefaultMessageID: 'Halo Putri Munggaran Tour & Travel, saya ingin konsultasi layanan transportasi dan perjalanan',
@@ -178,10 +178,10 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     copyrightText: '© 2026 Putri Munggaran Tour & Travel. All Rights Reserved.'
   },
   banners: {
-    aboutBannerImage: '',
+    aboutBannerImage: '/hero_pangandaran.jpg',
     aboutBannerBadgeID: 'TENTANG KAMI • PROFIL PERUSAHAAN',
     aboutBannerBadgeEN: 'ABOUT US • COMPANY PROFILE',
-    destinationsBannerImage: '',
+    destinationsBannerImage: '/hero_pangandaran.jpg',
     destinationsBannerBadgeID: 'DESTINASI WISATA PANGANDARAN',
     destinationsBannerBadgeEN: 'PANGANDARAN TOP DESTINATIONS',
     destinationsPageSubtitleID: '6 Destinasi Wisata Favorit & Populer di Pangandaran',
@@ -191,14 +191,14 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     destinationsCalloutTitleEN: 'Plan Your Pangandaran Tour With Us',
     destinationsCalloutDescID: 'Kami siap menjemput Anda langsung dari rumah di Bandung, Jabodetabek, atau Pangandaran dan mengantar ke seluruh destinasi wisata favorit.',
     destinationsCalloutDescEN: 'We pick you up from your doorstep in Bandung, Jabodetabek, or Pangandaran and take you directly to your chosen destinations.',
-    rentalsBannerImage: '',
+    rentalsBannerImage: '/hero_armada_pm.jpg',
     rentalsBannerBadgeID: 'PUTRI MUNGGARAN TOUR & TRAVEL',
     rentalsBannerBadgeEN: 'PUTRI MUNGGARAN TOUR & TRAVEL'
   },
   heroSlides: [
     {
       id: 'slide-1',
-      image: '',
+      image: '/hero_armada_pm.jpg',
       title: 'PUTRI MUNGGARAN TRAVEL',
       subtitle: 'Pangandaran Tour & Travel',
       descID: 'Layanan Perjalanan Door-to-Door (Pangandaran – Bandung – Jabodetabek), Wisata Keluarga, Gathering, Private Trip, dan Antar-Jemput Rombongan.',
@@ -206,7 +206,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     },
     {
       id: 'slide-2',
-      image: '',
+      image: '/hero_human_touch.jpg',
       title: 'PUTRI MUNGGARAN TRAVEL',
       subtitle: 'Aman, Nyaman, Sampai Tujuan',
       descID: 'Didukung armada terawat (Avanza, Calya, Rush, Hiace) dan pengemudi berpengalaman yang siap mengantar perjalanan Anda dengan aman dan nyaman.',
@@ -214,7 +214,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     },
     {
       id: 'slide-3',
-      image: '',
+      image: '/hero_pangandaran.jpg',
       title: 'DESTINASI PANGANDARAN',
       subtitle: 'Pesona Alam & Pantai Eksotis',
       descID: 'Jelajahi Pantai Batu Hiu, Batukaras, Madasari, Green Canyon, Citumang, hingga Pasir Putih bersama Putri Munggaran Tour & Travel.',
@@ -227,18 +227,16 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   heroCtaSecondaryEN: 'View Fleet',
   cars: CARS.map((car) => ({
     ...car,
-    image: '',
     includeList: [...car.includeList],
     specifications: car.specifications.map((s) => ({ ...s }))
   })),
   destinations: PANGANDARAN_DESTINATIONS.map((d) => ({
     ...d,
-    image: '',
     category: d.id.includes('green-canyon') || d.id.includes('citumang') ? 'alam' : 'pantai',
     highlights: [...d.highlights],
     highlightsEN: [...d.highlightsEN]
   })),
-  testimonials: TESTIMONIALS.map((t) => ({ ...t, image: '' })),
+  testimonials: TESTIMONIALS.map((t) => ({ ...t })),
   steps: [
     {
       step: '01',
@@ -394,31 +392,84 @@ export function mergeSiteContent(raw?: Partial<SiteContent> | null): SiteContent
   if (!raw || typeof raw !== 'object') {
     return structuredClone(DEFAULT_SITE_CONTENT);
   }
+
+  const defaultCarsMap = new Map(DEFAULT_SITE_CONTENT.cars.map((c) => [c.id, c.image]));
+  const defaultDestMap = new Map(DEFAULT_SITE_CONTENT.destinations.map((d) => [d.id, d.image]));
+  const defaultTestiMap = new Map(DEFAULT_SITE_CONTENT.testimonials.map((t) => [t.id, t.image]));
+  const defaultSlideMap = new Map(DEFAULT_SITE_CONTENT.heroSlides.map((s) => [s.id, s.image]));
+
   return {
     ...DEFAULT_SITE_CONTENT,
     ...raw,
     brand: {
       ...DEFAULT_SITE_CONTENT.brand,
-      ...(raw.brand || {})
+      ...(raw.brand || {}),
+      logoUrl: raw.brand?.logoUrl || DEFAULT_SITE_CONTENT.brand.logoUrl,
+      faviconUrl: raw.brand?.faviconUrl || DEFAULT_SITE_CONTENT.brand.faviconUrl
     },
     banners: {
       ...DEFAULT_SITE_CONTENT.banners,
-      ...(raw.banners || {})
+      ...(raw.banners || {}),
+      aboutBannerImage:
+        raw.banners?.aboutBannerImage || DEFAULT_SITE_CONTENT.banners.aboutBannerImage,
+      destinationsBannerImage:
+        raw.banners?.destinationsBannerImage ||
+        DEFAULT_SITE_CONTENT.banners.destinationsBannerImage,
+      rentalsBannerImage:
+        raw.banners?.rentalsBannerImage || DEFAULT_SITE_CONTENT.banners.rentalsBannerImage
     },
     aboutQuickInfo: {
       ...DEFAULT_SITE_CONTENT.aboutQuickInfo,
       ...(raw.aboutQuickInfo || {})
     },
-    heroSlides: Array.isArray(raw.heroSlides) ? raw.heroSlides : DEFAULT_SITE_CONTENT.heroSlides,
-    cars: Array.isArray(raw.cars) ? raw.cars : DEFAULT_SITE_CONTENT.cars,
-    destinations: Array.isArray(raw.destinations) ? raw.destinations : DEFAULT_SITE_CONTENT.destinations,
-    testimonials: Array.isArray(raw.testimonials) ? raw.testimonials : DEFAULT_SITE_CONTENT.testimonials,
+    heroSlides: Array.isArray(raw.heroSlides)
+      ? raw.heroSlides.map((s, idx) => ({
+          ...s,
+          image:
+            s.image ||
+            defaultSlideMap.get(s.id) ||
+            DEFAULT_SITE_CONTENT.heroSlides[idx]?.image ||
+            '/hero_armada_pm.jpg'
+        }))
+      : DEFAULT_SITE_CONTENT.heroSlides,
+    cars: Array.isArray(raw.cars)
+      ? raw.cars.map((c, idx) => ({
+          ...c,
+          image:
+            c.image ||
+            defaultCarsMap.get(c.id) ||
+            DEFAULT_SITE_CONTENT.cars[idx]?.image ||
+            '/avanza.avif'
+        }))
+      : DEFAULT_SITE_CONTENT.cars,
+    destinations: Array.isArray(raw.destinations)
+      ? raw.destinations.map((d, idx) => ({
+          ...d,
+          image:
+            d.image ||
+            defaultDestMap.get(d.id) ||
+            DEFAULT_SITE_CONTENT.destinations[idx]?.image ||
+            '/dest_batu_hiu.jpg'
+        }))
+      : DEFAULT_SITE_CONTENT.destinations,
+    testimonials: Array.isArray(raw.testimonials)
+      ? raw.testimonials.map((t, idx) => ({
+          ...t,
+          image:
+            t.image ||
+            defaultTestiMap.get(t.id) ||
+            DEFAULT_SITE_CONTENT.testimonials[idx]?.image ||
+            '/nyaman_holiday.avif'
+        }))
+      : DEFAULT_SITE_CONTENT.testimonials,
     steps: Array.isArray(raw.steps) ? raw.steps : DEFAULT_SITE_CONTENT.steps,
     missionsID: Array.isArray(raw.missionsID) ? raw.missionsID : DEFAULT_SITE_CONTENT.missionsID,
     missionsEN: Array.isArray(raw.missionsEN) ? raw.missionsEN : DEFAULT_SITE_CONTENT.missionsEN,
     strengths: Array.isArray(raw.strengths) ? raw.strengths : DEFAULT_SITE_CONTENT.strengths,
     services: Array.isArray(raw.services) ? raw.services : DEFAULT_SITE_CONTENT.services,
-    bookingServiceOptions: Array.isArray(raw.bookingServiceOptions) ? raw.bookingServiceOptions : DEFAULT_SITE_CONTENT.bookingServiceOptions,
+    bookingServiceOptions: Array.isArray(raw.bookingServiceOptions)
+      ? raw.bookingServiceOptions
+      : DEFAULT_SITE_CONTENT.bookingServiceOptions,
     translations: {
       ID: {
         ...DEFAULT_SITE_CONTENT.translations.ID,

@@ -227,10 +227,12 @@ export const supabase = {
                 table
               )}?select=${encodeURIComponent(cleanCols)}&limit=${count}`;
               const res = await fetch(url, {
+                cache: 'no-store',
                 headers: {
                   apikey: SUPABASE_ANON_KEY,
                   Authorization: `Bearer ${getBearerToken()}`,
-                  Accept: 'application/json'
+                  Accept: 'application/json',
+                  'Cache-Control': 'no-cache, no-store, must-revalidate'
                 }
               });
               if (!res.ok) {
@@ -264,10 +266,12 @@ export const supabase = {
                   )}=eq.${encodeURIComponent(value)}`;
 
                   const res = await fetch(url, {
+                    cache: 'no-store',
                     headers: {
                       apikey: SUPABASE_ANON_KEY,
                       Authorization: `Bearer ${getBearerToken()}`,
-                      Accept: 'application/json'
+                      Accept: 'application/json',
+                      'Cache-Control': 'no-cache, no-store, must-revalidate'
                     }
                   });
 
@@ -412,10 +416,11 @@ CREATE TABLE IF NOT EXISTS public.site_content (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- 2. Aktifkan Row Level Security (RLS)
+-- 2. Aktifkan Row Level Security (RLS) & berikan izin akses tabel
 ALTER TABLE public.site_content ENABLE ROW LEVEL SECURITY;
+GRANT ALL ON TABLE public.site_content TO anon, authenticated, service_role;
 
--- 3. Izinkan semua pengunjung membaca data website (SSR & Client)
+-- 3. Izinkan pembacaan & penyimpanan konten dinamis serta Keep-Alive
 DROP POLICY IF EXISTS "Allow public read site_content" ON public.site_content;
 CREATE POLICY "Allow public read site_content"
   ON public.site_content
@@ -423,30 +428,28 @@ CREATE POLICY "Allow public read site_content"
   TO public, anon, authenticated
   USING (true);
 
--- 4. Izinkan Admin yang sudah login untuk mengubah seluruh konten website
 DROP POLICY IF EXISTS "Allow authenticated write site_content" ON public.site_content;
 CREATE POLICY "Allow authenticated write site_content"
   ON public.site_content
   FOR ALL
-  TO authenticated
+  TO public, anon, authenticated
   USING (true)
   WITH CHECK (true);
 
--- 5. Izinkan sistem Keep-Alive otomatis melakukan ping agar Supabase tidak pernah mati (7 hari)
 DROP POLICY IF EXISTS "Allow anon keep_alive write" ON public.site_content;
 CREATE POLICY "Allow anon keep_alive write"
   ON public.site_content
   FOR ALL
-  TO anon
+  TO public, anon, authenticated
   USING (true)
   WITH CHECK (true);
 
--- 6. Buat Storage Bucket untuk Upload Gambar (jika belum ada)
+-- 4. Buat Storage Bucket untuk Upload Gambar (jika belum ada)
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('site-images', 'site-images', true)
 ON CONFLICT (id) DO UPDATE SET public = true;
 
--- 7. Kebijakan akses publik & upload untuk Storage Bucket 'site-images'
+-- 5. Kebijakan akses publik & upload untuk Storage Bucket 'site-images'
 DROP POLICY IF EXISTS "Public read site-images" ON storage.objects;
 CREATE POLICY "Public read site-images"
   ON storage.objects FOR SELECT
@@ -456,14 +459,31 @@ CREATE POLICY "Public read site-images"
 DROP POLICY IF EXISTS "Authenticated upload site-images" ON storage.objects;
 CREATE POLICY "Authenticated upload site-images"
   ON storage.objects FOR INSERT
-  TO anon, authenticated
+  TO public, anon, authenticated
   WITH CHECK (bucket_id = 'site-images');
 
 DROP POLICY IF EXISTS "Authenticated update site-images" ON storage.objects;
 CREATE POLICY "Authenticated update site-images"
   ON storage.objects FOR UPDATE
-  TO anon, authenticated
+  TO public, anon, authenticated
   USING (bucket_id = 'site-images');
+
+DROP POLICY IF EXISTS "Authenticated delete site-images" ON storage.objects;
+CREATE POLICY "Authenticated delete site-images"
+  ON storage.objects FOR DELETE
+  TO public, anon, authenticated
+  USING (bucket_id = 'site-images');
+
+-- 6. Masukkan baris awal keep-alive & muat ulang schema cache PostgREST
+INSERT INTO public.site_content (id, data, updated_at)
+VALUES (
+  'keep_alive_heartbeat',
+  '{"status": "ACTIVE", "source": "SQL-Initial-Setup"}'::jsonb,
+  now()
+)
+ON CONFLICT (id) DO UPDATE SET updated_at = now();
+
+NOTIFY pgrst, 'reload schema';
 `;
 
 export interface FetchSiteContentResult {

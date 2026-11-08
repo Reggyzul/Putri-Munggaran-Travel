@@ -89,6 +89,15 @@ export function SiteContentProvider({
         } catch {
           // ignore
         }
+      } else if (!res.tableMissing && !res.error) {
+        // Table exists in Supabase but row 'main' is not seeded yet -> auto-seed default content
+        const seedContent: SiteContent = {
+          ...structuredClone(DEFAULT_SITE_CONTENT),
+          _fromSupabase: true,
+          updatedAt: new Date().toISOString()
+        };
+        setContent(seedContent);
+        await saveSiteContentEverywhere(seedContent);
       }
     } finally {
       setIsLoading(false);

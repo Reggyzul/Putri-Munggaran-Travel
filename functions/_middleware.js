@@ -51,9 +51,11 @@ export const onRequest = async (context) => {
     const supRes = await fetch(
       `${SUPABASE_BASE_URL}/rest/v1/site_content?id=eq.main&select=data,updated_at`,
       {
+        cache: 'no-store',
         headers: {
           apikey: SUPABASE_ANON_KEY,
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          'Cache-Control': 'no-cache, no-store, must-revalidate'
         }
       }
     );
@@ -71,9 +73,11 @@ export const onRequest = async (context) => {
           '</head>',
           `<script>window.__INITIAL_CONTENT__ = ${safeJson};</script>\n  </head>`
         );
+        const newHeaders = new Headers(response.headers);
+        newHeaders.set('Cache-Control', 'no-cache, no-store, must-revalidate');
         return new Response(injectedHtml, {
           status: response.status,
-          headers: response.headers
+          headers: newHeaders
         });
       }
     }
